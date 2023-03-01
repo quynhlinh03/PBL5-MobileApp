@@ -13,9 +13,15 @@ class _LogOutPageState extends State<LogOutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: AppColors.neutral),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: BackButton(color: AppColors.neutral),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
     );
   }
