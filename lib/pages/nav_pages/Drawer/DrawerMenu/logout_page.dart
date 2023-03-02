@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/values/app_colors.dart';
+import '../../../../values/app_colors.dart';
 
 class LogOutPage extends StatefulWidget {
-  const LogOutPage({ Key? key }) : super(key: key);
+  const LogOutPage({Key? key}) : super(key: key);
 
   @override
   _LogOutPageState createState() => _LogOutPageState();

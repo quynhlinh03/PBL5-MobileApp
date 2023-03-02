@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/change_pass_page.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/logout_page.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/profile_page.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/setting_page.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/Items/drawer_item.dart';
-import 'package:pbl5_app/values/app_colors.dart';
+
+import '../../../pages/nav_pages/Drawer/DrawerMenu/change_pass_page.dart';
+import '../../../pages/nav_pages/Drawer/DrawerMenu/logout_page.dart';
+import '../../../pages/nav_pages/Drawer/DrawerMenu/profile_page.dart';
+import '../../../pages/nav_pages/Drawer/DrawerMenu/setting_page.dart';
+import '../../../pages/nav_pages/Drawer/Items/drawer_item.dart';
+import '../../../values/app_colors.dart';
 
 class NavigationDrawerLeft extends StatelessWidget {
   const NavigationDrawerLeft({Key? key}) : super(key: key);

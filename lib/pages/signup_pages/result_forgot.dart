@@ -4,21 +4,21 @@ import '../../values/app_assets.dart';
 import '../../values/app_colors.dart';
 import '../../values/app_styles.dart';
 
-class WelcomePage extends StatefulWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+class SuccessPage extends StatefulWidget {
+  const SuccessPage({Key? key}) : super(key: key);
 
   @override
-  _WelcomePageState createState() => _WelcomePageState();
+  _SuccessPageState createState() => _SuccessPageState();
 }
 
-class _WelcomePageState extends State<WelcomePage> {
+class _SuccessPageState extends State<SuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
       children: <Widget>[
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Container(
             width: double.infinity,
             color: AppColors.greenGray,
@@ -26,30 +26,27 @@ class _WelcomePageState extends State<WelcomePage> {
           ),
         ),
         Expanded(
-            flex: 2,
+            flex: 3,
             child: Center(
               child: Column(children: [
-                const SizedBox(
-                  height: 72,
-                ),
-                const Text('Welcome to CHoCoL', style: AppStyle.bold),
-                const SizedBox(
-                  height: 19,
-                ),
-                const Text(
-                  "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
-                  textAlign: TextAlign.center,
-                  style: AppStyle.light1,
-                ),
                 SizedBox(
                   width: 216,
                   height: 215,
                   child: Image.asset(AppAsset.welcome),
                 ),
+                const Text('Successfully !', style: AppStyle.regular2),
+                const SizedBox(
+                  height: 19,
+                ),
+                const Text(
+                  "Your password has been reset successfully!\nNow login with your new password.",
+                  textAlign: TextAlign.center,
+                  style: AppStyle.light2,
+                ),
               ]),
             )),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Padding(
             padding: const EdgeInsets.only(
               bottom: 100,

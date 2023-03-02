@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/navigation_drawer.dart';
-import 'package:pbl5_app/values/app_colors.dart';
+import '../../values/app_colors.dart';
+import '../../pages/nav_pages/Drawer/navigation_drawer.dart';
 import 'Pages/cameraPage.dart';
 import 'Pages/homePage.dart';
 import 'Pages/lineChartPage.dart';
