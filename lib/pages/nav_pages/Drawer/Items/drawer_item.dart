@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/values/app_colors.dart';
-import 'package:pbl5_app/values/app_styles.dart';
+import '../../../../values/app_colors.dart';
+import '../../../../values/app_styles.dart';
 
 class DrawerItem extends StatelessWidget {
   const DrawerItem(

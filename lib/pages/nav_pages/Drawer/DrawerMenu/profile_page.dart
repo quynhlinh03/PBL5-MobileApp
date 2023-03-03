@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/values/app_colors.dart';
+import '../../../../values/app_colors.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);

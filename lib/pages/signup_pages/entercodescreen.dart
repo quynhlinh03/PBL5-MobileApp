@@ -1,5 +1,6 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/pages/signup_pages/enterCodeScreen.dart';
+import 'package:pbl5_app/pages/signup_pages/resetpw.dart';
 import '../../components/checksignuplogin.dart';
 import '../../components/rouned_button.dart';
 import '../../pages/signup_pages/signupscreen.dart';
@@ -7,14 +8,14 @@ import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
 
-class ForgotPassScreen extends StatefulWidget {
-  const ForgotPassScreen({Key? key}) : super(key: key);
+class EnterCodeScreen extends StatefulWidget {
+  const EnterCodeScreen({Key? key}) : super(key: key);
 
   @override
-  _ForgotPassScreenState createState() => _ForgotPassScreenState();
+  _EnterCodeScreenState createState() => _EnterCodeScreenState();
 }
 
-class _ForgotPassScreenState extends State<ForgotPassScreen> {
+class _EnterCodeScreenState extends State<EnterCodeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size; //get the screen size
@@ -32,7 +33,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 padding: const EdgeInsets.only(left: 25),
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  "Forgot Password",
+                  "Enter verification code",
                   style: AppStyle.regular2,
                   textAlign: TextAlign.left,
                 )),
@@ -40,7 +41,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
             const Padding(
                 padding: EdgeInsets.only(left: 27, right: 25),
                 child: Text(
-                  "Enter your account email, we will send 5 digits verification code",
+                  "Enter the 5 digits code that you received on your mail",
                   style: AppStyle.light1,
                 )),
             const SizedBox(height: 42),
@@ -48,10 +49,10 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
               child: TextField(
                 decoration: InputDecoration(
                   icon: const Icon(
-                    Icons.mail_outline_rounded,
+                    Icons.domain_verification_rounded,
                     color: AppColors.neutral,
                   ),
-                  hintText: "Email",
+                  hintText: "Verification code",
                   hintStyle:
                       AppStyle.light2.copyWith(color: AppColors.fontNormal),
                   border: InputBorder.none,
@@ -67,7 +68,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return EnterCodeScreen();
+                        return ResetPassScreen();
                       },
                     ),
                   );

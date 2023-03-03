@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/components/checksignuplogin.dart';
-import 'package:pbl5_app/components/rouned_button.dart';
-import 'package:pbl5_app/pages/nav_pages/navpages.dart';
-import 'package:pbl5_app/pages/signup_pages/forgotpasscreen.dart';
-import 'package:pbl5_app/pages/signup_pages/signupscreen.dart';
-import 'package:pbl5_app/values/app_assets.dart';
-import 'package:pbl5_app/values/app_colors.dart';
-import 'package:pbl5_app/values/app_styles.dart';
+import '../../components/checksignuplogin.dart';
+import '../../components/rouned_button.dart';
+import '../../pages/nav_pages/navpages.dart';
+import '../../pages/signup_pages/forgotpasscreen.dart';
+import '../../pages/signup_pages/signupscreen.dart';
+import '../../values/app_assets.dart';
+import '../../values/app_styles.dart';
+import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -16,15 +16,15 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(color: AppColors.neutral),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   leading: BackButton(color: AppColors.neutral),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      // ),
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 100),
             SizedBox(
               child: Image.asset(AppAsset.welcome),
               width: 216,
@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   hintText: "Email",
                   hintStyle:
-                      AppStyle.light1.copyWith(color: AppColors.fontNormal),
+                      AppStyle.light2.copyWith(color: AppColors.fontNormal),
                   border: InputBorder.none,
                 ),
               ),
@@ -58,7 +58,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   hintText: "Password",
                   hintStyle:
-                      AppStyle.light1.copyWith(color: AppColors.fontNormal),
+                      AppStyle.light2.copyWith(color: AppColors.fontNormal),
                   border: InputBorder.none,
                 ),
               ),
@@ -103,6 +103,7 @@ class LoginScreen extends StatelessWidget {
               height: 15,
             ),
             CheckSignUpLogin(
+              login: '0',
               press: () {
                 Navigator.push(
                   context,
