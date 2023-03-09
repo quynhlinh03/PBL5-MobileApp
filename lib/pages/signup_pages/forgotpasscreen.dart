@@ -31,7 +31,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
             Container(
                 padding: const EdgeInsets.only(left: 25),
                 alignment: Alignment.bottomLeft,
-                child: Text(
+                child: const Text(
                   "Forgot Password",
                   style: AppStyle.regular2,
                   textAlign: TextAlign.left,

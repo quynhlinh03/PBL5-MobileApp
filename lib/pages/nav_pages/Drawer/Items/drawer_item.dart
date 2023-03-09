@@ -25,11 +25,11 @@ class DrawerItem extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 23,
+              size: 25,
               color: AppColors.neutral,
             ),
             const SizedBox(
-              width: 40,
+              width: 24,
             ),
             Text(
               name,

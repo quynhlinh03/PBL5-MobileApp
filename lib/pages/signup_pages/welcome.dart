@@ -22,7 +22,7 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Container(
             width: double.infinity,
             color: AppColors.greenGray,
-            margin: const EdgeInsets.only(top: 44),
+            margin: const EdgeInsets.only(top: 38),
           ),
         ),
         Expanded(
@@ -39,7 +39,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 const Text(
                   "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
                   textAlign: TextAlign.center,
-                  style: AppStyle.light1,
+                  style: AppStyle.light2,
                 ),
                 SizedBox(
                   width: 216,
