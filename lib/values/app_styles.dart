@@ -18,9 +18,29 @@ class AppStyle {
       fontSize: 20,
       color: Colors.black,
       fontWeight: FontWeight.w500);
+  static const TextStyle mediumblack = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 18,
+      color: Colors.black,
+      fontWeight: FontWeight.w500);
+  static const TextStyle mediumwhite = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 18,
+      color: Colors.white,
+      fontWeight: FontWeight.w500);
+  static const TextStyle mediumwhite16 = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 16,
+      color: Colors.white,
+      fontWeight: FontWeight.w500);
   static const TextStyle regular = TextStyle(
       fontFamily: AppFont.lexend,
       fontSize: 36,
+      color: Colors.black,
+      fontWeight: FontWeight.w400);
+  static const TextStyle regular18 = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 18,
       color: Colors.black,
       fontWeight: FontWeight.w400);
   static const TextStyle regular2 = TextStyle(
@@ -28,9 +48,19 @@ class AppStyle {
       fontSize: 24,
       color: Colors.black,
       fontWeight: FontWeight.w400);
+  static const TextStyle regular2white = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 24,
+      color: Colors.white,
+      fontWeight: FontWeight.w400);
   static const TextStyle bold = TextStyle(
       fontFamily: AppFont.lexend,
       fontSize: 34,
       color: Colors.black,
       fontWeight: FontWeight.bold);
+  static const TextStyle semibold = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 24,
+      color: Colors.white,
+      fontWeight: FontWeight.w500);
 }

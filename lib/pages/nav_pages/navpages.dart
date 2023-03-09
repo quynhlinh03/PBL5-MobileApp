@@ -27,9 +27,8 @@ class _MainPageNavState extends State<MainPageNav> {
     return Scaffold(
       drawer: const NavigationDrawerLeft(),
       appBar: AppBar(
-        title: const Text("IOT App"),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: AppColors.greenGray,
+        elevation: 0,
       ),
       body: screens[_selectIndex],
       bottomNavigationBar: BottomNavigationBar(
