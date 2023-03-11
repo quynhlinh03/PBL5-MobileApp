@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:web_socket_channel/io.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,7 @@ class _WifiCheckState extends State<WifiCheck> {
 
   final String targetSSID = "Hoang Huy";
   String _connectionStatus = "Unknown";
-  Connectivity _connectivity = Connectivity();
+  final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   late bool isTargetSSID;
   

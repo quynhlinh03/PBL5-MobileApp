@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notifications_page.dart';
 import 'package:pbl5_app/pages/signup_pages/login_screen.dart';
+import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import '../../../pages/nav_pages/Drawer/DrawerMenu/change_pass_page.dart';
 import '../../../pages/nav_pages/Drawer/DrawerMenu/profile_page.dart';
@@ -121,7 +122,7 @@ class NavigationDrawerLeft extends StatelessWidget {
             margin: const EdgeInsets.only(left: 0, top: 50),
             child: const CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage('images/ava.jpg'),
+              backgroundImage: AssetImage(AppAsset.ava),
               // backgroundImage: NetworkImage(url),
             ),
           ),
