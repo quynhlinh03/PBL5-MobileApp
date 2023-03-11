@@ -4,6 +4,10 @@ import 'package:pbl5_app/values/app_styles.dart';
 import '../../../components/row_view_index.dart';
 import '../../../values/app_colors.dart';
 import '../../../pages/signup_pages/login_screen.dart';
+import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
+import '../../../pages/nav_pages/Pages/manualPage.dart';
+import '../../../pages/nav_pages/Pages/correctPosturePage.dart';
+import '../../../pages/nav_pages/Pages/addDevicesPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,6 +20,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawerLeft(),
+      appBar: AppBar(
+        backgroundColor: AppColors.greenGray,
+        elevation: 0,
+      ),
       // drawer: const NavigationDrawerLeft(),
       // appBar: AppBar(
       //   backgroundColor: AppColors.greenGray,
@@ -75,6 +84,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
 
 
 Widget headerWidget2() {
