@@ -21,7 +21,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: AppColors.neutral),
+        leading: const BackButton(color: AppColors.neutral),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -32,7 +32,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
             Container(
                 padding: const EdgeInsets.only(left: 25),
                 alignment: Alignment.bottomLeft,
-                child: Text(
+                child: const Text(
                   "Enter verification code",
                   style: AppStyle.regular2,
                   textAlign: TextAlign.left,
@@ -60,7 +60,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 29),
+              margin: const EdgeInsets.only(top: 29),
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
@@ -68,7 +68,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ResetPassScreen();
+                        return const ResetPassScreen();
                       },
                     ),
                   );
@@ -76,20 +76,25 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                 text: 'Confirm',
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: size.height * 0.42),
-              child: CheckSignUpLogin(
-                login: '2',
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const SignUpScreen();
-                      },
-                    ),
-                  );
-                },
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 40),
+                  child: CheckSignUpLogin(
+                    login: '2',
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const SignUpScreen();
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
           ],

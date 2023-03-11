@@ -20,7 +20,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: AppColors.neutral),
+        leading: const BackButton(color: AppColors.neutral),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -59,7 +59,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 29),
+              margin: const EdgeInsets.only(top: 29),
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
@@ -67,7 +67,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return EnterCodeScreen();
+                        return const EnterCodeScreen();
                       },
                     ),
                   );
@@ -75,20 +75,25 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 text: 'Confirm',
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: size.height * 0.42),
-              child: CheckSignUpLogin(
-                login: '2',
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const SignUpScreen();
-                      },
-                    ),
-                  );
-                },
+            Expanded(
+              child: Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 40, top: 10),
+                  child: CheckSignUpLogin(
+                    login: '2',
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const SignUpScreen();
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
           ],
