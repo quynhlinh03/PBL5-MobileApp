@@ -15,6 +15,7 @@ class RoundedButton extends StatelessWidget {
     this.background = AppColors.greenGray,
   });
 
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -22,10 +23,10 @@ class RoundedButton extends StatelessWidget {
         onPressed: press,
         style: ElevatedButton.styleFrom(
           backgroundColor: background,
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
-          minimumSize: const Size(256, 59),
+          minimumSize: const Size(256, 61),
         ),
         child: Text(
           text,

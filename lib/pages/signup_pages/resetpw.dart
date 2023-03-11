@@ -19,7 +19,7 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: AppColors.neutral),
+        leading: const BackButton(color: AppColors.neutral),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -74,7 +74,7 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 29),
+              margin: const EdgeInsets.only(top: 69),
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
@@ -82,7 +82,7 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return SuccessPage();
+                        return const SuccessPage();
                       },
                     ),
                   );

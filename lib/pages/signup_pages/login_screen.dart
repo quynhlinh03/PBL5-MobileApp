@@ -21,14 +21,14 @@ class LoginScreen extends StatelessWidget {
       //   backgroundColor: Colors.transparent,
       //   elevation: 0,
       // ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 100),
             SizedBox(
-              child: Image.asset(AppAsset.welcome),
               width: 216,
               height: 215,
+              child: Image.asset(AppAsset.welcome),
             ),
             TextFieldContainer(
               child: TextField(
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                     Icons.lock_outline_rounded,
                     color: AppColors.neutral,
                   ),
-                  suffixIcon: Icon(
+                  suffixIcon: const Icon(
                     Icons.visibility,
                     color: AppColors.neutral,
                   ),
@@ -72,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return ForgotPassScreen();
+                          return const ForgotPassScreen();
                         },
                       ),
                     );
@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 )),
             Container(
-              margin: EdgeInsets.only(top: 29),
+              margin: const EdgeInsets.only(top: 29),
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
@@ -91,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return MainPageNav();
+                        return const MainPageNav();
                       },
                     ),
                   );
@@ -109,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return const SignUpScreen();
                     },
                   ),
                 );
