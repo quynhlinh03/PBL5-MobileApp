@@ -8,11 +8,22 @@ class AppStyle {
       fontSize: 14,
       color: AppColors.fontNormal,
       fontWeight: FontWeight.w300);
+  static const TextStyle light1white = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 14,
+      height: 1.3,
+      color: Color.fromRGBO(255, 255, 255, 0.8),
+      fontWeight: FontWeight.w300);
   static const TextStyle light2 = TextStyle(
       fontFamily: AppFont.lexend,
       fontSize: 16,
       color: AppColors.fontNormal,
       fontWeight: FontWeight.w300);
+  static const TextStyle medium23 = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 23,
+      color: Colors.black,
+      fontWeight: FontWeight.w500);
   static const TextStyle medium = TextStyle(
       fontFamily: AppFont.lexend,
       fontSize: 20,
@@ -22,6 +33,16 @@ class AppStyle {
       fontFamily: AppFont.lexend,
       fontSize: 18,
       color: Colors.black,
+      fontWeight: FontWeight.w500);
+  static const TextStyle mediumblack16 = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 16,
+      color: Colors.black,
+      fontWeight: FontWeight.w500);
+  static const TextStyle mediumGreen = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 16,
+      color: AppColors.greenGray,
       fontWeight: FontWeight.w500);
   static const TextStyle mediumwhite = TextStyle(
       fontFamily: AppFont.lexend,
@@ -42,6 +63,11 @@ class AppStyle {
       fontFamily: AppFont.lexend,
       fontSize: 18,
       color: Colors.black,
+      fontWeight: FontWeight.w400);
+  static const TextStyle regular18white = TextStyle(
+      fontFamily: AppFont.lexend,
+      fontSize: 18,
+      color: Colors.white,
       fontWeight: FontWeight.w400);
   static const TextStyle regular2 = TextStyle(
       fontFamily: AppFont.lexend,

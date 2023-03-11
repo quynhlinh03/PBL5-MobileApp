@@ -25,11 +25,11 @@ class _MainPageNavState extends State<MainPageNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawerLeft(),
-      appBar: AppBar(
-        backgroundColor: AppColors.greenGray,
-        elevation: 0,
-      ),
+      // drawer: const NavigationDrawerLeft(),
+      // appBar: AppBar(
+      //   backgroundColor: AppColors.greenGray,
+      //   elevation: 0,
+      // ),
       body: screens[_selectIndex],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
