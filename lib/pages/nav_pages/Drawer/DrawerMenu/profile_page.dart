@@ -96,8 +96,6 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 Widget headerWidget() {
-  const url =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxQeDXrL0QAJXo-i-h01SqL-Xwu6yA7pU5rJHaTq36sA&s";
   return Container(
     decoration: const BoxDecoration(
       color: AppColors.greenGray,
@@ -105,11 +103,8 @@ Widget headerWidget() {
           bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
     ),
     alignment: Alignment.bottomCenter,
-    // margin: const EdgeInsets.only(left: 24, top: 40),
     height: 200,
     width: 800,
-    // child: Padding(
-    //   padding: const EdgeInsets.fromLTRB(24.0, 40, 24, 0),
     child: Column(
       children: [
         Container(

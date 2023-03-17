@@ -69,8 +69,12 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: AppColors.white),
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppColors.white,
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/device.jpg'),
+                            fit: BoxFit.fitHeight),
+                      ),
                       child: const SizedBox(height: 160, width: 345),
                     ),
                   ),

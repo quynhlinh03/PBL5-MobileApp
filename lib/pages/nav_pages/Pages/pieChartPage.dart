@@ -162,7 +162,7 @@ class _PieChartPageState extends State<PieChartPage> {
                         (dataMap["Rounded Shoulders"]!).toStringAsFixed(0) +
                             '%',
                     content:
-                        'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
+                        'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng.',
                     color: AppColors.skin),
                 SizedBox(
                   height: 20,
@@ -181,7 +181,7 @@ class _PieChartPageState extends State<PieChartPage> {
                     percent:
                         (dataMap["Forwarded Head"]!).toStringAsFixed(0) + '%',
                     content:
-                        'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
+                        'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não.',
                     color: AppColors.darkGreen),
                 SizedBox(
                   height: 45,

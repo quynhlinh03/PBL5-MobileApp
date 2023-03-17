@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/components/chart.dart';
+import 'package:pbl5_app/components/line_chartMonth.dart';
+import 'package:pbl5_app/components/line_chartWeek.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import '../../../components/legend.dart';
 import '../../../components/line_chart.dart';
@@ -23,6 +25,7 @@ class _LineChartPageState extends State<LineChartPage> {
     AppColors.darkGreen,
   ];
   @override
+  int _currentIndex = 0;
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const NavigationDrawerLeft(),
@@ -34,18 +37,96 @@ class _LineChartPageState extends State<LineChartPage> {
         body: SingleChildScrollView(
           child: Center(
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center, // canh giữa theo chiều dọc
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // canh giữa theo chiều dọc
               children: [
                 Container(
                     child: Text(
                   "Posture Analysis ",
                   style: AppStyle.regular.copyWith(fontSize: 20),
                 )),
-                SizedBox(height: 15),
+                AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    padding: EdgeInsets.only(top: 28, bottom: 3),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _currentIndex = 0;
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25.0, vertical: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  bottomLeft: Radius.circular(50)),
+                              color: _currentIndex == 0
+                                  ? Color(0xffEBEBEB)
+                                  : AppColors.white,
+                            ),
+                            child: Text(
+                              "Day",
+                              style: AppStyle.light1,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _currentIndex = 1;
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25.0, vertical: 10.0),
+                            decoration: BoxDecoration(
+                              color: _currentIndex == 1
+                                  ? Color(0xffEBEBEB)
+                                  : AppColors.white,
+                            ),
+                            child: Text(
+                              "Week",
+                              style: AppStyle.light1,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _currentIndex = 2;
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25.0, vertical: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(50),
+                                  bottomRight: Radius.circular(50)),
+                              color: _currentIndex == 2
+                                  ? Color(0xffEBEBEB)
+                                  : AppColors.white,
+                            ),
+                            child: Text(
+                              "Month",
+                              style: AppStyle.light1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
                 Container(
-                  child: LineChartWidget(),
+                  child: _currentIndex == 0
+                      ? LineChartWidget()
+                      : _currentIndex == 1
+                          ? LineChartWeekWidget()
+                          : LineChartMonthWidget(),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Container(
                   alignment: Alignment.center,
                   // height: 50,

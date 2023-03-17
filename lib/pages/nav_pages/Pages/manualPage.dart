@@ -57,7 +57,7 @@ class _ManualPageState extends State<ManualPage> {
                           const EdgeInsets.only(left: 25, top: 10, right: 20),
                       alignment: Alignment.bottomLeft,
                       child: const Text(
-                        "Đặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ Czur Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng càng nhiều càng tốt và hạ thấp đầu vừa phải.",
+                        "Đặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ CHoCoL Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng càng nhiều càng tốt và hạ thấp đầu vừa phải.",
                         style: AppStyle.light2,
                         textAlign: TextAlign.left,
                       ),
@@ -76,7 +76,7 @@ class _ManualPageState extends State<ManualPage> {
                           const EdgeInsets.only(left: 25, top: 10, right: 20),
                       alignment: Alignment.bottomLeft,
                       child: const Text(
-                        "Đặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ Czur Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng càng nhiều càng tốt và hạ thấp đầu vừa phải.Đặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ Czur Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng càng nhiều càng tốt và hạ thấp đầu vừa phải.",
+                        "Bật CHoCoL Mirror\nBật Bluetooth trên điện thoại của bạn rồi mở ứng dụng “CHoCoL”\nChạm vào biểu tượng “+” ở góc bên phải phía bên trên của trang chủ của ứng dụng “CHoCoL”. Sau đó chọn CHoCoL Mirror\nNhấn và giữ nút cảm ứng trên CHoCoL Mirror trong 8 giây để kết nối bluetooth với điện thoại.\nỨng dụng của CHoCoL sẽ tìm kiếm thiết bị kết nối (quá trình tìm kiếm sẽ kéo dài trong khoảng 45 giây). Nếu không tìm thấy CHoCoL Mirror, hãy nhấn vào nút “Connect Now” để kết nối lại thiết bị.\nKhi CHoCoL Mirror được kết nối thành công, cso thể vào trang chủ của ứng dụng để sử dụng thiết bị chống gù.",
                         style: AppStyle.light2,
                         textAlign: TextAlign.left,
                       ),
