@@ -6,38 +6,50 @@ import 'package:pbl5_app/values/app_styles.dart';
 
 import '../values/app_colors.dart';
 
-class LineChartWidget extends StatefulWidget {
-  const LineChartWidget({super.key});
+class LineChartMonthWidget extends StatefulWidget {
+  const LineChartMonthWidget({super.key});
 
   @override
-  State<LineChartWidget> createState() => _LineChartWidgetState();
+  State<LineChartMonthWidget> createState() => _LineChartMonthWidgetState();
 }
 
-class _LineChartWidgetState extends State<LineChartWidget> {
+class _LineChartMonthWidgetState extends State<LineChartMonthWidget> {
   List<Color> gradientColors = [
     AppColors.skin,
     AppColors.darkGreen,
   ];
 
-  List<FlSpot> _daylySpots = [
-    FlSpot(1, 3),
-    FlSpot(2, 2),
-    FlSpot(3, 5),
-    FlSpot(4, 3.1),
-    FlSpot(5, 4),
-    FlSpot(6, 3.1),
+  List<FlSpot> _monthlySpots = [
+    FlSpot(1, 5),
+    FlSpot(2, 4),
+    FlSpot(3, 3),
+    FlSpot(4, 2.1),
+    FlSpot(5, 2),
+    FlSpot(6, 5),
     FlSpot(7, 4),
+    FlSpot(8, 3),
+    FlSpot(9, 2.1),
+    FlSpot(10, 2),
+    FlSpot(11, 2.1),
+    FlSpot(12, 2),
   ];
 
-  List<FlSpot> _daylySpots2 = [
-    FlSpot(1, 4),
-    FlSpot(2, 5),
-    FlSpot(3, 2),
-    FlSpot(4, 3.9),
-    FlSpot(5, 3),
-    FlSpot(6, 3.9),
+  List<FlSpot> _monthlySpots2 = [
+    FlSpot(1, 2),
+    FlSpot(2, 3),
+    FlSpot(3, 4),
+    FlSpot(4, 4.9),
+    FlSpot(5, 5),
+    FlSpot(6, 2),
     FlSpot(7, 3),
+    FlSpot(8, 4),
+    FlSpot(9, 4.9),
+    FlSpot(10, 5),
+    FlSpot(11, 4.9),
+    FlSpot(12, 5),
   ];
+
+  // int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,25 +78,40 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     Widget text;
     switch (value.toInt()) {
       case 1:
-        text = const Text('Mon', style: style);
+        text = const Text('1', style: style);
         break;
       case 2:
-        text = const Text('Tue', style: style);
+        text = const Text('2', style: style);
         break;
       case 3:
-        text = const Text('Wed', style: style);
+        text = const Text('3', style: style);
         break;
       case 4:
-        text = const Text('Thu', style: style);
+        text = const Text('4', style: style);
         break;
       case 5:
-        text = const Text('Fri', style: style);
+        text = const Text('5', style: style);
         break;
       case 6:
-        text = const Text('Sat', style: style);
+        text = const Text('6', style: style);
         break;
       case 7:
-        text = const Text('Sun', style: style);
+        text = const Text('7', style: style);
+        break;
+      case 8:
+        text = const Text('8', style: style);
+        break;
+      case 9:
+        text = const Text('9', style: style);
+        break;
+      case 10:
+        text = const Text('10', style: style);
+        break;
+      case 11:
+        text = const Text('11', style: style);
+        break;
+      case 12:
+        text = const Text('12', style: style);
         break;
       default:
         text = const Text('', style: style);
@@ -176,13 +203,13 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: 8,
+      maxX: 13,
       minY: 0,
       maxY: 7,
       lineBarsData: [
         LineChartBarData(
           //line1
-          spots: _daylySpots,
+          spots: _monthlySpots,
           isCurved: false,
           color: AppColors.skin,
           barWidth: 2,
@@ -201,7 +228,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         ),
         LineChartBarData(
           //line2
-          spots: _daylySpots2,
+          spots: _monthlySpots2,
           isCurved: false,
           color: AppColors.darkGreen,
           barWidth: 2,

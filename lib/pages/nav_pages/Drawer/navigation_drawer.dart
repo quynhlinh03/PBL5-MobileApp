@@ -54,14 +54,14 @@ class NavigationDrawerLeft extends StatelessWidget {
                 onPressed: () => onItemPressed(context, index: 2),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-              child: DrawerItem(
-                name: 'Settings',
-                icon: Icons.settings_outlined,
-                onPressed: () => onItemPressed(context, index: 3),
-              ),
-            ),
+            // Container(
+            //   margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+            //   child: DrawerItem(
+            //     name: 'Settings',
+            //     icon: Icons.settings_outlined,
+            //     onPressed: () => onItemPressed(context, index: 3),
+            //   ),
+            // ),
             Container(
               margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
               child: DrawerItem(

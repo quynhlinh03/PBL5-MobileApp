@@ -12,13 +12,13 @@ class Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: 260,
       child: Stack(
         children: [
           PieChart(
             PieChartData(
               sectionsSpace: 0,
-              centerSpaceRadius: 95,
+              centerSpaceRadius: 92,
               startDegreeOffset: -280,
               sections: paiChartSelectionDatas,
             ),
