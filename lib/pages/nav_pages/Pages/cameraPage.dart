@@ -15,7 +15,9 @@ import '../../../pages/nav_pages/Pages/correctPosturePage.dart';
 import '../../../pages/nav_pages/Pages/addDevicesPage.dart';
 
 class CameraPage extends StatefulWidget {
-  const CameraPage({ Key? key, }) : super(key: key);
+  const CameraPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _CameraPageState createState() => _CameraPageState();
@@ -40,13 +42,12 @@ class WifiCheck extends StatefulWidget {
 }
 
 class _WifiCheckState extends State<WifiCheck> {
-
   final String targetSSID = "Hoang Huy";
   String _connectionStatus = "Unknown";
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   late bool isTargetSSID;
-  
+
   get developer => null;
 
   @override
@@ -73,22 +74,21 @@ class _WifiCheckState extends State<WifiCheck> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  
                   _connectionStatus.toUpperCase(),
-                  style: TextStyle(fontWeight: FontWeight.w300, fontSize: 26.0),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w300, fontSize: 26.0),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                
                 RoundedButton(
                   textColor: Colors.white,
                   press: () {
                     isTargetSSID ? _ConnectWebSocket : initConnectivity();
-                    },
+                  },
                   text: isTargetSSID ? "Connect" : "Recheck WIFI",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 )
               ],
@@ -98,26 +98,26 @@ class _WifiCheckState extends State<WifiCheck> {
       ),
       drawer: const NavigationDrawerLeft(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: AppColors.white,
         elevation: 0,
       ),
-      
     );
   }
 
   Future<void> _ConnectWebSocket(BuildContext context) async {
-  await Future.delayed(Duration(milliseconds: 100));
-  
-  final channel = IOWebSocketChannel.connect(Uri.parse('ws://192.168.4.1:8888'));
+    await Future.delayed(const Duration(milliseconds: 100));
 
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (BuildContext context) => HomeCam(channel: channel),
-    ),
-  );
-}
+    final channel =
+        IOWebSocketChannel.connect(Uri.parse('ws://192.168.4.1:8888'));
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => HomeCam(channel: channel),
+      ),
+    );
+  }
 
   Future<void> initConnectivity() async {
     late ConnectivityResult result;
@@ -135,45 +135,41 @@ class _WifiCheckState extends State<WifiCheck> {
     return _updateConnectionStatus(result);
   }
 
-Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-  switch (result) {
-    case ConnectivityResult.wifi:
-      String wifiName, wifiBSSID, wifiIP;
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    switch (result) {
+      case ConnectivityResult.wifi:
+        String wifiName, wifiBSSID, wifiIP;
 
-      try {
-        
-        final wifiInfo = await _connectivity.checkConnectivity();
-        wifiName = wifiInfo.name;
-        // wifiBSSID = wifiInfo.bssid;
-        // wifiIP = wifiInfo.ipAddress;
-      } on Exception catch (e) {
-        print(e.toString());
-        wifiName = "Failed to get Wifi Name";
-        wifiBSSID = "Failed to get Wifi BSSID";
-        wifiIP = "Failed to get Wifi IP";
-      }
+        try {
+          final wifiInfo = await _connectivity.checkConnectivity();
+          wifiName = wifiInfo.name;
+          // wifiBSSID = wifiInfo.bssid;
+          // wifiIP = wifiInfo.ipAddress;
+        } on Exception catch (e) {
+          print(e.toString());
+          wifiName = "Failed to get Wifi Name";
+          wifiBSSID = "Failed to get Wifi BSSID";
+          wifiIP = "Failed to get Wifi IP";
+        }
 
-      setState(() {
-        _connectionStatus = '$result';
-            // 'Wifi Name: $wifiName\n'
-            // 'Wifi BSSID: $wifiBSSID\n'
-            // 'Wifi IP: $wifiIP\n';
+        setState(() {
+          _connectionStatus = '$result';
+          // 'Wifi Name: $wifiName\n'
+          // 'Wifi BSSID: $wifiBSSID\n'
+          // 'Wifi IP: $wifiIP\n';
 
-        isTargetSSID = targetSSID == wifiName;
-      });
-      break;
-    case ConnectivityResult.mobile:
-    case ConnectivityResult.none:
-      setState(() => _connectionStatus = result.toString());
-      break;
-    default:
-      setState(() => _connectionStatus = 'Failed to get connectivity.');
-      break;
+          isTargetSSID = targetSSID == wifiName;
+        });
+        break;
+      case ConnectivityResult.mobile:
+      case ConnectivityResult.none:
+        setState(() => _connectionStatus = result.toString());
+        break;
+      default:
+        setState(() => _connectionStatus = 'Failed to get connectivity.');
+        break;
+    }
   }
-}
-
-
-
 }
 
 class HomeCam extends StatefulWidget {
