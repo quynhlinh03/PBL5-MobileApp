@@ -12,4 +12,21 @@ class AppColors {
   static const skin = Color.fromRGBO(208, 180, 132, 1);
   static const mossGreen = Color.fromRGBO(103, 109, 96, 1);
   static const darkGreen = Color.fromRGBO(54, 75, 111, 1);
+  static const blackBlur = Color.fromRGBO(185, 189, 208, 1);
 }
+
+MaterialColor myColor = MaterialColor(
+  0xFF3F736F,
+  <int, Color>{
+    50: Color(0xFFE5F6F5),
+    100: Color(0xFFB3E4E1),
+    200: Color(0xFF80D2CC),
+    300: Color(0xFF4DB0AE),
+    400: Color(0xFF338F95),
+    500: Color(0xFF3F736F), // This is the primary color
+    600: Color(0xFF2C534E),
+    700: Color(0xFF1A3734),
+    800: Color(0xFF06221F),
+    900: Color(0xFF000000),
+  },
+);

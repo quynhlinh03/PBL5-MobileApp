@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import '../../../components/advice_box.dart';
+import '../../../components/legend_col.dart';
 import '../../../values/app_colors.dart';
 import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
 // ignore: depend_on_referenced_packages, unused_import
 import 'package:pie_chart/pie_chart.dart';
+import 'package:intl/intl.dart';
 
 class PieChartPage extends StatefulWidget {
   const PieChartPage({Key? key}) : super(key: key);
@@ -15,10 +17,11 @@ class PieChartPage extends StatefulWidget {
 }
 
 class _PieChartPageState extends State<PieChartPage> {
+  DateTime dateTime = DateTime(2023, 12, 24);
   Map<String, double> dataMap = {
-    "Rounded Shoulders": 4.0,
-    "Forwarded Head": 5.5,
-    "Wrong Leg": 2.5,
+    "Rounded Shoulders": 20,
+    "Forwarded Head": 55,
+    "Wrong Leg": 25,
   };
   List<Color> colorList = [
     AppColors.skin,
@@ -36,25 +39,30 @@ class _PieChartPageState extends State<PieChartPage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            // toolbarHeight: 70,
-            // title: Row(
-            //   mainAxisAlignment: MainAxisAligment.spaceBetween,
-            //   children:[
-            //     AppIcon(icon: Icons.clear),
-            //     AppIcon(icon: Icons.shopping_cart_outlined)
-            //   ],
-            // ),
-            // toolbarHeight: 70,
-            // title: Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children:[
-            //     Container(
-            //       child: Text("Linh"),
-            //       height: 70,
-            //       color: AppColors.greenGray,
-            //     )
-            //   ],
-            // ),
+            toolbarHeight: 100,
+            centerTitle: false,
+            title: Container(
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.only(top: 0, left: 16, bottom: 16),
+              // ignore: sort_child_properties_last
+              child: PieChartWithLegend(
+                legendItems: [
+                  LegendItemCol(
+                      title: "Rounded Shoulders",
+                      color: AppColors.skin,
+                      style: AppStyle.light1white),
+                  LegendItemCol(
+                      title: "Forwarded Head",
+                      color: AppColors.darkGreen,
+                      style: AppStyle.light1white),
+                  LegendItemCol(
+                      title: "Wrong Leg",
+                      color: AppColors.mossGreen,
+                      style: AppStyle.light1white),
+                  // legend items
+                ],
+              ),
+            ),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(40),
               child: Container(
@@ -62,6 +70,7 @@ class _PieChartPageState extends State<PieChartPage> {
                   padding: const EdgeInsets.only(top: 12, bottom: 10),
                   decoration: const BoxDecoration(
                       color: Colors.white,
+                      boxShadow: null,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30.0),
                         topRight: Radius.circular(30.0),
@@ -69,81 +78,125 @@ class _PieChartPageState extends State<PieChartPage> {
                   child: const Center(
                       child: Text("ADVICE", style: AppStyle.regular18))),
             ),
-            floating: true,
+            // floating: true,
             pinned: true,
-            backgroundColor: Colors.white,
-            expandedHeight: 420,
+            backgroundColor: AppColors.greenGray,
+            expandedHeight: 480, //420
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
+                width: double.maxFinite,
                 decoration: const BoxDecoration(
                   color: AppColors.greenGray,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 10.0),
-                    PieChart(
-                      dataMap: dataMap,
-                      colorList: colorList,
-                      legendOptions: const LegendOptions(
-                        showLegendsInRow: false,
-                        legendPosition: LegendPosition.right,
-                        showLegends: true,
-                        // legendShape: _BoxShape.circle,
-                        legendTextStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
+                    const SizedBox(height: 0),
+                    Container(
+                      padding: EdgeInsets.only(top: 34),
+                      width: 260,
+                      child: PieChart(
+                        dataMap: dataMap,
+                        colorList: colorList,
+                        chartType: ChartType.disc,
+                        legendOptions: const LegendOptions(
+                          showLegends: false,
+                        ),
+                        chartValuesOptions: const ChartValuesOptions(
+                          showChartValueBackground: false,
+                          showChartValues: true,
+                          showChartValuesInPercentage: true,
+                          showChartValuesOutside: false,
+                          decimalPlaces: 1,
+                          chartValueStyle: AppStyle.light1,
                         ),
                       ),
-                      chartValuesOptions: const ChartValuesOptions(
-                        showChartValueBackground: true,
-                        showChartValues: true,
-                        showChartValuesInPercentage: false,
-                        showChartValuesOutside: false,
-                        decimalPlaces: 1,
-                      ),
                     ),
+                    Container(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                final date = await pickDate();
+                                if (date == null) return;
+                                setState(() => dateTime = date);
+                              },
+                              // ignore: sort_child_properties_last
+                              child: Text(
+                                '    ${DateFormat('MMMM').format(dateTime)}   ${dateTime.day}   ${dateTime.year}    ',
+                                style: AppStyle.light1white,
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color.fromRGBO(255, 255, 255, 0.3)),
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(6)),
+                                shape:
+                                    MaterialStateProperty.all<OutlinedBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]),
+                    )
                   ],
                 ),
               ),
             ),
           ),
           SliverToBoxAdapter(
-              child: Column(
-            children: const <Widget>[
-              SizedBox(
-                height: 15,
-              ),
-              adviceBox(
-                  title: 'Rounded Shoulders',
-                  percent: '40%',
-                  content:
-                      'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
-                  color: AppColors.skin),
-              SizedBox(
-                height: 20,
-              ),
-              adviceBox(
-                  title: 'Wrong Leg',
-                  percent: '25%',
-                  content:
-                      'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
-                  color: AppColors.mossGreen),
-              SizedBox(
-                height: 20,
-              ),
-              adviceBox(
-                  title: 'Forwarded Head',
-                  percent: '55%',
-                  content:
-                      'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
-                  color: AppColors.darkGreen),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+              child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 15,
+                ),
+                adviceBox(
+                    title: 'Rounded Shoulders',
+                    percent:
+                        (dataMap["Rounded Shoulders"]!).toStringAsFixed(0) +
+                            '%',
+                    content:
+                        'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
+                    color: AppColors.skin),
+                SizedBox(
+                  height: 20,
+                ),
+                adviceBox(
+                    title: 'Wrong Leg',
+                    percent: (dataMap["Wrong Leg"]!).toStringAsFixed(0) + '%',
+                    content:
+                        'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
+                    color: AppColors.mossGreen),
+                SizedBox(
+                  height: 20,
+                ),
+                adviceBox(
+                    title: 'Forwarded Head',
+                    percent:
+                        (dataMap["Forwarded Head"]!).toStringAsFixed(0) + '%',
+                    content:
+                        'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
+                    color: AppColors.darkGreen),
+                SizedBox(
+                  height: 45,
+                ),
+              ],
+            ),
           )),
         ],
       ),
     );
   }
+
+  Future<DateTime?> pickDate() => showDatePicker(
+      context: context,
+      initialDate: dateTime,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100));
 }

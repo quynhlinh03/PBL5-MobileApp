@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pbl5_app/pages/nav_pages/Pages/correctPosturePage.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import '../../../components/row_view_index.dart';
 import '../../../values/app_colors.dart';
-import '../../../pages/signup_pages/login_screen.dart';
 import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
-import '../../../pages/nav_pages/Pages/manualPage.dart';
-import '../../../pages/nav_pages/Pages/correctPosturePage.dart';
-import '../../../pages/nav_pages/Pages/addDevicesPage.dart';
+import 'addDevicesPage.dart';
+import 'manualPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,7 +39,44 @@ class _HomePageState extends State<HomePage> {
         child: Center(
             child: Column(
           children: [
-            headerWidget2(),
+            // headerWidget2(),
+            Container(
+              alignment: Alignment.bottomLeft,
+              padding: const EdgeInsets.only(top: 0, left: 0),
+              height: 267,
+              width: 800,
+              color: AppColors.greenGray,
+              child: Column(
+                children: [
+                  Container(
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                      alignment: Alignment.bottomLeft,
+                      child: const Text(
+                        "Devices",
+                        style: AppStyle.semibold,
+                        textAlign: TextAlign.left,
+                      )),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      // Hành động khi người dùng bấm vào hình ảnh
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddDevicesPage()),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.white),
+                      child: const SizedBox(height: 160, width: 345),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(children: [
@@ -53,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const LoginScreen();
+                            return const ManualPage();
                           },
                         ),
                       );
@@ -69,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return const LoginScreen();
+                              return const CorrectPosturePage();
                             },
                           ),
                         );
@@ -83,40 +119,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-
-
-Widget headerWidget2() {
-  const url =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxQeDXrL0QAJXo-i-h01SqL-Xwu6yA7pU5rJHaTq36sA&s";
-  return Container(
-    alignment: Alignment.bottomLeft,
-    padding: const EdgeInsets.only(top: 0, left: 0),
-    height: 267,
-    width: 800,
-    color: AppColors.greenGray,
-    child: Column(
-      children: [
-        Container(
-            padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
-            alignment: Alignment.bottomLeft,
-            child: const Text(
-              "Devices",
-              style: AppStyle.semibold,
-              textAlign: TextAlign.left,
-            )),
-        const SizedBox(height: 20),
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: AppColors.white),
-          child: const SizedBox(height: 160, width: 345),
-          // width: 250,
-          // child: Image.network(
-          //     'https://images.pexels.com/photos/34088/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
-        )
-      ],
-    ),
-  );
-  // );
 }

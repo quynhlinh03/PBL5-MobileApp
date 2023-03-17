@@ -65,16 +65,7 @@ class RowViewIndex extends StatelessWidget {
                     child: Row(
                       children: [
                         ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const LoginScreen();
-                                },
-                              ),
-                            );
-                          },
+                          onPressed: press,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.greenGray,
                             padding: const EdgeInsets.symmetric(
