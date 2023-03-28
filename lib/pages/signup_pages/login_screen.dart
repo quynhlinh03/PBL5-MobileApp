@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pbl5_app/data/SharedPref/shared_pref.dart';
 import '../../components/checksignuplogin.dart';
 import '../../components/rouned_button.dart';
+import '../../data/Model/user_model.dart';
 import '../../pages/nav_pages/navpages.dart';
 import '../../pages/signup_pages/forgotpasscreen.dart';
 import '../../pages/signup_pages/signupscreen.dart';
@@ -9,8 +11,24 @@ import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  SharedPref sharedPref = SharedPref();
+  late Users userSave;
+  late Users userLoad;
+
+  loadSharedPrefs() async {
+    Users user = Users.fromJson(await sharedPref.read("user"));
+    setState(() {
+      userLoad = user;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +60,11 @@ class LoginScreen extends StatelessWidget {
                       AppStyle.light2.copyWith(color: AppColors.fontNormal),
                   border: InputBorder.none,
                 ),
+                onChanged: (value) {
+                  setState(() {
+                    userSave.email = value;
+                  });
+                },
               ),
             ),
             TextFieldContainer(
@@ -61,6 +84,11 @@ class LoginScreen extends StatelessWidget {
                       AppStyle.light2.copyWith(color: AppColors.fontNormal),
                   border: InputBorder.none,
                 ),
+                onChanged: (value) {
+                  setState(() {
+                    userSave.password = value;
+                  });
+                },
               ),
             ),
             Container(
@@ -87,6 +115,7 @@ class LoginScreen extends StatelessWidget {
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
+                  sharedPref.save("user", userSave);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

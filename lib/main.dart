@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_colors.dart';
-import 'package:pbl5_app/values/app_styles.dart';
 import './pages/signup_pages/welcome.dart';
 import 'values/app_fonts.dart';
 

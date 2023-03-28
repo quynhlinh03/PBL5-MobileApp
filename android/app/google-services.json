@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "277792182064",
+    "project_id": "iot-flutter-ba930",
+    "storage_bucket": "iot-flutter-ba930.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277792182064:android:ee5c38361dd5d20b1002f5",
+        "android_client_info": {
+          "package_name": "com.example.pbl5_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "277792182064-cn9gni7ma50r7os9rungi4jhjievhdl8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsIfQm2bKPD7CvUdNLD3ZVIDdUxX4ZFfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "277792182064-cn9gni7ma50r7os9rungi4jhjievhdl8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
