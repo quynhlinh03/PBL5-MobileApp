@@ -24,13 +24,14 @@ class _LineChartPageState extends State<LineChartPage> {
     AppColors.skin,
     AppColors.darkGreen,
   ];
-  @override
+   
   int _currentIndex = 0;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const NavigationDrawerLeft(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: AppColors.white,
           elevation: 0,
         ),
@@ -40,14 +41,13 @@ class _LineChartPageState extends State<LineChartPage> {
               mainAxisAlignment:
                   MainAxisAlignment.center, // canh giữa theo chiều dọc
               children: [
-                Container(
-                    child: Text(
+                Text(
                   "Posture Analysis ",
                   style: AppStyle.regular.copyWith(fontSize: 20),
-                )),
+                ),
                 AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
-                    padding: EdgeInsets.only(top: 28, bottom: 3),
+                    duration: const Duration(milliseconds: 500),
+                    padding: const EdgeInsets.only(top: 28, bottom: 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -58,17 +58,17 @@ class _LineChartPageState extends State<LineChartPage> {
                             });
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 25.0, vertical: 10.0),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(50),
                                   bottomLeft: Radius.circular(50)),
                               color: _currentIndex == 0
-                                  ? Color(0xffEBEBEB)
+                                  ? const Color(0xffEBEBEB)
                                   : AppColors.white,
                             ),
-                            child: Text(
+                            child: const Text(
                               "Day",
                               style: AppStyle.light1,
                             ),
@@ -81,14 +81,14 @@ class _LineChartPageState extends State<LineChartPage> {
                             });
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 25.0, vertical: 10.0),
                             decoration: BoxDecoration(
                               color: _currentIndex == 1
-                                  ? Color(0xffEBEBEB)
+                                  ? const Color(0xffEBEBEB)
                                   : AppColors.white,
                             ),
-                            child: Text(
+                            child: const Text(
                               "Week",
                               style: AppStyle.light1,
                             ),
@@ -101,17 +101,17 @@ class _LineChartPageState extends State<LineChartPage> {
                             });
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 25.0, vertical: 10.0),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(50),
                                   bottomRight: Radius.circular(50)),
                               color: _currentIndex == 2
-                                  ? Color(0xffEBEBEB)
+                                  ? const Color(0xffEBEBEB)
                                   : AppColors.white,
                             ),
-                            child: Text(
+                            child: const Text(
                               "Month",
                               style: AppStyle.light1,
                             ),
@@ -121,12 +121,12 @@ class _LineChartPageState extends State<LineChartPage> {
                     )),
                 Container(
                   child: _currentIndex == 0
-                      ? LineChartWidget()
+                      ? const LineChartWidget()
                       : _currentIndex == 1
-                          ? LineChartWeekWidget()
-                          : LineChartMonthWidget(),
+                          ? const LineChartWeekWidget()
+                          : const LineChartMonthWidget(),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
                   alignment: Alignment.center,
                   // height: 50,
@@ -144,9 +144,7 @@ class _LineChartPageState extends State<LineChartPage> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Chart(),
-                ),
+                const Chart(),
               ],
             ),
           ),

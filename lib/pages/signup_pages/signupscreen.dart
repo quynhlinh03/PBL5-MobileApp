@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pbl5_app/controller/auth_controller.dart';
 import 'package:pbl5_app/pages/signup_pages/login_screen.dart';
 import '../../components/checksignuplogin.dart';
 import '../../components/rouned_button.dart';
@@ -10,8 +11,10 @@ import '../../components/textfieldcontainer.dart';
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+    AuthController authController = AuthController();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(
@@ -46,6 +49,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextField(
+                  controller: authController.emailController,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.mail_outline_rounded,
@@ -60,16 +64,22 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextField(
+                  controller: authController.passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.lock_outline_rounded,
                       color: AppColors.neutral,
                     ),
-                    suffixIcon: const Icon(
-                      Icons.visibility,
-                      color: AppColors.neutral,
-                    ),
+                    // suffixIcon: IconButton(
+                    //   icon: hide?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
+                    //   color: AppColors.neutral,
+                    //   onPressed: () { 
+                    //     setState(() {
+                    //       hide = !hide;
+                    //     });
+                    //    },
+                    // ),
                     hintText: "Password",
                     hintStyle:
                         AppStyle.light2.copyWith(color: AppColors.fontNormal),
@@ -79,16 +89,22 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextField(
+                  controller: authController.confirmTextController,
                   obscureText: true,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.lock_outline_rounded,
                       color: AppColors.neutral,
                     ),
-                    suffixIcon: const Icon(
-                      Icons.visibility,
-                      color: AppColors.neutral,
-                    ),
+                    // suffixIcon: IconButton(
+                    //   icon: hide?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
+                    //   color: AppColors.neutral,
+                    //   onPressed: () { 
+                    //     setState(() {
+                    //       hide = !hide;
+                    //     });
+                    //    },
+                    // ),
                     hintText: "Confirm Password",
                     hintStyle:
                         AppStyle.light2.copyWith(color: AppColors.fontNormal),
@@ -101,14 +117,15 @@ class SignUpScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: RoundedButton(
                   press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const LoginScreen();
-                        },
-                      ),
-                    );
+                    authController.createAccount();
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return const LoginScreen();
+                    //     },
+                    //   ),
+                    // );
                   },
                   text: 'Signup',
                 ),

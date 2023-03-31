@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../pages/signup_pages/login_screen.dart';
 import '../../values/app_assets.dart';
 import '../../values/app_colors.dart';
@@ -55,14 +56,7 @@ class _SuccessPageState extends State<SuccessPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LoginScreen();
-                        },
-                      ),
-                    );
+                    Get.offAll(()=> const LoginScreen());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.greenGray,

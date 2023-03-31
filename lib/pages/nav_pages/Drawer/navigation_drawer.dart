@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pbl5_app/controller/auth_controller.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notifications_page.dart';
-import 'package:pbl5_app/pages/signup_pages/login_screen.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import '../../../pages/nav_pages/Drawer/DrawerMenu/change_pass_page.dart';
@@ -78,7 +78,7 @@ class NavigationDrawerLeft extends StatelessWidget {
 
   void onItemPressed(BuildContext context, {required int index}) {
     Navigator.pop(context);
-
+    AuthController authController = AuthController();
     switch (index) {
       case 0:
         Navigator.push(context,
@@ -97,8 +97,7 @@ class NavigationDrawerLeft extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const SettingPage()));
         break;
       case 4:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
+        authController.logoutUser();
         break;
     }
   }

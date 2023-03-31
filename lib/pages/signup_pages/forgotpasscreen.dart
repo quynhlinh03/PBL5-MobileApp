@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/pages/signup_pages/enterCodeScreen.dart';
+import 'package:get/get.dart';
+import 'package:pbl5_app/controller/auth_controller.dart';
 import '../../components/checksignuplogin.dart';
 import '../../components/rouned_button.dart';
 import '../../pages/signup_pages/signupscreen.dart';
@@ -7,16 +8,12 @@ import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
 
-class ForgotPassScreen extends StatefulWidget {
+class ForgotPassScreen extends StatelessWidget {
   const ForgotPassScreen({Key? key}) : super(key: key);
 
   @override
-  _ForgotPassScreenState createState() => _ForgotPassScreenState();
-}
-
-class _ForgotPassScreenState extends State<ForgotPassScreen> {
-  @override
   Widget build(BuildContext context) {
+    AuthController authController = AuthController();
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
@@ -40,12 +37,13 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
             const Padding(
                 padding: EdgeInsets.only(left: 27, right: 25),
                 child: Text(
-                  "Enter your account email, we will send 5 digits verification code",
+                  "Enter your account email, we will send you a password reset link",
                   style: AppStyle.light1,
                 )),
             const SizedBox(height: 42),
             TextFieldContainer(
               child: TextField(
+                controller: authController.resetEmailController,
                 decoration: InputDecoration(
                   icon: const Icon(
                     Icons.mail_outline_rounded,
@@ -63,14 +61,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const EnterCodeScreen();
-                      },
-                    ),
-                  );
+                  authController.resetPassword(context);
                 },
                 text: 'Confirm',
               ),
@@ -83,14 +74,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   child: CheckSignUpLogin(
                     login: '2',
                     press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const SignUpScreen();
-                          },
-                        ),
-                      );
+                      Get.to(() => const SignUpScreen());
                     },
                   ),
                 ),

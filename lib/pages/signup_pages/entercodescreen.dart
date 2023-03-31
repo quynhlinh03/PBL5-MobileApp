@@ -7,6 +7,7 @@ import '../../pages/signup_pages/signupscreen.dart';
 import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
+//bo
 
 class EnterCodeScreen extends StatefulWidget {
   const EnterCodeScreen({Key? key}) : super(key: key);

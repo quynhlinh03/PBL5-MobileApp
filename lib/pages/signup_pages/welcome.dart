@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../pages/signup_pages/login_screen.dart';
 import '../../values/app_assets.dart';
 import '../../values/app_colors.dart';
@@ -58,14 +59,15 @@ class _WelcomePageState extends State<WelcomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LoginScreen();
-                        },
-                      ),
-                    );
+                    Get.to(() => LoginScreen());
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return const LoginScreen();
+                    //     },
+                    //   ),
+                    // );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.greenGray,

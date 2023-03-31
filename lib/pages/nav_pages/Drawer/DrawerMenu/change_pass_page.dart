@@ -18,7 +18,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: AppColors.neutral),
+        leading: const BackButton(color: AppColors.neutral),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -87,7 +87,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 39),
+              margin: const EdgeInsets.only(top: 39),
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
@@ -95,7 +95,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return SuccessPage();
+                        return const SuccessPage();
                       },
                     ),
                   );
