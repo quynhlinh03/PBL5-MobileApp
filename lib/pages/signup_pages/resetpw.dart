@@ -1,7 +1,6 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/controller/auth_controller.dart';
-import 'package:pbl5_app/pages/signup_pages/result_forgot.dart';
+import 'package:pbl5_app/pages/signup_pages/success_page.dart';
 import '../../components/rouned_button.dart';
 import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';

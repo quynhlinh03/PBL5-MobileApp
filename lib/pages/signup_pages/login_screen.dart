@@ -65,15 +65,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     Icons.lock_outline_rounded,
                     color: AppColors.neutral,
                   ),
-                  // suffixIcon: IconButton(
-                  //   onPressed: () {
-                  //     authController.togglePasswordVisibility();
-                  //   },
-                  //   icon: Obx(() => authController.hide.value
-                  //       ? const Icon(Icons.visibility_off_outlined)
-                  //       : const Icon(Icons.visibility)),
-                  //   color: AppColors.neutral,
-                  // ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      print(authController.hide.value.toString());
+                      authController.togglePasswordVisibility();
+                    },
+                    icon: Obx(() => authController.hide.value
+                        ? const Icon(Icons.visibility_off_outlined)
+                        : const Icon(Icons.visibility)),
+                    color: AppColors.neutral,
+                  ),
                   hintText: "Password",
                   hintStyle:
                       AppStyle.light2.copyWith(color: AppColors.fontNormal),

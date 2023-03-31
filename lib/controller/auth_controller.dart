@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pbl5_app/pages/nav_pages/navpages.dart';
 import 'package:pbl5_app/pages/signup_pages/login_screen.dart';
-import 'package:pbl5_app/pages/signup_pages/result_forgot.dart';
+import 'package:pbl5_app/pages/signup_pages/success_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
@@ -25,15 +25,6 @@ class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var hide = true.obs;
 
-  // @override
-  // void onInit() {
-  //   password = passwordController.text;
-  //   super.onInit();
-  // }
-  // void setPassword(String value) {
-  //   password = value;
-  // }
-  
   Future<void> createAccount() async {
     try {
       final user = await _auth.createUserWithEmailAndPassword(
@@ -110,18 +101,16 @@ class AuthController extends GetxController {
 
   Future<void> resetPassword(context) async {
     try {
-      await _auth.sendPasswordResetEmail(email: resetEmailController.text.trim()).then((value) => {
-        print("Email sent"),
-        Get.to(() => SuccessPage())
-      });
-      
+      await _auth
+          .sendPasswordResetEmail(email: resetEmailController.text.trim())
+          .then((value) =>
+              {print("Email sent"), Get.to(() => const SuccessPage())});
     } on FirebaseException catch (e) {
-      showDialog(context: context, builder: (context){
-        return AlertDialog(content: Text(e.message.toString()));
-      });
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(content: Text(e.message.toString()));
+          });
     }
-    
   }
-
-
 }
