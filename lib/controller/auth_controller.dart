@@ -37,18 +37,25 @@ class AuthController extends GetxController {
       final firestore = FirebaseFirestore.instance;
       firestore.collection('users').doc(user.user!.uid).set(
           {"email": emailController.text, "password": passwordController.text});
+
+      isLoading.value = false;
+
+      if (confirmTextController.text != passwordController.text){
+        print("Confirm password doesn't match password");
+      }else {
       // loading
       if (user.isBlank != true) {
-        isLoading.value = false;
+        
         Get.to(() => const LoginScreen());
       } else {
-        isLoading.value = true;
         print('error');
+      }
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         print('The email address is already in use.');
-        // Inform the user that the email is already in use and ask them to either sign in or use a different email address.
+      }else if (e.code == 'invalid-email'){
+        print("Email không hợp lệ");
       }
     } catch (e) {
       print('An unexpected error occurred: $e');

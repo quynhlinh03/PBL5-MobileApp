@@ -70,7 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        authController.togglePasswordVisibility();
+                        setState(() {
+                          authController.togglePasswordVisibility();
+                        });
+                        
                       },
                       icon: Obx(() => authController.hide.value
                           ? const Icon(Icons.visibility_off_outlined)

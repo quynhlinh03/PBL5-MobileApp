@@ -9,21 +9,19 @@ import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
 
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     AuthController authController = AuthController();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: BackButton(color: AppColors.neutral),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
-      // body: Column(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -72,15 +70,17 @@ class SignUpScreen extends StatelessWidget {
                       Icons.lock_outline_rounded,
                       color: AppColors.neutral,
                     ),
-                    // suffixIcon: IconButton(
-                    //   icon: hide?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
-                    //   color: AppColors.neutral,
-                    //   onPressed: () { 
-                    //     setState(() {
-                    //       hide = !hide;
-                    //     });
-                    //    },
-                    // ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          authController.togglePasswordVisibility();
+                        });
+                      },
+                      icon: Obx(() => authController.hide.value
+                          ? const Icon(Icons.visibility_off_outlined)
+                          : const Icon(Icons.visibility)),
+                      color: AppColors.neutral,
+                    ),
                     hintText: "Password",
                     hintStyle:
                         AppStyle.light2.copyWith(color: AppColors.fontNormal),
@@ -97,15 +97,18 @@ class SignUpScreen extends StatelessWidget {
                       Icons.lock_outline_rounded,
                       color: AppColors.neutral,
                     ),
-                    // suffixIcon: IconButton(
-                    //   icon: hide?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
-                    //   color: AppColors.neutral,
-                    //   onPressed: () { 
-                    //     setState(() {
-                    //       hide = !hide;
-                    //     });
-                    //    },
-                    // ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          authController.togglePasswordVisibility();
+                        });
+                        
+                      },
+                      icon: Obx(() => authController.hide.value
+                          ? const Icon(Icons.visibility_off_outlined)
+                          : const Icon(Icons.visibility)),
+                      color: AppColors.neutral,
+                    ),
                     hintText: "Confirm Password",
                     hintStyle:
                         AppStyle.light2.copyWith(color: AppColors.fontNormal),

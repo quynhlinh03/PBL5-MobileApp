@@ -16,58 +16,45 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Container(
+        body: SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Container(
             width: double.infinity,
+            height: 180,
             color: AppColors.greenGray,
             margin: const EdgeInsets.only(top: 38),
           ),
-        ),
-        Expanded(
-            flex: 2,
-            child: Center(
-              child: Column(children: [
-                const SizedBox(
-                  height: 72,
-                ),
-                const Text('Welcome to CHoCoL', style: AppStyle.bold),
-                const SizedBox(
-                  height: 19,
-                ),
-                const Text(
-                  "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
-                  textAlign: TextAlign.center,
-                  style: AppStyle.light2,
-                ),
-                SizedBox(
-                  width: 216,
-                  height: 215,
-                  child: Image.asset(AppAsset.welcome),
-                ),
-              ]),
-            )),
-        Expanded(
-          flex: 1,
-          child: Padding(
+          Center(
+            child: Column(children: [
+              const SizedBox(
+                height: 72,
+              ),
+              const Text('Welcome to CHoCoL', style: AppStyle.bold),
+              const SizedBox(
+                height: 19,
+              ),
+              const Text(
+                "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
+                textAlign: TextAlign.center,
+                style: AppStyle.light2,
+              ),
+              SizedBox(
+                width: 216,
+                height: 215,
+                child: Image.asset(AppAsset.welcome),
+              ),
+            ]),
+          ),
+          Padding(
             padding: const EdgeInsets.only(
-              bottom: 100,
+              top: 80,
             ),
             child: Column(
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Get.to(() => LoginScreen());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return const LoginScreen();
-                    //     },
-                    //   ),
-                    // );
+                    Get.to(() => const LoginScreen());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.greenGray,
@@ -85,8 +72,8 @@ class _WelcomePageState extends State<WelcomePage> {
               ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ));
   }
 }
