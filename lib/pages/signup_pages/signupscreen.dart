@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pbl5_app/controller/auth_controller.dart';
 import 'package:pbl5_app/pages/signup_pages/login_screen.dart';
 import '../../components/checksignuplogin.dart';
@@ -116,16 +117,8 @@ class SignUpScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 50),
                 alignment: Alignment.center,
                 child: RoundedButton(
-                  press: () {
+                  press: () async {
                     authController.createAccount();
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return const LoginScreen();
-                    //     },
-                    //   ),
-                    // );
                   },
                   text: 'Signup',
                 ),
@@ -138,14 +131,7 @@ class SignUpScreen extends StatelessWidget {
                 child: CheckSignUpLogin(
                   login: '1',
                   press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const LoginScreen();
-                        },
-                      ),
-                    );
+                    Get.back();
                   },
                 ),
               )
