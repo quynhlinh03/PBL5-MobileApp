@@ -7,6 +7,7 @@ import '../../../values/app_colors.dart';
 import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
 // ignore: depend_on_referenced_packages, unused_import
 import 'package:pie_chart/pie_chart.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 class PieChartPage extends StatefulWidget {
@@ -93,7 +94,7 @@ class _PieChartPageState extends State<PieChartPage> {
                   children: [
                     const SizedBox(height: 0),
                     Container(
-                      padding: EdgeInsets.only(top: 34),
+                      padding: const EdgeInsets.only(top: 34),
                       width: 260,
                       child: PieChart(
                         dataMap: dataMap,
@@ -113,7 +114,7 @@ class _PieChartPageState extends State<PieChartPage> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 20),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -131,9 +132,9 @@ class _PieChartPageState extends State<PieChartPage> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Color.fromRGBO(255, 255, 255, 0.3)),
+                                        const Color.fromRGBO(255, 255, 255, 0.3)),
                                 padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(6)),
+                                    const EdgeInsets.all(6)),
                                 shape:
                                     MaterialStateProperty.all<OutlinedBorder>(
                                   RoundedRectangleBorder(
@@ -153,37 +154,36 @@ class _PieChartPageState extends State<PieChartPage> {
               child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 adviceBox(
                     title: 'Rounded Shoulders',
                     percent:
-                        (dataMap["Rounded Shoulders"]!).toStringAsFixed(0) +
-                            '%',
+                        '${(dataMap["Rounded Shoulders"]!).toStringAsFixed(0)}%',
                     content:
                         'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng.',
                     color: AppColors.skin),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 adviceBox(
                     title: 'Wrong Leg',
-                    percent: (dataMap["Wrong Leg"]!).toStringAsFixed(0) + '%',
+                    percent: '${(dataMap["Wrong Leg"]!).toStringAsFixed(0)}%',
                     content:
                         'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
                     color: AppColors.mossGreen),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 adviceBox(
                     title: 'Forwarded Head',
                     percent:
-                        (dataMap["Forwarded Head"]!).toStringAsFixed(0) + '%',
+                        '${(dataMap["Forwarded Head"]!).toStringAsFixed(0)}%',
                     content:
                         'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não.',
                     color: AppColors.darkGreen),
-                SizedBox(
+                const SizedBox(
                   height: 45,
                 ),
               ],

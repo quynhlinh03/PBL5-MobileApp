@@ -30,29 +30,24 @@ class adviceBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(40), color: color),
         child: Column(
           children: <Widget>[
-            Container(
-                child: Row(
+            Row(
               children: <Widget>[
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    child: Text(
-                      title,
-                      style: AppStyle.regular18white,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Text(
-                      percent,
-                      style: AppStyle.regular18white,
-                    ),
-                  ),
-                ),
+            Expanded(
+              flex: 4,
+              child: Text(
+                title,
+                style: AppStyle.regular18white,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                percent,
+                style: AppStyle.regular18white,
+              ),
+            ),
               ],
-            )),
+            ),
             Container(
               padding: const EdgeInsets.only(
                 top: 10,

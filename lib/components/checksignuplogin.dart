@@ -3,7 +3,7 @@ import '../values/app_colors.dart';
 import '../values/app_styles.dart';
 
 class CheckSignUpLogin extends StatelessWidget {
-  final login;
+  final String login;
   final Function() press;
 
   const CheckSignUpLogin({

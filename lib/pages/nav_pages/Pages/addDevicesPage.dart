@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/pages/signup_pages/result_forgot.dart';
-import '../../../../components/rouned_button.dart';
 import '../../../../values/app_styles.dart';
 import '../../../../values/app_colors.dart';
-import '../../../../components/textfieldcontainer.dart';
 
 class AddDevicesPage extends StatefulWidget {
   const AddDevicesPage({Key? key}) : super(key: key);
