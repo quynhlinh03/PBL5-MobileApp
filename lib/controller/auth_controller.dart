@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pbl5_app/pages/nav_pages/navpages.dart';
@@ -23,9 +22,13 @@ class AuthController extends GetxController {
   final TextEditingController resetEmailController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  var hide = true.obs;
+
+  final RxBool hide = true.obs;
+  final RxBool isLoading = false.obs;
 
   Future<void> createAccount() async {
+    isLoading.value = true;
+
     try {
       final user = await _auth.createUserWithEmailAndPassword(
         email: emailController.text,
@@ -34,9 +37,12 @@ class AuthController extends GetxController {
       final firestore = FirebaseFirestore.instance;
       firestore.collection('users').doc(user.user!.uid).set(
           {"email": emailController.text, "password": passwordController.text});
+      // loading
       if (user.isBlank != true) {
+        isLoading.value = false;
         Get.to(() => const LoginScreen());
       } else {
+        isLoading.value = true;
         print('error');
       }
     } on FirebaseAuthException catch (e) {
@@ -46,6 +52,8 @@ class AuthController extends GetxController {
       }
     } catch (e) {
       print('An unexpected error occurred: $e');
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -55,14 +63,15 @@ class AuthController extends GetxController {
   }
 
   Future<void> loginUser() async {
+    
     try {
+      isLoading.value = true;
       final user = await _auth.signInWithEmailAndPassword(
           email: loginEmailController.text,
           password: loginPasswordController.text);
-
+      print('loading');
       if (user.isBlank != true) {
         // lets save user with shared prefrences
-
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("userID", user.user!.uid);
         print(user.user!.uid);
@@ -70,7 +79,9 @@ class AuthController extends GetxController {
       } else {
         print('error');
       }
+      isLoading.value = false;
     } catch (e) {
+      isLoading.value = false;
       if (e is FirebaseAuthException) {
         if (e.code == '[firebase_auth/invalid-email]') {
           // Handle invalid email error here
@@ -109,7 +120,12 @@ class AuthController extends GetxController {
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(content: Text(e.message.toString()));
+            return AlertDialog(
+              content: Text(e.message.toString()),
+              actions: [
+                TextButton(onPressed: () {}, child: const Text('Close'))
+              ],
+            );
           });
     }
   }
