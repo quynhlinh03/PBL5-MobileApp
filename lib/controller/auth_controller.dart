@@ -24,6 +24,7 @@ class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final RxBool hide = true.obs;
+  final RxBool hideConfirm = true.obs;
   final RxBool isLoading = false.obs;
 
   Future<void> createAccount() async {
@@ -63,10 +64,12 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
-
+  // change state visibility
   void togglePasswordVisibility() {
     hide.value = !hide.value;
-    //update(["password_visibility_icon"]);
+  }
+  void toggleConfirmVisibility(){
+    hideConfirm.value = !hideConfirm.value;
   }
 
   Future<void> loginUser() async {

@@ -30,12 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
     AuthController authController = Get.put(AuthController());
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        children: [
+      body: Stack(children: [
         SingleChildScrollView(
           child: Column(
             children: [
-              
               const SizedBox(height: 100),
               SizedBox(
                 width: 216,
@@ -62,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFieldContainer(
                 child: TextField(
                   controller: authController.loginPasswordController,
-                  obscureText: authController.hide.value,
+                  obscureText: hide,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.lock_outline_rounded,
@@ -71,15 +69,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          authController.togglePasswordVisibility();
+                          hide = !hide;
                         });
-                        
                       },
-                      icon: Obx(() => authController.hide.value
-                          ? const Icon(Icons.visibility_off_outlined)
-                          : const Icon(Icons.visibility)),
-                      color: AppColors.neutral,
+                      // icon: Obx(() => authController.hide.value
+                      //     ? const Icon(Icons.visibility)
+                      //     : const Icon(Icons.visibility_off_outlined)),
+                      // color: AppColors.neutral,
+                      icon: hide
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off_outlined),
+                          color: AppColors.neutral,
                     ),
+                    
                     hintText: "Password",
                     hintStyle:
                         AppStyle.light2.copyWith(color: AppColors.fontNormal),

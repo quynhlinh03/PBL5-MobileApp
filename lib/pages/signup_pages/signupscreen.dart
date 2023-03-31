@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pbl5_app/controller/auth_controller.dart';
-import 'package:pbl5_app/pages/signup_pages/login_screen.dart';
 import '../../components/checksignuplogin.dart';
 import '../../components/rouned_button.dart';
 import '../../values/app_assets.dart';
@@ -17,9 +16,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  bool hide = true;
+  bool confirm = true;
+
   @override
   Widget build(BuildContext context) {
-    AuthController authController = AuthController();
+    AuthController authController = Get.put(AuthController());
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
@@ -64,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextFieldContainer(
                 child: TextField(
                   controller: authController.passwordController,
-                  obscureText: true,
+                  obscureText: hide,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.lock_outline_rounded,
@@ -73,12 +76,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          authController.togglePasswordVisibility();
+                          //authController.togglePasswordVisibility();
+                          hide = !hide;
                         });
                       },
-                      icon: Obx(() => authController.hide.value
-                          ? const Icon(Icons.visibility_off_outlined)
-                          : const Icon(Icons.visibility)),
+                      // icon: Obx(() => authController.hide.value
+                      //     ? const Icon(Icons.visibility)
+                      //     : const Icon(Icons.visibility_off_outlined)),
+                      // color: AppColors.neutral,
+                      icon: hide
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off_outlined),
                       color: AppColors.neutral,
                     ),
                     hintText: "Password",
@@ -91,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextFieldContainer(
                 child: TextField(
                   controller: authController.confirmTextController,
-                  obscureText: true,
+                  obscureText: confirm,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.lock_outline_rounded,
@@ -100,13 +108,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          authController.togglePasswordVisibility();
+                          //authController.toggleConfirmVisibility();
+                          confirm = !confirm;
                         });
-                        
                       },
-                      icon: Obx(() => authController.hide.value
-                          ? const Icon(Icons.visibility_off_outlined)
-                          : const Icon(Icons.visibility)),
+                      // icon: Obx(() => authController.hideConfirm.value
+                      //     ? const Icon(Icons.visibility)
+                      //     : const Icon(Icons.visibility_off_outlined)),
+                      // color: AppColors.neutral,
+                      icon: confirm
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off_outlined),
                       color: AppColors.neutral,
                     ),
                     hintText: "Confirm Password",
@@ -130,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 15,
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 10,top:10),
+                margin: const EdgeInsets.only(bottom: 10, top: 10),
                 child: CheckSignUpLogin(
                   login: '1',
                   press: () {
