@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   // sign up text editing controllers
-
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmTextController = TextEditingController();
@@ -35,27 +35,30 @@ class AuthController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
+
       final firestore = FirebaseFirestore.instance;
-      firestore.collection('users').doc(user.user!.uid).set(
-          {"email": emailController.text, "password": passwordController.text});
+      firestore.collection('users').doc(user.user!.uid).set({
+        "name": nameController.text,
+        "email": emailController.text,
+        "password": passwordController.text
+      });
 
       isLoading.value = false;
 
-      if (confirmTextController.text != passwordController.text){
+      if (confirmTextController.text != passwordController.text) {
         print("Confirm password doesn't match password");
-      }else {
-      // loading
-      if (user.isBlank != true) {
-        
-        Get.to(() => const LoginScreen());
       } else {
-        print('error');
-      }
+        // loading
+        if (user.isBlank != true) {
+          Get.to(() => const LoginScreen());
+        } else {
+          print('error');
+        }
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         print('The email address is already in use.');
-      }else if (e.code == 'invalid-email'){
+      } else if (e.code == 'invalid-email') {
         print("Email không hợp lệ");
       }
     } catch (e) {
@@ -64,16 +67,17 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
+
   // change state visibility
   void togglePasswordVisibility() {
     hide.value = !hide.value;
   }
-  void toggleConfirmVisibility(){
+
+  void toggleConfirmVisibility() {
     hideConfirm.value = !hideConfirm.value;
   }
 
   Future<void> loginUser() async {
-    
     try {
       isLoading.value = true;
       final user = await _auth.signInWithEmailAndPassword(
