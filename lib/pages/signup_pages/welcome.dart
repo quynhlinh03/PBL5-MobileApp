@@ -37,7 +37,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 19,
                 ),
                 const Text(
-                  "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
+                  "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
                   textAlign: TextAlign.center,
                   style: AppStyle.light2,
                 ),
