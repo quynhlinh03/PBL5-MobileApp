@@ -15,7 +15,7 @@ class AppColors {
   static const blackBlur = Color.fromRGBO(185, 189, 208, 1);
 }
 
-MaterialColor myColor = MaterialColor(
+MaterialColor myColor = const MaterialColor(
   0xFF3F736F,
   <int, Color>{
     50: Color(0xFFE5F6F5),

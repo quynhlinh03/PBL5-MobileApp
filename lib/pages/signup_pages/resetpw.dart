@@ -1,11 +1,11 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/pages/signup_pages/result_forgot.dart';
+import 'package:pbl5_app/controller/auth_controller.dart';
+import 'package:pbl5_app/pages/signup_pages/success_page.dart';
 import '../../components/rouned_button.dart';
 import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
-
+// bo
 class ResetPassScreen extends StatefulWidget {
   const ResetPassScreen({Key? key}) : super(key: key);
 
@@ -16,6 +16,7 @@ class ResetPassScreen extends StatefulWidget {
 class _ResetPassScreenState extends State<ResetPassScreen> {
   @override
   Widget build(BuildContext context) {
+    AuthController authController = AuthController();
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
@@ -78,6 +79,7 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
+                  //authController.resetPassword(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

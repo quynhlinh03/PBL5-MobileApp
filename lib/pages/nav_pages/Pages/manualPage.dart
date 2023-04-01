@@ -36,7 +36,7 @@ class _ManualPageState extends State<ManualPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -85,7 +85,7 @@ class _ManualPageState extends State<ManualPage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
           ],

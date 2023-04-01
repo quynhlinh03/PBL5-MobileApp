@@ -45,19 +45,19 @@ class NotificationsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '07:00 AM'),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '08:00 AM'),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '09:00 AM'),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '10:00 AM'),
@@ -72,23 +72,23 @@ class NotificationsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '07:00 AM'),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '08:00 PM'),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '05:00 AM'),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '05:00 AM'),
-                  CustomNotification(
+                  const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '05:00 AM'),

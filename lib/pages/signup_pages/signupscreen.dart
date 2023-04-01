@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/pages/signup_pages/login_screen.dart';
+import 'package:get/get.dart';
+import 'package:pbl5_app/controller/auth_controller.dart';
 import '../../components/checksignuplogin.dart';
 import '../../components/rouned_button.dart';
 import '../../values/app_assets.dart';
@@ -7,19 +8,23 @@ import '../../values/app_styles.dart';
 import '../../values/app_colors.dart';
 import '../../components/textfieldcontainer.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  bool hide = true;
+  bool confirm = true;
+
+  @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.put(AuthController());
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: BackButton(color: AppColors.neutral),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
-      // body: Column(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -46,6 +51,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextField(
+                  controller: authController.emailController,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.mail_outline_rounded,
@@ -60,14 +66,27 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextField(
-                  obscureText: true,
+                  controller: authController.passwordController,
+                  obscureText: hide,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.lock_outline_rounded,
                       color: AppColors.neutral,
                     ),
-                    suffixIcon: const Icon(
-                      Icons.visibility,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          //authController.togglePasswordVisibility();
+                          hide = !hide;
+                        });
+                      },
+                      // icon: Obx(() => authController.hide.value
+                      //     ? const Icon(Icons.visibility)
+                      //     : const Icon(Icons.visibility_off_outlined)),
+                      // color: AppColors.neutral,
+                      icon: hide
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off_outlined),
                       color: AppColors.neutral,
                     ),
                     hintText: "Password",
@@ -79,14 +98,27 @@ class SignUpScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextField(
-                  obscureText: true,
+                  controller: authController.confirmTextController,
+                  obscureText: confirm,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.lock_outline_rounded,
                       color: AppColors.neutral,
                     ),
-                    suffixIcon: const Icon(
-                      Icons.visibility,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          //authController.toggleConfirmVisibility();
+                          confirm = !confirm;
+                        });
+                      },
+                      // icon: Obx(() => authController.hideConfirm.value
+                      //     ? const Icon(Icons.visibility)
+                      //     : const Icon(Icons.visibility_off_outlined)),
+                      // color: AppColors.neutral,
+                      icon: confirm
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off_outlined),
                       color: AppColors.neutral,
                     ),
                     hintText: "Confirm Password",
@@ -100,15 +132,8 @@ class SignUpScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 50),
                 alignment: Alignment.center,
                 child: RoundedButton(
-                  press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const LoginScreen();
-                        },
-                      ),
-                    );
+                  press: () async {
+                    authController.createAccount();
                   },
                   text: 'Signup',
                 ),
@@ -117,18 +142,11 @@ class SignUpScreen extends StatelessWidget {
                 height: 15,
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 10,top:10),
+                margin: const EdgeInsets.only(bottom: 10, top: 10),
                 child: CheckSignUpLogin(
                   login: '1',
                   press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const LoginScreen();
-                        },
-                      ),
-                    );
+                    Get.back();
                   },
                 ),
               )
