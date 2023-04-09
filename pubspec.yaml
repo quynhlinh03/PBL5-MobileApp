@@ -47,6 +47,7 @@ dependencies:
   google_fonts: ^4.0.3
   animate_do: ^3.0.2
   firebase_auth: ^4.3.0
+  firebase_database: ^10.1.0 
   firebase_core: ^2.8.0
   firebase_storage: ^11.0.16
   get: ^4.6.5

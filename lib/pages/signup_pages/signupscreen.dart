@@ -37,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               TextFieldContainer(
                 child: TextField(
+                  controller: authController.nameController,
                   decoration: InputDecoration(
                     icon: const Icon(
                       Icons.account_circle_outlined,

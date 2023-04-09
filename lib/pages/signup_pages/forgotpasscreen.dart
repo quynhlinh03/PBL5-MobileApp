@@ -21,7 +21,7 @@ class ForgotPassScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 30),
@@ -66,18 +66,13 @@ class ForgotPassScreen extends StatelessWidget {
                 text: 'Confirm',
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: AlignmentDirectional.bottomCenter,
-                child: Container(
-                  padding: const EdgeInsets.only(bottom: 40, top: 10),
-                  child: CheckSignUpLogin(
-                    login: '2',
-                    press: () {
-                      Get.to(() => const SignUpScreen());
-                    },
-                  ),
-                ),
+            Container(
+              padding: const EdgeInsets.only(top: 360),
+              child: CheckSignUpLogin(
+                login: '2',
+                press: () {
+                  Get.to(() => const SignUpScreen());
+                },
               ),
             ),
           ],
