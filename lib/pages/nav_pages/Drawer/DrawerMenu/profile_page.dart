@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../components/rouned_button.dart';
 import '../../../../values/app_colors.dart';
 import '../../../../components/textfield_widget.dart';
@@ -13,10 +17,21 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
+Future<Future<DocumentSnapshot<Map<String, dynamic>>>> getUser() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final id = prefs.getString("userID");
+  final user = FirebaseFirestore.instance.collection("users").doc(id).get();
+  return user;
+}
+
 class _ProfilePageState extends State<ProfilePage> {
+  // final user = getUser();
+  final user = FirebaseAuth.instance.currentUser;
+  final ref = FirebaseDatabase.instance.ref('users');
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // final token = prefs.getString("userID");
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: AppColors.white),
@@ -30,42 +45,46 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       body: Center(
-        child: Column(
-          children: [
-            headerWidget(),
-            Expanded(
-              child: SingleChildScrollView(
+          child: Column(
+        children: [
+          headerWidget(),
+          Expanded(
+            child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(30, 20, 30, 40),
                 child: Column(
                   children: [
                     const TextFieldWidget(
                       label: "Name",
-                      text: "Quynh Linh",
+                      // text: '${user?.name}',
+                      text: 'Quynh Linh',
+                      // text: "${const Text('Linh').data}",
+                      enabledValue: true,
                       // text: user.name,
                       // onChanged: (name) => user = user.copy(name: name),
                     ),
                     const SizedBox(height: 18),
-                    const TextFieldWidget(
+                    TextFieldWidget(
                       label: "Email",
-                      text: "phamthiquynhlinh3112002@gmail",
+                      text: '${user?.email}',
+                      enabledValue: false,
                       // text: user.email,
                       // onChanged: (email) => user = user.copy(email: email),
                     ),
                     const SizedBox(height: 18),
-                    const TextFieldWidget(
-                      label: "Phone number",
-                      text: "0702642445",
-                    ),
-                    const SizedBox(height: 18),
-                    const TextFieldWidget(
-                      label: "Day of birth ",
-                      text: "03/11/2002",
-                    ),
-                    const SizedBox(height: 18),
-                    const TextFieldWidget(
-                      label: "Gender",
-                      text: "Male",
-                    ),
+                    // const TextFieldWidget(
+                    //   label: "Phone number",
+                    //   text: "0702642445",
+                    // ),
+                    // const SizedBox(height: 18),
+                    // const TextFieldWidget(
+                    //   label: "Day of birth ",
+                    //   text: "03/11/2002",
+                    // ),
+                    // const SizedBox(height: 18),
+                    // const TextFieldWidget(
+                    //   label: "Gender",
+                    //   text: "Male",
+                    // ),
                     Container(
                       margin: const EdgeInsets.only(top: 29),
                       alignment: Alignment.center,
@@ -85,12 +104,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+                )),
+          ),
+        ],
+      )),
     );
   }
 }

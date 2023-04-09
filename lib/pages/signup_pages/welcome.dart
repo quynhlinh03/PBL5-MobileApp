@@ -25,35 +25,6 @@ class _WelcomePageState extends State<WelcomePage> {
             color: AppColors.greenGray,
             margin: const EdgeInsets.only(top: 38),
           ),
-// <<<<<<< HEAD
-//         ),
-//         Expanded(
-//             flex: 2,
-//             child: Center(
-//               child: Column(children: [
-//                 const SizedBox(
-//                   height: 72,
-//                 ),
-//                 const Text('Welcome to CHoCoL', style: AppStyle.bold),
-//                 const SizedBox(
-//                   height: 19,
-//                 ),
-//                 const Text(
-//                   "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
-//                   textAlign: TextAlign.center,
-//                   style: AppStyle.light2,
-//                 ),
-//                 SizedBox(
-//                   width: 216,
-//                   height: 215,
-//                   child: Image.asset(AppAsset.welcome),
-//                 ),
-//               ]),
-//             )),
-//         Expanded(
-//           flex: 1,
-//           child: Padding(
-// =======
           Center(
             child: Column(children: [
               const SizedBox(
@@ -76,7 +47,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ]),
           ),
           Padding(
-// >>>>>>> 37ffdea0e691443145bf089d7b2464d7b33ed910
+
             padding: const EdgeInsets.only(
               top: 80,
             ),
