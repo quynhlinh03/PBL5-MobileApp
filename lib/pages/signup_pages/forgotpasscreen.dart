@@ -17,14 +17,21 @@ class ForgotPassScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: AppColors.neutral),
+        iconTheme: const IconThemeData(color: AppColors.neutral),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          padding: const EdgeInsets.only(top: 25),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
             Container(
                 padding: const EdgeInsets.only(left: 25),
                 alignment: Alignment.bottomLeft,
@@ -34,11 +41,13 @@ class ForgotPassScreen extends StatelessWidget {
                   textAlign: TextAlign.left,
                 )),
             const SizedBox(height: 20),
-            const Padding(
-                padding: EdgeInsets.only(left: 27, right: 25),
-                child: Text(
+            Container(
+                padding: const EdgeInsets.only(left: 27),
+                alignment: Alignment.bottomLeft,
+                child: const Text(
                   "Enter your account email, we will send you a password reset link",
                   style: AppStyle.light1,
+                  textAlign: TextAlign.left,
                 )),
             const SizedBox(height: 42),
             TextFieldContainer(
@@ -67,7 +76,7 @@ class ForgotPassScreen extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(top: 360),
+              padding: const EdgeInsets.only(top: 400),
               child: CheckSignUpLogin(
                 login: '2',
                 press: () {

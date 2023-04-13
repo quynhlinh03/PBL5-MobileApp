@@ -22,7 +22,7 @@ class _SuccessPageState extends State<SuccessPage> {
           Container(
             width: double.infinity,
             color: AppColors.greenGray,
-            margin: const EdgeInsets.only(top: 44),
+            margin: const EdgeInsets.only(top: 140),
           ),
           Center(
             child: Column(children: [
@@ -33,7 +33,7 @@ class _SuccessPageState extends State<SuccessPage> {
               ),
               const Text('Successfully !', style: AppStyle.regular2),
               const SizedBox(
-                height: 19,
+                height: 17,
               ),
               const Text(
                 "Your password has been reset successfully!\nNow login with your new password.",
@@ -44,7 +44,7 @@ class _SuccessPageState extends State<SuccessPage> {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              bottom: 100,
+              top: 100,
             ),
             child: Column(
               children: [

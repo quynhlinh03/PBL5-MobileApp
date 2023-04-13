@@ -23,6 +23,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
+          padding: const EdgeInsets.only(top: 25),
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
           onPressed: () {
             Navigator.pop(context);
@@ -32,7 +33,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
             Container(
                 padding: const EdgeInsets.only(left: 25),
                 alignment: Alignment.bottomLeft,
@@ -65,6 +66,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 4),
             TextFieldContainer(
               child: TextField(
                 decoration: InputDecoration(
@@ -79,6 +81,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 4),
             TextFieldContainer(
               child: TextField(
                 decoration: InputDecoration(
@@ -93,6 +96,7 @@ class _ChangePassPageState extends State<ChangePassPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.only(top: 39),
               alignment: Alignment.center,

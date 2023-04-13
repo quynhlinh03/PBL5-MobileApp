@@ -21,7 +21,13 @@ class _ManualPageState extends State<ManualPage> {
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
         appBar: AppBar(
-          leading: const BackButton(color: AppColors.white),
+          leading: IconButton(
+            padding: const EdgeInsets.only(top: 25),
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           backgroundColor: AppColors.greenGray,
           elevation: 0,
         ),
@@ -57,7 +63,7 @@ class _ManualPageState extends State<ManualPage> {
                           const EdgeInsets.only(left: 25, top: 10, right: 20),
                       alignment: Alignment.bottomLeft,
                       child: const Text(
-                        "Đặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ CHoCoL Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng càng nhiều càng tốt và hạ thấp đầu vừa phải.",
+                        "Đặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ CHoCoL Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng và hạ thấp đầu vừa phải.\nĐặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ CHoCoL Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng càng nhiều càng tốt và hạ thấp đầu vừa phải.",
                         style: AppStyle.light2,
                         textAlign: TextAlign.left,
                       ),
@@ -85,9 +91,9 @@ class _ManualPageState extends State<ManualPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
           ],
         ));
   }
@@ -122,6 +128,6 @@ class _ManualPageState extends State<ManualPage> {
 
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
-        backgroundImage: AssetImage(AppAsset.introdcution1),
+        backgroundImage: const AssetImage(AppAsset.introdcution1),
       );
 }

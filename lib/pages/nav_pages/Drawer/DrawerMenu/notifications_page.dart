@@ -14,6 +14,7 @@ class NotificationsPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
+          padding: const EdgeInsets.only(top: 20),
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
           onPressed: () {
             Navigator.pop(context);
@@ -24,14 +25,14 @@ class NotificationsPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                padding: const EdgeInsets.only(left: 25),
+                padding: const EdgeInsets.only(top: 24, left: 25),
                 alignment: Alignment.bottomLeft,
                 child: const Text(
                   "Notifications",
                   style: AppStyle.regular2,
                   textAlign: TextAlign.left,
                 )),
-            const SizedBox(height: 44),
+            const SizedBox(height: 40),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(children: [
@@ -53,6 +54,14 @@ class NotificationsPage extends StatelessWidget {
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '08:00 AM'),
+                  const CustomNotification(
+                      icon: Icons.priority_high_rounded,
+                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                      time: '09:00 AM'),
+                  const CustomNotification(
+                      icon: Icons.priority_high_rounded,
+                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                      time: '09:00 AM'),
                   const CustomNotification(
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
@@ -92,10 +101,18 @@ class NotificationsPage extends StatelessWidget {
                       icon: Icons.priority_high_rounded,
                       name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
                       time: '05:00 AM'),
+                  const CustomNotification(
+                      icon: Icons.priority_high_rounded,
+                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                      time: '06:00 AM'),
+                  const CustomNotification(
+                      icon: Icons.priority_high_rounded,
+                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                      time: '07:00 PM'),
                 ]),
               ),
             ),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 20),
           ],
         ),
       ),

@@ -24,14 +24,28 @@ class _LineChartPageState extends State<LineChartPage> {
     AppColors.skin,
     AppColors.darkGreen,
   ];
-   
+
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const NavigationDrawerLeft(),
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                padding: const EdgeInsets.only(top: 15),
+                icon: const Icon(
+                  Icons.menu_outlined,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
           backgroundColor: AppColors.white,
           elevation: 0,
         ),
@@ -41,13 +55,14 @@ class _LineChartPageState extends State<LineChartPage> {
               mainAxisAlignment:
                   MainAxisAlignment.center, // canh giữa theo chiều dọc
               children: [
-                Text(
+                const SizedBox(height: 15),
+                const Text(
                   "Posture Analysis ",
-                  style: AppStyle.regular.copyWith(fontSize: 20),
+                  style: AppStyle.regular2,
                 ),
                 AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
-                    padding: const EdgeInsets.only(top: 28, bottom: 3),
+                    padding: const EdgeInsets.only(top: 30, bottom: 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -143,6 +158,9 @@ class _LineChartPageState extends State<LineChartPage> {
                       // legend items
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 const Chart(),
               ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../pages/signup_pages/login_screen.dart';
 import '../values/app_colors.dart';
 import '../values/app_styles.dart';
 
@@ -21,7 +20,7 @@ class RowViewIndex extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-        top: 30,
+        top: 35,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
