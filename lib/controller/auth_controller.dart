@@ -43,11 +43,6 @@ class AuthController extends GetxController {
         "email": emailController.text,
         "password": passwordController.text,
       });
-      // addUserDetails(
-      //   nameController.text,
-      //   emailController.text,
-      //   user
-      // );
 
       isLoading.value = false;
 
@@ -151,9 +146,6 @@ class AuthController extends GetxController {
           builder: (context) {
             return AlertDialog(
               content: Text(e.message.toString()),
-              actions: [
-                TextButton(onPressed: () {}, child: const Text('Close'))
-              ],
             );
           });
     }
