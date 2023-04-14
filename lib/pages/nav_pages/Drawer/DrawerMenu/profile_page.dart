@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:pbl5_app/controller/user_controller.dart';
+import 'package:pbl5_app/modules/user_module.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../components/rouned_button.dart';
 import '../../../../values/app_colors.dart';
 import '../../../../components/textfield_widget.dart';
@@ -17,19 +18,14 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-Future<Future<DocumentSnapshot<Map<String, dynamic>>>> getUser() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  final id = prefs.getString("userID");
-  final user = FirebaseFirestore.instance.collection("users").doc(id).get();
-  return user;
-}
-
 class _ProfilePageState extends State<ProfilePage> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   // final user = getUser();
   final user = FirebaseAuth.instance.currentUser;
   final ref = FirebaseDatabase.instance.ref('users');
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // final token = prefs.getString("userID");
+  final userController = UserController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,74 +41,86 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       body: Center(
-          child: Column(
-        children: [
-          headerWidget(),
-          Expanded(
-            child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(30, 20, 30, 40),
-                child: Column(
-                  children: [
-                    const TextFieldWidget(
-                      label: "Name",
-                      // text: '${user?.name}',
-                      text: 'Quynh Linh',
-                      // text: "${const Text('Linh').data}",
-                      enabledValue: true,
-                      // text: user.name,
-                      // onChanged: (name) => user = user.copy(name: name),
-                    ),
-                    const SizedBox(height: 18),
-                    TextFieldWidget(
-                      label: "Email",
-                      text: '${user?.email}',
-                      enabledValue: false,
-                      // text: user.email,
-                      // onChanged: (email) => user = user.copy(email: email),
-                    ),
-                    const SizedBox(height: 18),
-                    // const TextFieldWidget(
-                    //   label: "Phone number",
-                    //   text: "0702642445",
-                    // ),
-                    // const SizedBox(height: 18),
-                    // const TextFieldWidget(
-                    //   label: "Day of birth ",
-                    //   text: "03/11/2002",
-                    // ),
-                    // const SizedBox(height: 18),
-                    // const TextFieldWidget(
-                    //   label: "Gender",
-                    //   text: "Male",
-                    // ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 29),
-                      alignment: Alignment.center,
-                      child: RoundedButton(
-                        press: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const MainPageNav();
-                              },
-                            ),
-                          );
-                        },
-                        size: const Size(175, 52),
-                        text: 'Save',
+          child: FutureBuilder<Users?>(
+              future: userController.readUser(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final user = snapshot.data!;
+                  return Column(
+                    children: [
+                      headerWidget(user),
+                      Expanded(
+                        child: SingleChildScrollView(
+                            padding: const EdgeInsets.fromLTRB(30, 20, 30, 40),
+                            child: Column(
+                              children: [
+                                TextFieldWidget(
+                                  label: "Name",
+                                  // text: '${user?.name}',
+                                  text: user.name,
+                                  //text: "${const Text('Linh').data}",
+                                  enabledValue: false,
+                                  // text: user.name,
+                                  // onChanged: (name) => user = user.copy(name: name),
+                                ),
+
+                                const SizedBox(height: 18),
+                                TextFieldWidget(
+                                  label: "Email",
+                                  text: user.email,
+                                  enabledValue: false,
+                                  // text: user.email,
+                                  // onChanged: (email) => user = user.copy(email: email),
+                                ),
+                                const SizedBox(height: 18),
+                                // const TextFieldWidget(
+                                //   label: "Phone number",
+                                //   text: "0702642445",
+                                // ),
+                                // const SizedBox(height: 18),
+                                // const TextFieldWidget(
+                                //   label: "Day of birth ",
+                                //   text: "03/11/2002",
+                                // ),
+                                // const SizedBox(height: 18),
+                                // const TextFieldWidget(
+                                //   label: "Gender",
+                                //   text: "Male",
+                                // ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 29),
+                                  alignment: Alignment.center,
+                                  child: RoundedButton(
+                                    press: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return const MainPageNav();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    size: const Size(175, 52),
+                                    text: 'Save',
+                                  ),
+                                ),
+                              ],
+                            )),
                       ),
-                    ),
-                  ],
-                )),
-          ),
-        ],
-      )),
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              })),
     );
   }
 }
 
-Widget headerWidget() {
+Widget headerWidget(Users user) {
   return Container(
     decoration: const BoxDecoration(
       color: AppColors.greenGray,
@@ -126,15 +134,16 @@ Widget headerWidget() {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 15),
-          child: const CircleAvatar(
+          child: CircleAvatar(
             radius: 60,
-            backgroundImage: AssetImage(AppAsset.ava),
+            backgroundImage: AssetImage(
+                user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
           ),
         ),
         Container(
             margin: const EdgeInsets.only(left: 0, top: 16),
-            child: const Text(
-              "Quynh Linh",
+            child: Text(
+              user.name,
               style: AppStyle.mediumwhite,
               textAlign: TextAlign.left,
             )),
