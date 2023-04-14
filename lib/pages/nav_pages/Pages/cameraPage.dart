@@ -91,7 +91,7 @@ class _WifiCheckState extends State<WifiCheck> {
           )
         ],
       ),
-      drawer: const NavigationDrawerLeft(),
+      drawer: NavigationDrawerLeft(),
       appBar: AppBar(
         leading: Builder(
           builder: (BuildContext context) {

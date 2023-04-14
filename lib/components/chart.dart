@@ -18,7 +18,7 @@ class Chart extends StatelessWidget {
           PieChart(
             PieChartData(
               sectionsSpace: 0,
-              centerSpaceRadius: 92,
+              centerSpaceRadius: 91,
               startDegreeOffset: -280,
               sections: paiChartSelectionDatas,
             ),

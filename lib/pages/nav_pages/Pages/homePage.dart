@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawerLeft(),
+      drawer: NavigationDrawerLeft(),
       appBar: AppBar(
         leading: Builder(
           builder: (BuildContext context) {

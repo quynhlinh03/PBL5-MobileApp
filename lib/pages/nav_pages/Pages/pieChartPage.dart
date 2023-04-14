@@ -32,7 +32,7 @@ class _PieChartPageState extends State<PieChartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawerLeft(),
+      drawer: NavigationDrawerLeft(),
       // appBar: AppBar(
       //   backgroundColor: AppColors.greenGray,
       //   elevation: 0,

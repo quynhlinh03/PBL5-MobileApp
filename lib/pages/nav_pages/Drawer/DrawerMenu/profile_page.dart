@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/controller/user_controller.dart';
 import 'package:pbl5_app/modules/user_module.dart';
@@ -22,8 +20,6 @@ class _ProfilePageState extends State<ProfilePage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // final user = getUser();
-  final user = FirebaseAuth.instance.currentUser;
-  final ref = FirebaseDatabase.instance.ref('users');
   final userController = UserController();
 
   @override
@@ -55,6 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             padding: const EdgeInsets.fromLTRB(30, 20, 30, 40),
                             child: Column(
                               children: [
+                                const SizedBox(height: 18),
                                 TextFieldWidget(
                                   label: "Name",
                                   // text: '${user?.name}',
