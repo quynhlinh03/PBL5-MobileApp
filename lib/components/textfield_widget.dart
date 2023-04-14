@@ -4,6 +4,7 @@ import 'package:pbl5_app/values/app_colors.dart';
 
 class TextFieldWidget extends StatefulWidget {
   // final int maxLines;
+  final bool enabledValue;
   final String label;
   final String text;
   // final ValueChanged<String> onChanged;
@@ -11,6 +12,7 @@ class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget({
     Key? key,
     // this.maxLines = 1,
+    required this.enabledValue,
     required this.label,
     required this.text,
     // required this.onChanged,
@@ -48,6 +50,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           const SizedBox(height: 7),
           TextField(
             cursorHeight: 12,
+            enabled: widget.enabledValue,
             style: AppStyle.light2.copyWith(color: AppColors.fontNormal),
             controller: controller,
             decoration: InputDecoration(

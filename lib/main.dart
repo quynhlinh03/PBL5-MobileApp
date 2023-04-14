@@ -17,13 +17,13 @@ Future<void> main() async {
 _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final token = prefs.getString("userID");
+  
   if (token != null) {
     print('Token: $token');
     Get.offAll(() => const MainPageNav());
   } else {
     Get.offAll(() => const WelcomePage());
   }
-
 }
 
 class MyApp extends StatelessWidget {

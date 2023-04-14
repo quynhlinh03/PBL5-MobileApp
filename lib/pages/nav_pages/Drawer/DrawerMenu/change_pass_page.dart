@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pbl5_app/pages/signup_pages/success_page.dart';
 import '../../../../components/rouned_button.dart';
 import '../../../../values/app_styles.dart';
@@ -18,9 +19,15 @@ class _ChangePassPageState extends State<ChangePassPage> {
     Size size = MediaQuery.of(context).size; //get the screen size
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: AppColors.neutral),
+        iconTheme: const IconThemeData(color: AppColors.neutral),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Center(
         child: Column(
@@ -91,14 +98,15 @@ class _ChangePassPageState extends State<ChangePassPage> {
               alignment: Alignment.center,
               child: RoundedButton(
                 press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const SuccessPage();
-                      },
-                    ),
-                  );
+                  Get.to(() => const SuccessPage());
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return const SuccessPage();
+                  //     },
+                  //   ),
+                  // );
                 },
                 text: 'Change Password',
               ),

@@ -47,6 +47,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ]),
           ),
           Padding(
+
             padding: const EdgeInsets.only(
               top: 80,
             ),

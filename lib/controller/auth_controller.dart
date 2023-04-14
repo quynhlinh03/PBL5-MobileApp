@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   // sign up text editing controllers
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -40,7 +41,7 @@ class AuthController extends GetxController {
       firestore.collection('users').doc(user.user!.uid).set({
         "name": nameController.text,
         "email": emailController.text,
-        "password": passwordController.text
+        "password": passwordController.text,
       });
 
       isLoading.value = false;
@@ -66,6 +67,15 @@ class AuthController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<void> addUserDetails(
+      String name, String email, UserCredential user) async {
+    final firestore = FirebaseFirestore.instance;
+    firestore
+        .collection('users')
+        .doc(user.user!.uid)
+        .set({"email": email, "name": name});
   }
 
   // change state visibility
@@ -136,9 +146,6 @@ class AuthController extends GetxController {
           builder: (context) {
             return AlertDialog(
               content: Text(e.message.toString()),
-              actions: [
-                TextButton(onPressed: () {}, child: const Text('Close'))
-              ],
             );
           });
     }
