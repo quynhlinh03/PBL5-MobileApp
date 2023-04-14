@@ -36,7 +36,7 @@ class AppStyle {
       fontWeight: FontWeight.w500);
   static const TextStyle mediumblack16 = TextStyle(
       fontFamily: AppFont.lexend,
-      fontSize: 16,
+      fontSize: 18,
       color: Colors.black,
       fontWeight: FontWeight.w500);
   static const TextStyle mediumGreen = TextStyle(
@@ -86,7 +86,7 @@ class AppStyle {
       fontWeight: FontWeight.bold);
   static const TextStyle semibold = TextStyle(
       fontFamily: AppFont.lexend,
-      fontSize: 24,
+      fontSize: 26,
       color: Colors.white,
       fontWeight: FontWeight.w500);
 }

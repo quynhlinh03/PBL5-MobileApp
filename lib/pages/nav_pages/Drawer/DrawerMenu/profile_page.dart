@@ -34,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: AppColors.greenGray,
         elevation: 0,
         leading: IconButton(
+          padding: const EdgeInsets.only(top: 20),
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
           onPressed: () {
             Navigator.pop(context);
@@ -128,16 +129,17 @@ Widget headerWidget(Users user) {
           bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
     ),
     alignment: Alignment.bottomCenter,
-    height: 200,
+    height: 204,
     width: 800,
     child: Column(
       children: [
         Container(
           margin: const EdgeInsets.only(top: 15),
-          child: CircleAvatar(
+          child: const CircleAvatar(
             radius: 60,
-            backgroundImage: AssetImage(
-                user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
+            backgroundImage: AssetImage(AppAsset.ava),
+            // AssetImage(
+            //     user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
           ),
         ),
         Container(

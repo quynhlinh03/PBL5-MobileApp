@@ -28,7 +28,7 @@ class NavigationDrawerLeft extends StatelessWidget {
             ),
             headerWidget(),
             const SizedBox(
-              height: 30,
+              height: 28,
             ),
             Container(
               margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),

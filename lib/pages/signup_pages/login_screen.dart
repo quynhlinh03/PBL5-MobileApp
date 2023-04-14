@@ -79,9 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       icon: hide
                           ? const Icon(Icons.visibility)
                           : const Icon(Icons.visibility_off_outlined),
-                          color: AppColors.neutral,
+                      color: AppColors.neutral,
                     ),
-                    
                     hintText: "Password",
                     hintStyle:
                         AppStyle.light2.copyWith(color: AppColors.fontNormal),

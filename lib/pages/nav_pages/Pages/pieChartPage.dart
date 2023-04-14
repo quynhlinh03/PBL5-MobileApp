@@ -44,7 +44,7 @@ class _PieChartPageState extends State<PieChartPage> {
             centerTitle: false,
             title: Container(
               alignment: Alignment.topCenter,
-              padding: const EdgeInsets.only(top: 0, left: 16, bottom: 16),
+              padding: const EdgeInsets.only(top: 20, left: 16, bottom: 16),
               // ignore: sort_child_properties_last
               child: PieChartWithLegend(
                 legendItems: [
@@ -68,10 +68,11 @@ class _PieChartPageState extends State<PieChartPage> {
               preferredSize: const Size.fromHeight(40),
               child: Container(
                   width: double.maxFinite,
-                  padding: const EdgeInsets.only(top: 12, bottom: 10),
+                  padding: const EdgeInsets.only(top: 18, bottom: 12),
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       boxShadow: null,
+                      border: null,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30.0),
                         topRight: Radius.circular(30.0),
@@ -82,7 +83,7 @@ class _PieChartPageState extends State<PieChartPage> {
             // floating: true,
             pinned: true,
             backgroundColor: AppColors.greenGray,
-            expandedHeight: 480, //420
+            expandedHeight: 500, //420
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 width: double.maxFinite,
@@ -92,9 +93,9 @@ class _PieChartPageState extends State<PieChartPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 0),
+                    const SizedBox(height: 10),
                     Container(
-                      padding: const EdgeInsets.only(top: 34),
+                      padding: const EdgeInsets.only(top: 30),
                       width: 260,
                       child: PieChart(
                         dataMap: dataMap,
@@ -114,7 +115,7 @@ class _PieChartPageState extends State<PieChartPage> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 18),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -130,11 +131,16 @@ class _PieChartPageState extends State<PieChartPage> {
                                 style: AppStyle.light1white,
                               ),
                               style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color.fromRGBO(255, 255, 255, 0.3)),
+                                backgroundColor: MaterialStateProperty.all<
+                                        Color>(
+                                    const Color.fromRGBO(255, 255, 255, 0.3)),
                                 padding: MaterialStateProperty.all<EdgeInsets>(
-                                    const EdgeInsets.all(6)),
+                                    // const EdgeInsets.all(7)),
+                                    const EdgeInsets.only(
+                                        top: 7,
+                                        right: 10,
+                                        left: 10,
+                                        bottom: 7)),
                                 shape:
                                     MaterialStateProperty.all<OutlinedBorder>(
                                   RoundedRectangleBorder(
@@ -155,36 +161,36 @@ class _PieChartPageState extends State<PieChartPage> {
             child: Column(
               children: <Widget>[
                 const SizedBox(
-                  height: 15,
+                  height: 21,
                 ),
                 adviceBox(
                     title: 'Rounded Shoulders',
                     percent:
                         '${(dataMap["Rounded Shoulders"]!).toStringAsFixed(0)}%',
                     content:
-                        'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng.',
+                        'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
                     color: AppColors.skin),
                 const SizedBox(
-                  height: 20,
+                  height: 24,
                 ),
                 adviceBox(
                     title: 'Wrong Leg',
                     percent: '${(dataMap["Wrong Leg"]!).toStringAsFixed(0)}%',
                     content:
-                        'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái.',
+                        'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
                     color: AppColors.mossGreen),
                 const SizedBox(
-                  height: 20,
+                  height: 24,
                 ),
                 adviceBox(
                     title: 'Forwarded Head',
                     percent:
                         '${(dataMap["Forwarded Head"]!).toStringAsFixed(0)}%',
                     content:
-                        'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não.',
+                        'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
                     color: AppColors.darkGreen),
                 const SizedBox(
-                  height: 45,
+                  height: 38,
                 ),
               ],
             ),

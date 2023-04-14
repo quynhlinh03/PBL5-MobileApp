@@ -14,7 +14,7 @@ class RoundedButton extends StatelessWidget {
     required this.press,
     this.textColor = Colors.white,
     this.background = AppColors.greenGray,
-    this.size = const Size(256, 61),
+    this.size = const Size(256, 56),
   });
 
   @override

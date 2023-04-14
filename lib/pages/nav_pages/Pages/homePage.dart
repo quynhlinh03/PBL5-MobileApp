@@ -21,20 +21,21 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: const NavigationDrawerLeft(),
       appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              padding: const EdgeInsets.only(top: 15),
+              icon: const Icon(Icons.menu_outlined),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
         backgroundColor: AppColors.greenGray,
         elevation: 0,
       ),
-      // drawer: const NavigationDrawerLeft(),
-      // appBar: AppBar(
-      //   backgroundColor: AppColors.greenGray,
-      //   leading: IconButton(
-      //     icon: const Icon(Icons.add),
-      //     // alignment: Alignment.topRight,
-      //     onPressed: () {
-      //       // Navigator.pop(context);
-      //     },
-      //   ),
-      // ),
       body: Container(
         child: Center(
             child: Column(
@@ -43,21 +44,21 @@ class _HomePageState extends State<HomePage> {
             Container(
               alignment: Alignment.bottomLeft,
               padding: const EdgeInsets.only(top: 0, left: 0),
-              height: 267,
+              height: 270,
               width: 800,
               color: AppColors.greenGray,
               child: Column(
                 children: [
                   Container(
                       padding:
-                          const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                          const EdgeInsets.only(left: 22, top: 16, bottom: 10),
                       alignment: Alignment.bottomLeft,
                       child: const Text(
                         "Devices",
                         style: AppStyle.semibold,
                         textAlign: TextAlign.left,
                       )),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 22),
                   GestureDetector(
                     onTap: () {
                       // Hành động khi người dùng bấm vào hình ảnh
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: AppColors.white,
-                        image: DecorationImage(
+                        image: const DecorationImage(
                             image: AssetImage('assets/images/device.jpg'),
                             fit: BoxFit.fitHeight),
                       ),

@@ -19,38 +19,38 @@ class adviceBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.only(
-          top: 20,
+          top: 21,
           bottom: 20,
           left: 25,
           right: 25,
         ),
         width: 336,
-        height: 168,
+        height: 180,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40), color: color),
         child: Column(
           children: <Widget>[
             Row(
               children: <Widget>[
-            Expanded(
-              flex: 4,
-              child: Text(
-                title,
-                style: AppStyle.regular18white,
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Text(
-                percent,
-                style: AppStyle.regular18white,
-              ),
-            ),
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    title,
+                    style: AppStyle.regular18white,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    percent,
+                    style: AppStyle.regular18white,
+                  ),
+                ),
               ],
             ),
             Container(
               padding: const EdgeInsets.only(
-                top: 10,
+                top: 12,
               ),
               child: Text(
                 content,

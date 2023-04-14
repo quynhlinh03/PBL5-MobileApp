@@ -6,13 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../components/rouned_button.dart';
-import 'package:pbl5_app/values/app_styles.dart';
 import '../../../values/app_colors.dart';
 import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
-import '../../../pages/signup_pages/login_screen.dart';
-import '../../../pages/nav_pages/Pages/manualPage.dart';
-import '../../../pages/nav_pages/Pages/correctPosturePage.dart';
-import '../../../pages/nav_pages/Pages/addDevicesPage.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({
@@ -89,7 +84,7 @@ class _WifiCheckState extends State<WifiCheck> {
                   text: isTargetSSID ? "Connect" : "Recheck WIFI",
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 )
               ],
             ),
@@ -98,7 +93,21 @@ class _WifiCheckState extends State<WifiCheck> {
       ),
       drawer: const NavigationDrawerLeft(),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              padding: const EdgeInsets.only(top: 15),
+              icon: const Icon(
+                Icons.menu_outlined,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
         backgroundColor: AppColors.white,
         elevation: 0,
       ),
