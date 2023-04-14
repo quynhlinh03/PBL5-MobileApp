@@ -29,7 +29,7 @@ class _LineChartPageState extends State<LineChartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const NavigationDrawerLeft(),
+        drawer: NavigationDrawerLeft(),
         appBar: AppBar(
           leading: Builder(
             builder: (BuildContext context) {
@@ -62,7 +62,7 @@ class _LineChartPageState extends State<LineChartPage> {
                 ),
                 AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
-                    padding: const EdgeInsets.only(top: 30, bottom: 3),
+                    padding: const EdgeInsets.only(top: 36, bottom: 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -160,7 +160,7 @@ class _LineChartPageState extends State<LineChartPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 const Chart(),
               ],

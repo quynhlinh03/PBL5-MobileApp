@@ -3,14 +3,17 @@ import 'package:pbl5_app/controller/auth_controller.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notifications_page.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
+import '../../../controller/user_controller.dart';
+import '../../../modules/user_module.dart';
 import '../../../pages/nav_pages/Drawer/DrawerMenu/change_pass_page.dart';
-import '../../../pages/nav_pages/Drawer/DrawerMenu/profile_page.dart';
 import '../../../pages/nav_pages/Drawer/DrawerMenu/setting_page.dart';
 import '../../../pages/nav_pages/Drawer/Items/drawer_item.dart';
 import '../../../values/app_colors.dart';
+import 'DrawerMenu/profile_page.dart';
 
 class NavigationDrawerLeft extends StatelessWidget {
-  const NavigationDrawerLeft({Key? key}) : super(key: key);
+  NavigationDrawerLeft({Key? key}) : super(key: key);
+  final userController = UserController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,20 @@ class NavigationDrawerLeft extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            const SizedBox(
-              height: 38,
-            ),
-            headerWidget(),
+            Center(
+                child: FutureBuilder<Users?>(
+                    future: userController.readUser(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final user = snapshot.data!;
+                        return headerWidget(user);
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    })),
+            // headerWidget(user),
             const SizedBox(
               height: 28,
             ),
@@ -102,7 +115,7 @@ class NavigationDrawerLeft extends StatelessWidget {
     }
   }
 
-  Widget headerWidget() {
+  Widget headerWidget(Users user) {
     const url =
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxQeDXrL0QAJXo-i-h01SqL-Xwu6yA7pU5rJHaTq36sA&s";
     // "https://drive.google.com/file/d/16rI0QS0_3dBeVJJG0zBofEZZ2EV8aRyS/view";
@@ -110,15 +123,19 @@ class NavigationDrawerLeft extends StatelessWidget {
     return Container(
       alignment: Alignment.bottomLeft,
       // margin: const EdgeInsets.only(left: 24, top: 40),
-      height: 200,
+      height: 240,
       width: 800,
       color: AppColors.greenGray,
       // child: Padding(
       //   padding: const EdgeInsets.fromLTRB(24.0, 40, 24, 0),
       child: Column(
         children: [
+          const SizedBox(
+            height: 38,
+          ),
           Container(
-            margin: const EdgeInsets.only(left: 0, top: 50),
+            margin: const EdgeInsets.only(left: 26, top: 50),
+            alignment: Alignment.bottomLeft,
             child: const CircleAvatar(
               radius: 40,
               backgroundImage: AssetImage(AppAsset.ava),
@@ -127,8 +144,10 @@ class NavigationDrawerLeft extends StatelessWidget {
           ),
           Container(
               margin: const EdgeInsets.only(left: 26, top: 16),
-              child: const Text(
-                "Quynh Linh",
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                user.name,
+                // "Quynh Linh",
                 style: AppStyle.mediumwhite,
                 textAlign: TextAlign.left,
               )),
