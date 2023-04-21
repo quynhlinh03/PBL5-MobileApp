@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/controller/user_controller.dart';
 import 'package:pbl5_app/modules/user_module.dart';
@@ -43,6 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final user = snapshot.data!;
+                  final nameController = TextEditingController(text: user.name);
                   return Column(
                     children: [
                       headerWidget(user),
@@ -54,42 +56,52 @@ class _ProfilePageState extends State<ProfilePage> {
                                 const SizedBox(height: 18),
                                 TextFieldWidget(
                                   label: "Name",
-                                  // text: '${user?.name}',
-                                  text: user.name,
-                                  //text: "${const Text('Linh').data}",
-                                  enabledValue: false,
-                                  // text: user.name,
-                                  // onChanged: (name) => user = user.copy(name: name),
+                                  child: TextField(
+                                    controller: nameController,
+                                    cursorHeight: 12,
+                                    enabled: true,
+                                    style: AppStyle.light2
+                                        .copyWith(color: AppColors.fontNormal),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-
                                 const SizedBox(height: 18),
                                 TextFieldWidget(
                                   label: "Email",
-                                  text: user.email,
-                                  enabledValue: false,
-                                  // text: user.email,
-                                  // onChanged: (email) => user = user.copy(email: email),
+                                  child: TextField(
+                                    cursorHeight: 12,
+                                    enabled: false,
+                                    style: AppStyle.light2
+                                        .copyWith(color: AppColors.fontNormal),
+                                    decoration: InputDecoration(
+                                      hintText: user.email,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(height: 18),
-                                // const TextFieldWidget(
-                                //   label: "Phone number",
-                                //   text: "0702642445",
-                                // ),
-                                // const SizedBox(height: 18),
-                                // const TextFieldWidget(
-                                //   label: "Day of birth ",
-                                //   text: "03/11/2002",
-                                // ),
-                                // const SizedBox(height: 18),
-                                // const TextFieldWidget(
-                                //   label: "Gender",
-                                //   text: "Male",
-                                // ),
                                 Container(
                                   margin: const EdgeInsets.only(top: 29),
                                   alignment: Alignment.center,
                                   child: RoundedButton(
                                     press: () {
+                                      final currentUser =
+                                          FirebaseAuth.instance.currentUser;
+                                      final userId = currentUser
+                                          ?.uid; // lấy id của người dùng hiện tại
+                                      final docUser = FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(userId);
+                                      docUser.update({
+                                        'name': nameController.text,
+                                      });
+
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -132,11 +144,11 @@ Widget headerWidget(Users user) {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 15),
-          child: CircleAvatar(
+          child: const CircleAvatar(
             radius: 60,
-            backgroundImage: //AssetImage(AppAsset.ava),
-                AssetImage(
-                    user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
+            backgroundImage: AssetImage(AppAsset.ava),
+            // AssetImage(
+            //     user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
           ),
         ),
         Container(
