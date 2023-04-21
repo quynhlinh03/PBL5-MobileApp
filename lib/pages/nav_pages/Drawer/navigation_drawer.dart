@@ -136,9 +136,10 @@ class NavigationDrawerLeft extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 26, top: 50),
             alignment: Alignment.bottomLeft,
-            child: const CircleAvatar(
+            child: CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage(AppAsset.ava),
+              backgroundImage: AssetImage(
+                  user.name == "Linh" ? AppAsset.ava : AppAsset.ava_nam),
               // backgroundImage: NetworkImage(url),
             ),
           ),

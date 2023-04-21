@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pbl5_app/pages/nav_pages/navpages.dart';
+import 'package:pbl5_app/services/notification_service.dart';
 import 'package:pbl5_app/values/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './pages/signup_pages/welcome.dart';
@@ -10,13 +11,19 @@ import 'values/app_fonts.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await NotificationService.initializeNotification();
+  await NotificationService.initializeRemoteNotifications(debug: true);
   runApp(const MyApp());
   _init();
 }
 
+final notifController = NotificationService();
 _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final token = prefs.getString("userID");
+
+  notifController.checkPermission();
+  notifController.requestFirebaseToken();
   
   if (token != null) {
     print('Token: $token');

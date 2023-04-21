@@ -25,7 +25,7 @@ class adviceBox extends StatelessWidget {
           right: 25,
         ),
         width: 336,
-        height: 180,
+        // height: 180,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40), color: color),
         child: Column(

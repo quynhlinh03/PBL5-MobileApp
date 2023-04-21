@@ -52,6 +52,8 @@ dependencies:
   firebase_storage: ^11.0.16
   get: ^4.6.5
   shared_preferences: ^2.0.20
+  awesome_notifications: ^0.7.4+1
+  awesome_notifications_fcm: ^0.7.4+1
 
 
 dev_dependencies:
