@@ -132,11 +132,11 @@ Widget headerWidget(Users user) {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 15),
-          child: const CircleAvatar(
+          child: CircleAvatar(
             radius: 60,
-            backgroundImage: AssetImage(AppAsset.ava),
-            // AssetImage(
-            //     user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
+            backgroundImage: //AssetImage(AppAsset.ava),
+                AssetImage(
+                    user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
           ),
         ),
         Container(
