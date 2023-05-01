@@ -19,8 +19,7 @@ class NotificationService {
           ledColor: Colors.white,
           importance: NotificationImportance.Max,
           channelShowBadge: true,
-          onlyAlertOnce: true,
-          
+          // onlyAlertOnce: true,
           playSound: true,
           criticalAlerts: true,
         )
@@ -42,7 +41,7 @@ class NotificationService {
       },
     );
 
-    await AwesomeNotifications().setListeners(  
+    await AwesomeNotifications().setListeners(
       onActionReceivedMethod: onActionReceivedMethod,
       onNotificationCreatedMethod: onNotificationCreatedMethod,
       onNotificationDisplayedMethod: onNotificationDisplayedMethod,
@@ -74,7 +73,7 @@ class NotificationService {
     debugPrint('onActionReceivedMethod');
     final payload = receivedAction.payload ?? {};
     if (payload["navigate"] == "true") {
-      Get.to(()=> const NotificationsPage());
+      Get.to(() => const NotificationsPage());
     }
   }
 
@@ -123,19 +122,18 @@ class NotificationService {
       {required bool debug}) async {
     await Firebase.initializeApp();
     await AwesomeNotificationsFcm().initialize(
-				// Handle Silent data
+        // Handle Silent data
         onFcmSilentDataHandle: NotificationService.mySilentDataHandle,
-				// Method này dùng để phát hiện khi nhận được fcm token mới.
+        // Method này dùng để phát hiện khi nhận được fcm token mới.
         onFcmTokenHandle: NotificationService.myFcmTokenHandle,
-				// Method này dùng để phát hiện khi nhận được native token mới.
+        // Method này dùng để phát hiện khi nhận được native token mới.
         onNativeTokenHandle: NotificationService.myNativeTokenHandle,
-				// Bài sau mình sẽ đi chi tiết hơn về 3 Method trên nhé.
-
-        // This license key is necessary only to remove the watermark for
-        // push notifications in release mode. To know more about it, please
-        // visit http://awesome-notifications.carda.me#prices
         licenseKeys: null,
         debug: debug);
+
+    await AwesomeNotifications().setListeners(
+      onActionReceivedMethod: onActionReceivedMethod,
+    );
   }
 
   Future<void> checkPermission() async {
@@ -147,7 +145,7 @@ class NotificationService {
 
   // FCM Token của thiết bị.
   Future<String> requestFirebaseToken() async {
-    if (await AwesomeNotificationsFcm().isFirebaseAvailable ) {
+    if (await AwesomeNotificationsFcm().isFirebaseAvailable) {
       try {
         final token = await AwesomeNotificationsFcm().requestFirebaseAppToken();
         print('==================FCM Token==================');
@@ -174,7 +172,7 @@ class NotificationService {
     }
 
     print("starting long task");
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4));
     final url = Uri.parse("http://google.com");
     // final re = await http.get(url);
     // print(re.body);
@@ -192,5 +190,4 @@ class NotificationService {
   static Future<void> myNativeTokenHandle(String token) async {
     debugPrint('Native Token:"$token"');
   }
-
 }
