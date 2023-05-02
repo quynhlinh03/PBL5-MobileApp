@@ -54,6 +54,8 @@ dependencies:
   shared_preferences: ^2.0.20
   awesome_notifications: ^0.7.4+1
   awesome_notifications_fcm: ^0.7.4+1
+  # camera
+  flutter_mjpeg: ^2.0.3
 
 
 dev_dependencies:
