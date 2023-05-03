@@ -16,10 +16,6 @@ class LineChartPage extends StatefulWidget {
 }
 
 class _LineChartPageState extends State<LineChartPage> {
-  Map<String, double> dataMap = {
-    "Wrong": 7.5,
-    "Correct": 2.5,
-  };
   List<Color> colorList = [
     AppColors.skin,
     AppColors.darkGreen,
@@ -144,7 +140,6 @@ class _LineChartPageState extends State<LineChartPage> {
                 const SizedBox(height: 10),
                 Container(
                   alignment: Alignment.center,
-                  // height: 50,
                   child: PieChartWithLegend(
                     legendItems: [
                       LegendItem(
@@ -162,6 +157,7 @@ class _LineChartPageState extends State<LineChartPage> {
                 const SizedBox(
                   height: 15,
                 ),
+                // Pie Chart This Day
                 const Chart(),
               ],
             ),
