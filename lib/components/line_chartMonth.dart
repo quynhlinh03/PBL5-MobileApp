@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_styles.dart';
@@ -19,40 +17,66 @@ class _LineChartMonthWidgetState extends State<LineChartMonthWidget> {
     AppColors.darkGreen,
   ];
 
-  List<FlSpot> _monthlySpots = [
-    FlSpot(1, 5),
-    FlSpot(2, 4),
-    FlSpot(3, 3),
-    FlSpot(4, 2.1),
-    FlSpot(5, 2),
-    FlSpot(6, 5),
-    FlSpot(7, 4),
-    FlSpot(8, 3),
-    FlSpot(9, 2.1),
-    FlSpot(10, 2),
-    FlSpot(11, 2.1),
-    FlSpot(12, 2),
-  ];
+  // final List<FlSpot> _monthlySpots = [
+  //   const FlSpot(1, 5),
+  //   const FlSpot(2, 4),
+  //   const FlSpot(3, 3),
+  //   const FlSpot(4, 2.1),
+  //   const FlSpot(5, 2),
+  //   const FlSpot(6, 5),
+  //   const FlSpot(7, 4),
+  //   const FlSpot(8, 3),
+  //   const FlSpot(9, 2.1),
+  //   const FlSpot(10, 2),
+  //   const FlSpot(11, 2.1),
+  //   const FlSpot(12, 2),
+  // ];
 
-  List<FlSpot> _monthlySpots2 = [
-    FlSpot(1, 2),
-    FlSpot(2, 3),
-    FlSpot(3, 4),
-    FlSpot(4, 4.9),
-    FlSpot(5, 5),
-    FlSpot(6, 2),
-    FlSpot(7, 3),
-    FlSpot(8, 4),
-    FlSpot(9, 4.9),
-    FlSpot(10, 5),
-    FlSpot(11, 4.9),
-    FlSpot(12, 5),
-  ];
+  // final List<FlSpot> _monthlySpots2 = [
+  //   const FlSpot(1, 2),
+  //   const FlSpot(2, 3),
+  //   const FlSpot(3, 4),
+  //   const FlSpot(4, 4.9),
+  //   const FlSpot(5, 5),
+  //   const FlSpot(6, 2),
+  //   const FlSpot(7, 3),
+  //   const FlSpot(8, 4),
+  //   const FlSpot(9, 4.9),
+  //   const FlSpot(10, 5),
+  //   const FlSpot(11, 4.9),
+  //   const FlSpot(12, 5),
+  // ];
 
-  // int currentIndex = 0;
+  final List<FlSpot> _monthlySpots = [];
+  final List<FlSpot> _monthlySpots2 = [];
+  var monthlySpot = [
+    0.6,
+    0.8,
+    0.7,
+    0.7,
+    0.5,
+    null,
+    0.1,
+    0.5,
+    null,
+    0.7,
+    0.1,
+    null
+  ];
 
   @override
   Widget build(BuildContext context) {
+    var x = 0;
+    for (var i = 1.0; i <= 12; i += 1) {
+      if (monthlySpot[x.toInt()] != null) {
+        _monthlySpots
+            .add(FlSpot(i, (5 * (monthlySpot[x.toInt()]!) + 1).toDouble()));
+        _monthlySpots2.add(
+            FlSpot(i, (7 - (5 * (monthlySpot[x.toInt()]!) + 1)).toDouble()));
+      }
+      x += 1;
+    }
+
     return Stack(
       children: <Widget>[
         AspectRatio(

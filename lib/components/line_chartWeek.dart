@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_styles.dart';
@@ -7,34 +5,35 @@ import 'package:pbl5_app/values/app_styles.dart';
 import '../values/app_colors.dart';
 
 class LineChartWeekWidget extends StatefulWidget {
-  const LineChartWeekWidget({super.key});
+  const LineChartWeekWidget({Key? key}) : super(key: key);
 
   @override
   State<LineChartWeekWidget> createState() => _LineChartWeekWidgetState();
 }
 
 class _LineChartWeekWidgetState extends State<LineChartWeekWidget> {
-  List<Color> gradientColors = [
+  late List<Color> gradientColors = [
     AppColors.skin,
     AppColors.darkGreen,
   ];
 
-  List<FlSpot> _weeklySpots = [
-    FlSpot(1, 2),
-    FlSpot(3, 5),
-    FlSpot(5, 5),
-    FlSpot(7, 4),
-  ];
-
-  List<FlSpot> _weeklySpots2 = [
-    FlSpot(1, 5),
-    FlSpot(3, 2),
-    FlSpot(5, 2),
-    FlSpot(7, 3),
-  ];
+  final List<FlSpot> _weeklySpots = [];
+  final List<FlSpot> _weeklySpots2 = [];
+  var weeklySpot = [0.6, 0.8, 0.4, null];
 
   @override
   Widget build(BuildContext context) {
+    var x = 0;
+    for (var i = 1.0; i <= 7; i += 2) {
+      if (weeklySpot[x.toInt()] != null) {
+        _weeklySpots
+            .add(FlSpot(i, (5 * (weeklySpot[x.toInt()]!) + 1).toDouble()));
+        _weeklySpots2.add(
+            FlSpot(i, (7 - (5 * (weeklySpot[x.toInt()]!) + 1)).toDouble()));
+      }
+      x += 1;
+    }
+
     return Stack(
       children: <Widget>[
         AspectRatio(

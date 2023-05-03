@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_styles.dart';
@@ -18,29 +16,21 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     AppColors.skin,
     AppColors.darkGreen,
   ];
-
-  List<FlSpot> _daylySpots = [
-    FlSpot(1, 3),
-    FlSpot(2, 2),
-    FlSpot(3, 5),
-    FlSpot(4, 3.1),
-    FlSpot(5, 4),
-    FlSpot(6, 3.1),
-    FlSpot(7, 4),
-  ];
-
-  List<FlSpot> _daylySpots2 = [
-    FlSpot(1, 4),
-    FlSpot(2, 5),
-    FlSpot(3, 2),
-    FlSpot(4, 3.9),
-    FlSpot(5, 3),
-    FlSpot(6, 3.9),
-    FlSpot(7, 3),
-  ];
-
+  final List<FlSpot> _daylySpots = [];
+  final List<FlSpot> _daylySpots2 = [];
+  var daylySpot = [0.6, 0.8, null, 0.3, 0.8, 0.2, null];
   @override
   Widget build(BuildContext context) {
+    var x = 0;
+    for (var i = 1.0; i <= 7; i += 1) {
+      if (daylySpot[x.toInt()] != null) {
+        _daylySpots
+            .add(FlSpot(i, (5 * (daylySpot[x.toInt()]!) + 1).toDouble()));
+        _daylySpots2
+            .add(FlSpot(i, (7 - (5 * (daylySpot[x.toInt()]!) + 1)).toDouble()));
+      }
+      x += 1;
+    }
     return Stack(
       children: <Widget>[
         AspectRatio(
