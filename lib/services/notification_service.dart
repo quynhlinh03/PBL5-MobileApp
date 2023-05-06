@@ -57,16 +57,16 @@ class NotificationService {
   static Future<void> onNotificationCreatedMethod(
       ReceivedNotification receivedNotification) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<Object> notificationList =
-        prefs.getStringList('notificationList') ?? [];
-    notificationModel noti = notificationModel(
+    List<String> notificationStrings = prefs.getStringList('notificationList') ?? [];
+    String noti = notificationModel(
         title: receivedNotification.title.toString(),
-        body: receivedNotification.body.toString());
+        body: receivedNotification.body.toString()).toJson();
+    notificationStrings.add(noti);
+    prefs.setStringList('notificationList',notificationStrings);
 
-    String notificationListJson = json.encode(notificationList.map((notif) => noti.toJson()).toList());
-
-    // Save the JSON string using SharedPreferences
-    prefs.setString('notificationList', notificationListJson);
+    // String notificationListJson = json.encode(notificationList.map((notif) => noti.toJson()).toList());
+    // // Save the JSON string using SharedPreferences
+    // prefs.setString('notificationList', notificationListJson);
 
     debugPrint('onNotificationCreatedMethod');
   }

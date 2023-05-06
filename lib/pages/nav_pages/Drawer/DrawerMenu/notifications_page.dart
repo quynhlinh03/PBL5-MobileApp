@@ -46,30 +46,11 @@ class NotificationsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '07:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '08:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '09:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '09:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '09:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '10:00 AM'),
+                  CustomNotification(
+                    icon: Icons.priority_high_rounded,
+                    title: "Thông báo",
+                    body: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                  ),
                   const SizedBox(height: 42),
                   Container(
                     padding: const EdgeInsets.only(left: 27),
@@ -81,34 +62,21 @@ class NotificationsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '07:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '08:00 PM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '05:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '05:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '05:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '06:00 AM'),
-                  const CustomNotification(
-                      icon: Icons.priority_high_rounded,
-                      name: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
-                      time: '07:00 PM'),
+                  CustomNotification(
+                    icon: Icons.priority_high_rounded,
+                    title: "Thông báo",
+                    body: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                  ),
+                  CustomNotification(
+                    icon: Icons.priority_high_rounded,
+                    title: "Thông báo",
+                    body: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                  ),
+                  CustomNotification(
+                    icon: Icons.priority_high_rounded,
+                    title: "Thông báo",
+                    body: 'Bạn đã ngồi sai, hãy điều chỉnh lại tư thế',
+                  ),
                 ]),
               ),
             ),
