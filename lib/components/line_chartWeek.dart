@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_styles.dart';
@@ -14,23 +12,41 @@ class LineChartWeekWidget extends StatefulWidget {
 }
 
 class _LineChartWeekWidgetState extends State<LineChartWeekWidget> {
+  final TransformationController _transformationController =
+      TransformationController();
   List<Color> gradientColors = [
     AppColors.skin,
     AppColors.darkGreen,
   ];
 
-  List<FlSpot> _weeklySpots = [
-    FlSpot(1, 2),
-    FlSpot(3, 5),
-    FlSpot(5, 5),
-    FlSpot(7, 4),
+  final List<FlSpot> _weeklySpots = [
+    const FlSpot(1, 2),
+    const FlSpot(2, 5),
+    const FlSpot(3, 5),
+    const FlSpot(4, 4),
+    const FlSpot(5, 2),
+    const FlSpot(6, 5),
+    const FlSpot(7, 5),
+    const FlSpot(8, 4),
+    const FlSpot(9, 2),
+    const FlSpot(10, 5),
+    const FlSpot(11, 5),
+    const FlSpot(12, 4),
   ];
 
-  List<FlSpot> _weeklySpots2 = [
-    FlSpot(1, 5),
-    FlSpot(3, 2),
-    FlSpot(5, 2),
-    FlSpot(7, 3),
+  final List<FlSpot> _weeklySpots2 = [
+    const FlSpot(1, 5),
+    const FlSpot(2, 2),
+    const FlSpot(3, 2),
+    const FlSpot(4, 3),
+    const FlSpot(5, 2),
+    const FlSpot(6, 5),
+    const FlSpot(7, 5),
+    const FlSpot(8, 4),
+    const FlSpot(9, 2),
+    const FlSpot(10, 5),
+    const FlSpot(11, 5),
+    const FlSpot(12, 4),
   ];
 
   @override
@@ -46,8 +62,28 @@ class _LineChartWeekWidgetState extends State<LineChartWeekWidget> {
               top: 0,
               bottom: 14,
             ),
-            child: LineChart(
-              mainData(),
+            child: InteractiveViewer(
+              transformationController: _transformationController,
+              boundaryMargin: const EdgeInsets.all(20),
+              minScale: 1,
+              maxScale: 5,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onScaleStart: (details) {
+                  _transformationController.value = Matrix4.identity();
+                },
+                onScaleUpdate: (details) {
+                  _transformationController.value =
+                      _transformationController.value.scaled(
+                    details.scale,
+                    details.scale,
+                    1,
+                  );
+                },
+                child: LineChart(
+                  mainData(),
+                ),
+              ),
             ),
           ),
         ),
@@ -62,14 +98,26 @@ class _LineChartWeekWidgetState extends State<LineChartWeekWidget> {
       case 1:
         text = const Text('1', style: style);
         break;
-      case 3:
+      case 2:
         text = const Text('2', style: style);
         break;
-      case 5:
+      case 3:
         text = const Text('3', style: style);
         break;
-      case 7:
+      case 4:
         text = const Text('4', style: style);
+        break;
+      case 5:
+        text = const Text('5', style: style);
+        break;
+      case 6:
+        text = const Text('6', style: style);
+        break;
+      case 7:
+        text = const Text('7', style: style);
+        break;
+      case 8:
+        text = const Text('8', style: style);
         break;
       default:
         text = const Text('', style: style);

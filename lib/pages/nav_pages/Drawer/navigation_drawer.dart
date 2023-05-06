@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/controller/auth_controller.dart';
+import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/camera.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notifications_page.dart';
+import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notitest.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import '../../../controller/user_controller.dart';
@@ -43,44 +45,58 @@ class NavigationDrawerLeft extends StatelessWidget {
             const SizedBox(
               height: 28,
             ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-              child: DrawerItem(
-                name: 'Notifications',
-                icon: Icons.notifications_none,
-                onPressed: () => onItemPressed(context, index: 0),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-              child: DrawerItem(
-                name: 'Edit Profile',
-                icon: Icons.perm_identity_outlined,
-                onPressed: () => onItemPressed(context, index: 1),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-              child: DrawerItem(
-                name: 'Change Password',
-                icon: Icons.password,
-                onPressed: () => onItemPressed(context, index: 2),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-              child: DrawerItem(
-                name: 'Settings',
-                icon: Icons.settings_outlined,
-                onPressed: () => onItemPressed(context, index: 3),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-              child: DrawerItem(
-                name: 'Logout',
-                icon: Icons.logout_rounded,
-                onPressed: () => onItemPressed(context, index: 4),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+                    child: DrawerItem(
+                      name: 'Notifications',
+                      icon: Icons.notifications_none,
+                      onPressed: () => onItemPressed(context, index: 0),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+                    child: DrawerItem(
+                      name: 'Edit Profile',
+                      icon: Icons.perm_identity_outlined,
+                      onPressed: () => onItemPressed(context, index: 1),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+                    child: DrawerItem(
+                      name: 'Change Password',
+                      icon: Icons.password,
+                      onPressed: () => onItemPressed(context, index: 2),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+                    child: DrawerItem(
+                      name: 'Settings',
+                      icon: Icons.settings_outlined,
+                      onPressed: () => onItemPressed(context, index: 3),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+                    child: DrawerItem(
+                      name: 'Logout',
+                      icon: Icons.logout_rounded,
+                      onPressed: () => onItemPressed(context, index: 4),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+                    child: DrawerItem(
+                      name: 'Camera',
+                      icon: Icons.logout_rounded,
+                      onPressed: () => onItemPressed(context, index: 5),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -95,7 +111,7 @@ class NavigationDrawerLeft extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const NotificationsPage()));
+            MaterialPageRoute(builder: (context) => const NotiTest()));
         break;
       case 1:
         Navigator.push(context,
@@ -108,6 +124,10 @@ class NavigationDrawerLeft extends StatelessWidget {
       case 3:
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const SettingPage()));
+        break;
+      case 5:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const Camera()));
         break;
       case 4:
         authController.logoutUser();

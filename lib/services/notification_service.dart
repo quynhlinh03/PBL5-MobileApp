@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pbl5_app/modules/notificaiton_module.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../pages/nav_pages/Drawer/DrawerMenu/notifications_page.dart';
 
 class NotificationService {
@@ -15,12 +19,11 @@ class NotificationService {
           channelKey: 'high_importance_channel',
           channelName: 'Basic notifications',
           channelDescription: 'Notification channel for basic tests',
-          defaultColor: const Color(0xFF9D50DD),
+          defaultColor: const Color.fromARGB(255, 62, 206, 158),
           ledColor: Colors.white,
           importance: NotificationImportance.Max,
           channelShowBadge: true,
           onlyAlertOnce: true,
-          
           playSound: true,
           criticalAlerts: true,
         )
@@ -42,7 +45,7 @@ class NotificationService {
       },
     );
 
-    await AwesomeNotifications().setListeners(  
+    await AwesomeNotifications().setListeners(
       onActionReceivedMethod: onActionReceivedMethod,
       onNotificationCreatedMethod: onNotificationCreatedMethod,
       onNotificationDisplayedMethod: onNotificationDisplayedMethod,
@@ -53,6 +56,18 @@ class NotificationService {
   /// Use this method to detect when a new notification or a schedule is created
   static Future<void> onNotificationCreatedMethod(
       ReceivedNotification receivedNotification) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<Object> notificationList =
+        prefs.getStringList('notificationList') ?? [];
+    notificationModel noti = notificationModel(
+        title: receivedNotification.title.toString(),
+        body: receivedNotification.body.toString());
+
+    String notificationListJson = json.encode(notificationList.map((notif) => noti.toJson()).toList());
+
+    // Save the JSON string using SharedPreferences
+    prefs.setString('notificationList', notificationListJson);
+
     debugPrint('onNotificationCreatedMethod');
   }
 
@@ -74,7 +89,7 @@ class NotificationService {
     debugPrint('onActionReceivedMethod');
     final payload = receivedAction.payload ?? {};
     if (payload["navigate"] == "true") {
-      Get.to(()=> const NotificationsPage());
+      Get.to(() => const NotificationsPage());
     }
   }
 
@@ -123,17 +138,12 @@ class NotificationService {
       {required bool debug}) async {
     await Firebase.initializeApp();
     await AwesomeNotificationsFcm().initialize(
-				// Handle Silent data
+        // Handle Silent data
         onFcmSilentDataHandle: NotificationService.mySilentDataHandle,
-				// Method này dùng để phát hiện khi nhận được fcm token mới.
+        // Method này dùng để phát hiện khi nhận được fcm token mới.
         onFcmTokenHandle: NotificationService.myFcmTokenHandle,
-				// Method này dùng để phát hiện khi nhận được native token mới.
+        // Method này dùng để phát hiện khi nhận được native token mới.
         onNativeTokenHandle: NotificationService.myNativeTokenHandle,
-				// Bài sau mình sẽ đi chi tiết hơn về 3 Method trên nhé.
-
-        // This license key is necessary only to remove the watermark for
-        // push notifications in release mode. To know more about it, please
-        // visit http://awesome-notifications.carda.me#prices
         licenseKeys: null,
         debug: debug);
   }
@@ -147,7 +157,7 @@ class NotificationService {
 
   // FCM Token của thiết bị.
   Future<String> requestFirebaseToken() async {
-    if (await AwesomeNotificationsFcm().isFirebaseAvailable ) {
+    if (await AwesomeNotificationsFcm().isFirebaseAvailable) {
       try {
         final token = await AwesomeNotificationsFcm().requestFirebaseAppToken();
         print('==================FCM Token==================');
@@ -174,7 +184,7 @@ class NotificationService {
     }
 
     print("starting long task");
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4));
     final url = Uri.parse("http://google.com");
     // final re = await http.get(url);
     // print(re.body);
@@ -192,5 +202,4 @@ class NotificationService {
   static Future<void> myNativeTokenHandle(String token) async {
     debugPrint('Native Token:"$token"');
   }
-
 }

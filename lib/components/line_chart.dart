@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_styles.dart';
@@ -19,24 +17,24 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     AppColors.darkGreen,
   ];
 
-  List<FlSpot> _daylySpots = [
-    FlSpot(1, 3),
-    FlSpot(2, 2),
-    FlSpot(3, 5),
-    FlSpot(4, 3.1),
-    FlSpot(5, 4),
-    FlSpot(6, 3.1),
-    FlSpot(7, 4),
+  final List<FlSpot> _daylySpots = [
+    const FlSpot(1, 3),
+    const FlSpot(2, 2),
+    const FlSpot(3, 5),
+    const FlSpot(4, 3.1),
+    const FlSpot(5, 4),
+    const FlSpot(6, 3.1),
+    const FlSpot(7, 4),
   ];
 
-  List<FlSpot> _daylySpots2 = [
-    FlSpot(1, 4),
-    FlSpot(2, 5),
-    FlSpot(3, 2),
-    FlSpot(4, 3.9),
-    FlSpot(5, 3),
-    FlSpot(6, 3.9),
-    FlSpot(7, 3),
+  final List<FlSpot> _daylySpots2 = [
+    const FlSpot(1, 4),
+    const FlSpot(2, 5),
+    const FlSpot(3, 2),
+    const FlSpot(4, 3.9),
+    const FlSpot(5, 3),
+    const FlSpot(6, 3.9),
+    const FlSpot(7, 3),
   ];
 
   @override
@@ -182,7 +180,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       lineBarsData: [
         LineChartBarData(
           //line1
-          spots: _daylySpots,
+          spots: _daylySpots,                   
           isCurved: false,
           color: AppColors.skin,
           barWidth: 2,
