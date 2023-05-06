@@ -12,7 +12,7 @@ class LegendItemCol {
 class PieChartWithLegend extends StatelessWidget {
   final List<LegendItemCol> legendItems;
 
-  PieChartWithLegend({required this.legendItems});
+  const PieChartWithLegend({super.key, required this.legendItems});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class PieChartWithLegend extends StatelessWidget {
                         item.title,
                         style: item.style,
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Icon(
                         Icons.circle,
                         size: 16,
@@ -47,7 +47,7 @@ class PieChartWithLegend extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(width: 5), // khoảng cách muốn căn lề phải
+        const SizedBox(width: 5), // khoảng cách muốn căn lề phải
       ],
     );
   }

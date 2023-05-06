@@ -10,6 +10,8 @@ class AppColors {
   static const white = Color.fromRGBO(255, 255, 255, 1);
   static const whiteBlur = Color.fromRGBO(255, 255, 255, 0.7);
   static const skin = Color.fromRGBO(208, 180, 132, 1);
+  static const darkGray = Color.fromRGBO(75, 93, 103, 1);
+  static const flower = Color.fromRGBO(169, 144, 126, 1);
   static const mossGreen = Color.fromRGBO(103, 109, 96, 1);
   static const darkGreen = Color.fromRGBO(54, 75, 111, 1);
   static const blackBlur = Color.fromRGBO(185, 189, 208, 1);

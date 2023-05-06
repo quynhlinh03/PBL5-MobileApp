@@ -1,27 +1,66 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:pbl5_app/components/chart.dart';
-import 'package:pbl5_app/components/line_chartMonth.dart';
-import 'package:pbl5_app/components/line_chartWeek.dart';
+import 'package:pbl5_app/components/bar_chart.dart';
+import 'package:pbl5_app/components/bar_chartDay.dart';
+import 'package:pbl5_app/components/bar_chartMonth.dart';
+import 'package:pbl5_app/components/bar_chartWeek.dart';
+import 'package:pbl5_app/pages/nav_pages/Pages/feedBackChartPage.dart';
+import 'package:pbl5_app/pages/nav_pages/Pages/feedBackWeekChartPage.dart';
 import 'package:pbl5_app/values/app_styles.dart';
-import '../../../components/legend.dart';
-import '../../../components/line_chart.dart';
 import '../../../values/app_colors.dart';
 import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
+import 'package:http/http.dart' as http;
 
-class LineChartPage extends StatefulWidget {
-  const LineChartPage({Key? key}) : super(key: key);
+class BarChartPage extends StatefulWidget {
+  const BarChartPage({Key? key}) : super(key: key);
 
   @override
-  _LineChartPageState createState() => _LineChartPageState();
+  _BarChartPageState createState() => _BarChartPageState();
 }
 
-class _LineChartPageState extends State<LineChartPage> {
-  List<Color> colorList = [
-    AppColors.skin,
-    AppColors.darkGreen,
-  ];
-
+class _BarChartPageState extends State<BarChartPage> {
   int _currentIndex = 0;
+  Map<String, double> data = {};
+  Map<String, double> dataMonth = {};
+  Future<void> getData() async {
+    final response = await http.get(Uri.parse(
+        'http://192.168.90.130:8000/incorrect_percentage/1/this_week'));
+
+    final responseMonth = await http.get(Uri.parse(
+        'http://192.168.90.130:8000/incorrect_percentage/1/this_month'));
+
+    if (response.statusCode == 200) {
+      final newData = jsonDecode(response.body);
+      newData.forEach((key, value) {
+        if (value is num) {
+          data[key] = value.toDouble();
+        }
+      });
+      // sử dụng dữ liệu ở đây
+    } else {
+      // xử lý lỗi nếu cần
+    }
+
+    if (responseMonth.statusCode == 200) {
+      final newDataMonth = jsonDecode(responseMonth.body);
+      newDataMonth.forEach((key, value) {
+        if (value is num) {
+          dataMonth[key] = value.toDouble();
+        }
+      });
+      // sử dụng dữ liệu ở đây
+    } else {
+      // xử lý lỗi nếu cần
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,14 +90,14 @@ class _LineChartPageState extends State<LineChartPage> {
               mainAxisAlignment:
                   MainAxisAlignment.center, // canh giữa theo chiều dọc
               children: [
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 const Text(
                   "Posture Analysis ",
                   style: AppStyle.regular2,
                 ),
                 AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
-                    padding: const EdgeInsets.only(top: 36, bottom: 3),
+                    padding: const EdgeInsets.only(top: 35, bottom: 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -132,33 +171,32 @@ class _LineChartPageState extends State<LineChartPage> {
                     )),
                 Container(
                   child: _currentIndex == 0
-                      ? const LineChartWidget()
+                      ? const BarChartWidget(
+                          percent: '25',
+                          text: 'day',
+                          newPage: FeedBackPage(),
+                          barPage: BarChartDayComponent(),
+                        )
                       : _currentIndex == 1
-                          ? const LineChartWeekWidget()
-                          : const LineChartMonthWidget(),
+                          ? BarChartWidget(
+                              percent: '50',
+                              text: 'week',
+                              newPage: FeedBackWeekPage(
+                                dataMap: data,
+                                text: 'This week',
+                              ),
+                              barPage: const BarChartWeekComponent(),
+                            )
+                          : BarChartWidget(
+                              percent: '75',
+                              text: 'month',
+                              newPage: FeedBackWeekPage(
+                                dataMap: dataMonth,
+                                text: 'This month',
+                              ),
+                              barPage: const BarChartMonthComponent(),
+                            ),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  alignment: Alignment.center,
-                  child: PieChartWithLegend(
-                    legendItems: [
-                      LegendItem(
-                          title: "Wrong",
-                          color: AppColors.skin,
-                          style: AppStyle.light1),
-                      LegendItem(
-                          title: "Correct",
-                          color: AppColors.darkGreen,
-                          style: AppStyle.light1),
-                      // legend items
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                // Pie Chart This Day
-                const Chart(),
               ],
             ),
           ),
