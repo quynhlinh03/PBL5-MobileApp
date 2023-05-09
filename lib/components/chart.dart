@@ -20,14 +20,14 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PieChartSectionData> paiChartSelectionDatas = [
       PieChartSectionData(
-        color: AppColors.skin,
-        value: 100 - double.parse(percent),
+        color: AppColors.darkGreen,
+        value: double.tryParse(percent),
         showTitle: false,
         radius: 16,
       ),
       PieChartSectionData(
-        color: AppColors.darkGreen,
-        value: double.parse(percent),
+        color: AppColors.skin,
+        value: 100 - double.parse(percent),
         showTitle: false,
         radius: 16,
       ),

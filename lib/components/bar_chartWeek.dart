@@ -135,10 +135,8 @@ class _BarChartWeekComponentState extends State<BarChartWeekComponent> {
         } else if (snapshot.hasError) {
           return const Center(child: Text('Error'));
         } else {
-          return SizedBox(
-            child: SfCartesianChart(
-                // chart code goes here
-                ),
+          return const SizedBox(
+            height: 10,
           );
         }
       },

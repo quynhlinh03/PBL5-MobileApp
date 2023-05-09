@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/values/app_styles.dart';
@@ -8,6 +10,7 @@ import '../../../values/app_colors.dart';
 import 'package:pie_chart/pie_chart.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class FeedBackPage extends StatefulWidget {
   const FeedBackPage({Key? key}) : super(key: key);
@@ -17,8 +20,32 @@ class FeedBackPage extends StatefulWidget {
 }
 
 class _FeedBackPageState extends State<FeedBackPage> {
-  @override
   DateTime dateTime = DateTime.now();
+  Map<String, double> dataDay = {};
+
+  Future<void> getData() async {
+    final responseDay = await http.get(Uri.parse(
+        'http://192.168.90.130:8000/incorrect_percentage/1/day/2023-05-06'));
+
+    if (responseDay.statusCode == 200) {
+      final newDataDay = jsonDecode(responseDay.body);
+      newDataDay.forEach((key, value) {
+        if (value is num) {
+          dataDay[key] = value.toDouble();
+        }
+      });
+      // sử dụng dữ liệu ở đây
+    } else {
+      // xử lý lỗi nếu cần
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   Map<String, Map<String, double>> data = {
     '2023-05-01': {
       "Forwarded Head": 20,
@@ -60,7 +87,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
   @override
   Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
-    Map<String, double> dataMap = data[formattedDate] ?? {};
+    // Map<String, double> data = dataDay[formattedDate] ?? {};
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -120,7 +147,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                           ],
                         ),
                       ),
-                      if (dataMap.isEmpty)
+                      if (dataDay.isEmpty)
                         Container(
                           padding: const EdgeInsets.only(top: 30),
                           height: 250,
@@ -133,7 +160,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                             ),
                           ),
                         ),
-                      if (dataMap.isNotEmpty)
+                      if (dataDay.isNotEmpty)
                         Container(
                           padding: const EdgeInsets.only(
                               top: 30, right: 10, left: 10, bottom: 20),
@@ -165,14 +192,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
                                     color: Colors.white, width: 1),
                                 max: 100,
                                 // Use forEach instead of map since you're not returning anything
-                                listData: dataMap.entries.map((entry) {
+                                listData: dataDay.entries.map((entry) {
                                   final currentColor = entry.key ==
-                                          dataMap.keys.first
+                                          dataDay.keys.first
                                       ? AppColors.darkGreen
-                                      : (entry.key == dataMap.keys.elementAt(1)
+                                      : (entry.key == dataDay.keys.elementAt(1)
                                           ? AppColors.mossGreen
                                           : (entry.key ==
-                                                  dataMap.keys.elementAt(2)
+                                                  dataDay.keys.elementAt(2)
                                               ? AppColors.darkGray
                                               : AppColors.flower));
                                   return DChartBarDataCustom(
@@ -256,7 +283,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       const SizedBox(
                         height: 21,
                       ),
-                      if (dataMap.isEmpty)
+                      if (dataDay.isEmpty)
                         Container(
                           padding: const EdgeInsets.only(top: 90),
                           child: Center(
@@ -267,59 +294,59 @@ class _FeedBackPageState extends State<FeedBackPage> {
                             ),
                           ),
                         ),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Forwarded Head"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["forwarded_head"]!) > 0)
                           adviceBox(
                               title: 'Forwarded Head',
                               percent:
-                                  '${(dataMap["Forwarded Head"]!).toStringAsFixed(0)}%',
+                                  '${(dataDay["forwarded_head"]!).toStringAsFixed(0)}%',
                               content:
                                   'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
                               color: AppColors.darkGreen),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Forwarded Head"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["forwarded_head"]!) > 0)
                           const SizedBox(
                             height: 24,
                           ),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Leaning Back"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["leaning_back"]!) > 0)
                           adviceBox(
                               title: 'Leaning Back',
                               percent:
-                                  '${(dataMap["Leaning Back"]!).toStringAsFixed(0)}%',
+                                  '${(dataDay["leaning_back"]!).toStringAsFixed(0)}%',
                               content:
                                   'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
                               color: AppColors.mossGreen),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Leaning Back"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["leaning_back"]!) > 0)
                           const SizedBox(
                             height: 38,
                           ),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Leaning Forward"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["leaning_forward"]!) > 0)
                           adviceBox(
                               title: 'Leaning Forward',
                               percent:
-                                  '${(dataMap["Leaning Forward"]!).toStringAsFixed(0)}%',
+                                  '${(dataDay["leaning_forward"]!).toStringAsFixed(0)}%',
                               content:
                                   'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
                               color: AppColors.darkGray),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Leaning Forward"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["leaning_forward"]!) > 0)
                           const SizedBox(
                             height: 24,
                           ),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Wrong Leg"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["wrong_leg"]!) > 0)
                           adviceBox(
                               title: 'Wrong Leg',
                               percent:
-                                  '${(dataMap["Wrong Leg"]!).toStringAsFixed(0)}%',
+                                  '${(dataDay["wrong_leg"]!).toStringAsFixed(0)}%',
                               content:
                                   'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
                               color: AppColors.flower),
-                      if (dataMap.isNotEmpty)
-                        if ((dataMap["Wrong Leg"]!) > 0)
+                      if (dataDay.isNotEmpty)
+                        if ((dataDay["wrong_leg"]!) > 0)
                           const SizedBox(
                             height: 38,
                           ),
