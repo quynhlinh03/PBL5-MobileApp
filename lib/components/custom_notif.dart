@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
-
-import 'package:pbl5_app/values/app_colors.dart';
 import 'package:pbl5_app/values/app_styles.dart';
+import 'package:pbl5_app/values/app_colors.dart';
 
-class CustomNotification extends StatelessWidget {
-  final String title = "Thông báo";
-  final String body;
-  final IconData icon;
-  final Function() press;
-  final DateTime time = DateTime.now();
-
-  CustomNotification({
+class CustomNotifications extends StatelessWidget {
+  const CustomNotifications({
     Key? key,
-    required this.body,
+    required this.name,
     required this.icon,
-    required this.press,
+    required this.time,
   }) : super(key: key);
+
+  final String name;
+  final IconData icon;
+  final String time;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 90,
+        height: 80,
         color: AppColors.black05,
         padding: const EdgeInsets.only(left: 27, top: 15, bottom: 15),
+        margin: const EdgeInsets.only(top: 5, bottom: 5),
         child: Row(
           children: [
             Flexible(
@@ -40,7 +38,7 @@ class CustomNotification extends StatelessWidget {
             Flexible(
               flex: 9,
               child: Text(
-                body,
+                name,
                 style: AppStyle.light1,
               ),
             ),
@@ -50,15 +48,13 @@ class CustomNotification extends StatelessWidget {
             ),
             Flexible(
               flex: 3,
-              child: Text(
-                "${time.hour.toString()}:${time.minute.toString()}",
-                style: AppStyle.regular.copyWith(fontSize: 14),
+              child: Container(
+                child: Text(
+                  time,
+                  style: AppStyle.regular.copyWith(fontSize: 14),
+                ),
               ),
             ),
-            Flexible(
-                flex: 3,
-                child: IconButton(
-                    onPressed: press, icon: const Icon(Icons.delete)))
           ],
         ));
   }

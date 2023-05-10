@@ -3,7 +3,9 @@ import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../pages/nav_pages/Drawer/DrawerMenu/notifications_page.dart';
+import 'package:pbl5_app/modules/notificaiton_module.dart';
+import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notitest.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationService {
   static Future<void> initializeNotification() async {
@@ -15,11 +17,11 @@ class NotificationService {
           channelKey: 'high_importance_channel',
           channelName: 'Basic notifications',
           channelDescription: 'Notification channel for basic tests',
-          defaultColor: const Color(0xFF9D50DD),
+          defaultColor: const Color.fromARGB(255, 62, 206, 158),
           ledColor: Colors.white,
           importance: NotificationImportance.Max,
           channelShowBadge: true,
-          // onlyAlertOnce: true,
+          onlyAlertOnce: true,
           playSound: true,
           criticalAlerts: true,
         )
@@ -52,6 +54,17 @@ class NotificationService {
   /// Use this method to detect when a new notification or a schedule is created
   static Future<void> onNotificationCreatedMethod(
       ReceivedNotification receivedNotification) async {
+    // get local notificaiton
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> notificationStrings =
+        prefs.getStringList('notifications') ?? [];
+    String noti = notificationModel(
+            title: receivedNotification.title.toString(),
+            body: receivedNotification.body.toString())
+        .toJson();
+    // add new notificaiton to local and save 
+    notificationStrings.insert(0,noti);
+    prefs.setStringList('notifications', notificationStrings);
     debugPrint('onNotificationCreatedMethod');
   }
 
@@ -73,7 +86,7 @@ class NotificationService {
     debugPrint('onActionReceivedMethod');
     final payload = receivedAction.payload ?? {};
     if (payload["navigate"] == "true") {
-      Get.to(() => const NotificationsPage());
+      Get.to(() => const NotiTest());
     }
   }
 
