@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 import 'package:pbl5_app/values/app_colors.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -17,8 +18,12 @@ class _BarChartWeekComponentState extends State<BarChartWeekComponent> {
   Map<String, double> data = {};
   List<String> keys = [];
   Future<void> getData() async {
-    final response = await http
-        .get(Uri.parse('http://192.168.90.130:8000/accuracy/1/this_week'));
+    final info = NetworkInfo();
+    final String? ipAddress = await info.getWifiIP();
+    List<String> parts = ipAddress!.split('.');
+    String firstThreeParts = parts.sublist(0, 3).join('.');
+    final response = await http.get(
+        Uri.parse('http://$firstThreeParts.130:8000/accuracy/1/this_week'));
 
     if (response.statusCode == 200) {
       final newData = jsonDecode(response.body);

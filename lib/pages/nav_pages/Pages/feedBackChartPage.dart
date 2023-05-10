@@ -11,6 +11,7 @@ import 'package:pie_chart/pie_chart.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:network_info_plus/network_info_plus.dart';
 
 class FeedBackPage extends StatefulWidget {
   const FeedBackPage({Key? key}) : super(key: key);
@@ -23,12 +24,18 @@ class _FeedBackPageState extends State<FeedBackPage> {
   DateTime dateTime = DateTime.now();
   Map<String, double> dataDay = {};
 
-  Future<void> getData() async {
+  Future<void> getData(DateTime date) async {
+    final info = NetworkInfo();
+    final String? ipAddress = await info.getWifiIP();
+    List<String> parts = ipAddress!.split('.');
+    String firstThreeParts = parts.sublist(0, 3).join('.');
+    final formattedDate = DateFormat('yyyy-MM-dd').format(date);
     final responseDay = await http.get(Uri.parse(
-        'http://192.168.90.130:8000/incorrect_percentage/1/day/2023-05-06'));
+        'http://$firstThreeParts.130:8000/incorrect_percentage/1/day/$formattedDate'));
 
     if (responseDay.statusCode == 200) {
       final newDataDay = jsonDecode(responseDay.body);
+      dataDay = {};
       newDataDay.forEach((key, value) {
         if (value is num) {
           dataDay[key] = value.toDouble();
@@ -43,320 +50,316 @@ class _FeedBackPageState extends State<FeedBackPage> {
   @override
   void initState() {
     super.initState();
-    getData();
+    getData(dateTime);
   }
 
-  Map<String, Map<String, double>> data = {
-    '2023-05-01': {
-      "Forwarded Head": 20,
-      "Leaning Back": 55,
-      "Leaning Forward": 25,
-      "Wrong Leg": 10,
-    },
-    '2023-05-02': {
-      "Forwarded Head": 60,
-      "Leaning Back": 15,
-      "Leaning Forward": 25,
-      "Wrong Leg": 10,
-    },
-    '2023-05-03': {
-      "Forwarded Head": 10,
-      "Leaning Back": 65,
-      "Leaning Forward": 25,
-      "Wrong Leg": 10,
-    },
-    '2023-05-04': {
-      "Forwarded Head": 20,
-      "Leaning Back": 75,
-      "Leaning Forward": 25,
-      "Wrong Leg": 10,
-    },
-    '2023-05-05': {
-      "Forwarded Head": 75,
-      "Leaning Back": 0,
-      "Leaning Forward": 25,
-      "Wrong Leg": 10,
-    },
-    '2023-05-06': {
-      "Forwarded Head": 60,
-      "Leaning Back": 40,
-      "Leaning Forward": 0,
-      "Wrong Leg": 10,
-    },
-  };
   @override
   Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
-    // Map<String, double> data = dataDay[formattedDate] ?? {};
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(40),
-              child: Container(
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.only(top: 18, bottom: 12),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: null,
-                      border: null,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0),
-                      )),
-                  child: const Center(
-                      child: Text("ADVICE", style: AppStyle.regular18))),
-            ),
-            pinned: true,
-            backgroundColor: AppColors.greenGray,
-            expandedHeight: 530, //420
-            flexibleSpace: FlexibleSpaceBar(
-              background: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 1000),
-                child: Container(
-                  key: ValueKey(formattedDate),
-                  width: double.maxFinite,
-                  decoration: const BoxDecoration(
-                    color: AppColors.greenGray,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.topCenter,
-                        padding: const EdgeInsets.only(right: 16),
-                        child: PieChartWithLegend(
-                          legendItems: [
-                            LegendItemCol(
-                                title: "Forwarded Head",
-                                color: AppColors.darkGreen,
-                                style: AppStyle.light1white),
-                            LegendItemCol(
-                                title: "Leaning Back",
-                                color: AppColors.mossGreen,
-                                style: AppStyle.light1white),
-                            LegendItemCol(
-                                title: "Leaning Forward",
-                                color: AppColors.darkGray,
-                                style: AppStyle.light1white),
-                            LegendItemCol(
-                                title: "Wrong Leg",
-                                color: AppColors.flower,
-                                style: AppStyle.light1white),
-                          ],
-                        ),
+        body: FutureBuilder<void>(
+            future: getData(dateTime),
+            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      bottom: PreferredSize(
+                        preferredSize: const Size.fromHeight(40),
+                        child: Container(
+                            width: double.maxFinite,
+                            padding: const EdgeInsets.only(top: 18, bottom: 12),
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: null,
+                                border: null,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0),
+                                )),
+                            child: const Center(
+                                child:
+                                    Text("ADVICE", style: AppStyle.regular18))),
                       ),
-                      if (dataDay.isEmpty)
-                        Container(
-                          padding: const EdgeInsets.only(top: 30),
-                          height: 250,
-                          child: Center(
-                            child: Text(
-                              'No Data to Display',
-                              style: AppStyle.light1white.copyWith(
-                                color: const Color.fromRGBO(0, 0, 0, 0.8),
-                              ),
+                      pinned: true,
+                      backgroundColor: AppColors.greenGray,
+                      expandedHeight: 530, //420
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 1000),
+                          child: Container(
+                            key: ValueKey(formattedDate),
+                            width: double.maxFinite,
+                            decoration: const BoxDecoration(
+                              color: AppColors.greenGray,
                             ),
-                          ),
-                        ),
-                      if (dataDay.isNotEmpty)
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 30, right: 10, left: 10, bottom: 20),
-                          width: 370,
-                          child: AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: DChartBarCustom(
-                                loadingDuration:
-                                    const Duration(milliseconds: 1500),
-                                showLoading: true,
-                                valueAlign: Alignment.topCenter,
-                                showDomainLine: false,
-                                showDomainLabel: false,
-                                showMeasureLine: false,
-                                showMeasureLabel: false,
-                                spaceDomainLabeltoChart: 0,
-                                spaceMeasureLabeltoChart: 0,
-                                spaceDomainLinetoChart: 0,
-                                spaceMeasureLinetoChart: 0,
-                                spaceBetweenItem: 20,
-                                radiusBar: const BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  alignment: Alignment.topCenter,
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: PieChartWithLegend(
+                                    legendItems: [
+                                      LegendItemCol(
+                                          title: "Forwarded Head",
+                                          color: AppColors.darkGreen,
+                                          style: AppStyle.light1white),
+                                      LegendItemCol(
+                                          title: "Leaning Back",
+                                          color: AppColors.mossGreen,
+                                          style: AppStyle.light1white),
+                                      LegendItemCol(
+                                          title: "Leaning Forward",
+                                          color: AppColors.darkGray,
+                                          style: AppStyle.light1white),
+                                      LegendItemCol(
+                                          title: "Wrong Leg",
+                                          color: AppColors.flower,
+                                          style: AppStyle.light1white),
+                                    ],
+                                  ),
                                 ),
-                                measureLabelStyle: AppStyle.light1,
-                                measureLineStyle: const BorderSide(
-                                    color: Colors.white, width: 1),
-                                domainLineStyle: const BorderSide(
-                                    color: Colors.white, width: 1),
-                                max: 100,
-                                // Use forEach instead of map since you're not returning anything
-                                listData: dataDay.entries.map((entry) {
-                                  final currentColor = entry.key ==
-                                          dataDay.keys.first
-                                      ? AppColors.darkGreen
-                                      : (entry.key == dataDay.keys.elementAt(1)
-                                          ? AppColors.mossGreen
-                                          : (entry.key ==
-                                                  dataDay.keys.elementAt(2)
-                                              ? AppColors.darkGray
-                                              : AppColors.flower));
-                                  return DChartBarDataCustom(
-                                    onTap: () {
-                                      print('${entry.key} => ${entry.value}');
-                                    },
-                                    elevation: 8,
-                                    value: entry.value,
-                                    label: entry.key,
-                                    color: currentColor.withOpacity(1),
-                                    splashColor: Colors.blue,
-                                    showValue: true,
-                                    valueStyle: AppStyle.light1,
-                                    valueCustom: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(top: 5),
-                                        child: Text(
-                                          '${entry.value..toStringAsFixed(0)} %',
-                                          style: AppStyle.light1white.copyWith(
-                                              fontWeight: FontWeight.w400),
+                                if (dataDay.isEmpty)
+                                  Container(
+                                    padding: const EdgeInsets.only(top: 30),
+                                    height: 250,
+                                    child: Center(
+                                      child: Text(
+                                        'No Data to Display',
+                                        style: AppStyle.light1white.copyWith(
+                                          color: const Color.fromRGBO(
+                                              0, 0, 0, 0.8),
                                         ),
                                       ),
                                     ),
-                                    valueTooltip: entry.key,
-                                  );
-                                }).toList(), // Convert Iterable to List
-                              )),
-                        ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 18),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () async {
-                                  final date = await pickDate();
-                                  if (date == null) return;
-                                  setState(() => dateTime = date);
-                                },
-                                // ignore: sort_child_properties_last
-                                child: Text(
-                                  '    ${DateFormat('MMMM').format(dateTime)}   ${dateTime.day}   ${dateTime.year}    ',
-                                  style: AppStyle.light1white,
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<
-                                          Color>(
-                                      const Color.fromRGBO(255, 255, 255, 0.3)),
-                                  padding:
-                                      MaterialStateProperty.all<EdgeInsets>(
-                                          // const EdgeInsets.all(7)),
-                                          const EdgeInsets.only(
-                                              top: 7,
-                                              right: 10,
-                                              left: 10,
-                                              bottom: 7)),
-                                  shape:
-                                      MaterialStateProperty.all<OutlinedBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
                                   ),
-                                ),
-                              )
-                            ]),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 1000),
-                child: SingleChildScrollView(
-                  key: ValueKey(formattedDate),
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      if (dataDay.isEmpty)
-                        Container(
-                          padding: const EdgeInsets.only(top: 90),
-                          child: Center(
-                            child: Text(
-                              'No Data to Display',
-                              style: AppStyle.light1white.copyWith(
-                                  color: const Color.fromRGBO(0, 0, 0, 1)),
+                                if (dataDay.isNotEmpty)
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        top: 30,
+                                        right: 10,
+                                        left: 10,
+                                        bottom: 20),
+                                    width: 370,
+                                    child: AspectRatio(
+                                        aspectRatio: 16 / 9,
+                                        child: DChartBarCustom(
+                                          loadingDuration: const Duration(
+                                              milliseconds: 1500),
+                                          showLoading: true,
+                                          valueAlign: Alignment.topCenter,
+                                          showDomainLine: false,
+                                          showDomainLabel: false,
+                                          showMeasureLine: false,
+                                          showMeasureLabel: false,
+                                          spaceDomainLabeltoChart: 0,
+                                          spaceMeasureLabeltoChart: 0,
+                                          spaceDomainLinetoChart: 0,
+                                          spaceMeasureLinetoChart: 0,
+                                          spaceBetweenItem: 20,
+                                          radiusBar: const BorderRadius.only(
+                                            topLeft: Radius.circular(8),
+                                            topRight: Radius.circular(8),
+                                          ),
+                                          measureLabelStyle: AppStyle.light1,
+                                          measureLineStyle: const BorderSide(
+                                              color: Colors.white, width: 1),
+                                          domainLineStyle: const BorderSide(
+                                              color: Colors.white, width: 1),
+                                          max: 100,
+                                          // Use forEach instead of map since you're not returning anything
+                                          listData:
+                                              dataDay.entries.map((entry) {
+                                            final currentColor = entry.key ==
+                                                    dataDay.keys.first
+                                                ? AppColors.darkGreen
+                                                : (entry.key ==
+                                                        dataDay.keys
+                                                            .elementAt(1)
+                                                    ? AppColors.mossGreen
+                                                    : (entry.key ==
+                                                            dataDay.keys
+                                                                .elementAt(2)
+                                                        ? AppColors.darkGray
+                                                        : AppColors.flower));
+                                            return DChartBarDataCustom(
+                                              onTap: () {
+                                                print(
+                                                    '${entry.key} => ${entry.value}');
+                                              },
+                                              elevation: 8,
+                                              value: entry.value,
+                                              label: entry.key,
+                                              color:
+                                                  currentColor.withOpacity(1),
+                                              splashColor: Colors.blue,
+                                              showValue: true,
+                                              valueStyle: AppStyle.light1,
+                                              valueCustom: Align(
+                                                alignment: Alignment.topCenter,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5),
+                                                  child: Text(
+                                                    '${entry.value.toStringAsFixed(0)} %',
+                                                    style: AppStyle.light1white
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                  ),
+                                                ),
+                                              ),
+                                              valueTooltip: entry.key,
+                                            );
+                                          }).toList(), // Convert Iterable to List
+                                        )),
+                                  ),
+                                Container(
+                                  padding: const EdgeInsets.only(top: 18),
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () async {
+                                            final date = await pickDate();
+                                            if (date == null) return;
+                                            setState(() {
+                                              dateTime = date;
+                                              getData(dateTime);
+                                            });
+                                          },
+                                          // ignore: sort_child_properties_last
+                                          child: Text(
+                                            '    ${DateFormat('MMMM').format(dateTime)}   ${dateTime.day}   ${dateTime.year}    ',
+                                            style: AppStyle.light1white,
+                                          ),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                        Color>(
+                                                    const Color.fromRGBO(
+                                                        255, 255, 255, 0.3)),
+                                            padding: MaterialStateProperty.all<
+                                                    EdgeInsets>(
+                                                // const EdgeInsets.all(7)),
+                                                const EdgeInsets.only(
+                                                    top: 7,
+                                                    right: 10,
+                                                    left: 10,
+                                                    bottom: 7)),
+                                            shape: MaterialStateProperty.all<
+                                                OutlinedBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ]),
+                                )
+                              ],
                             ),
                           ),
                         ),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["forwarded_head"]!) > 0)
-                          adviceBox(
-                              title: 'Forwarded Head',
-                              percent:
-                                  '${(dataDay["forwarded_head"]!).toStringAsFixed(0)}%',
-                              content:
-                                  'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
-                              color: AppColors.darkGreen),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["forwarded_head"]!) > 0)
-                          const SizedBox(
-                            height: 24,
-                          ),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["leaning_back"]!) > 0)
-                          adviceBox(
-                              title: 'Leaning Back',
-                              percent:
-                                  '${(dataDay["leaning_back"]!).toStringAsFixed(0)}%',
-                              content:
-                                  'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
-                              color: AppColors.mossGreen),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["leaning_back"]!) > 0)
-                          const SizedBox(
-                            height: 38,
-                          ),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["leaning_forward"]!) > 0)
-                          adviceBox(
-                              title: 'Leaning Forward',
-                              percent:
-                                  '${(dataDay["leaning_forward"]!).toStringAsFixed(0)}%',
-                              content:
-                                  'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
-                              color: AppColors.darkGray),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["leaning_forward"]!) > 0)
-                          const SizedBox(
-                            height: 24,
-                          ),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["wrong_leg"]!) > 0)
-                          adviceBox(
-                              title: 'Wrong Leg',
-                              percent:
-                                  '${(dataDay["wrong_leg"]!).toStringAsFixed(0)}%',
-                              content:
-                                  'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
-                              color: AppColors.flower),
-                      if (dataDay.isNotEmpty)
-                        if ((dataDay["wrong_leg"]!) > 0)
-                          const SizedBox(
-                            height: 38,
-                          ),
-                    ],
-                  ),
-                )),
-          ),
-        ],
-      ),
-    );
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 1000),
+                          child: SingleChildScrollView(
+                            key: ValueKey(formattedDate),
+                            child: Column(
+                              children: <Widget>[
+                                const SizedBox(
+                                  height: 21,
+                                ),
+                                if (dataDay.isEmpty)
+                                  Container(
+                                    padding: const EdgeInsets.only(top: 90),
+                                    child: Center(
+                                      child: Text(
+                                        'No Data to Display',
+                                        style: AppStyle.light1white.copyWith(
+                                            color: const Color.fromRGBO(
+                                                0, 0, 0, 1)),
+                                      ),
+                                    ),
+                                  ),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["forwarded_head"]!) > 0)
+                                    adviceBox(
+                                        title: 'Forwarded Head',
+                                        percent:
+                                            '${(dataDay["forwarded_head"]!).toStringAsFixed(0)}%',
+                                        content:
+                                            'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                        color: AppColors.darkGreen),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["forwarded_head"]!) > 0)
+                                    const SizedBox(
+                                      height: 24,
+                                    ),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["leaning_back"]!) > 0)
+                                    adviceBox(
+                                        title: 'Leaning Back',
+                                        percent:
+                                            '${(dataDay["leaning_back"]!).toStringAsFixed(0)}%',
+                                        content:
+                                            'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                        color: AppColors.mossGreen),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["leaning_back"]!) > 0)
+                                    const SizedBox(
+                                      height: 38,
+                                    ),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["leaning_forward"]!) > 0)
+                                    adviceBox(
+                                        title: 'Leaning Forward',
+                                        percent:
+                                            '${(dataDay["leaning_forward"]!).toStringAsFixed(0)}%',
+                                        content:
+                                            'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                        color: AppColors.darkGray),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["leaning_forward"]!) > 0)
+                                    const SizedBox(
+                                      height: 24,
+                                    ),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["wrong_leg"]!) > 0)
+                                    adviceBox(
+                                        title: 'Wrong Leg',
+                                        percent:
+                                            '${(dataDay["wrong_leg"]!).toStringAsFixed(0)}%',
+                                        content:
+                                            'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                        color: AppColors.flower),
+                                if (dataDay.isNotEmpty)
+                                  if ((dataDay["wrong_leg"]!) > 0)
+                                    const SizedBox(
+                                      height: 38,
+                                    ),
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                );
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Error'));
+              } else {
+                return const SizedBox(
+                  height: 10,
+                );
+              }
+            }));
   }
 
   Future<DateTime?> pickDate() => showDatePicker(
