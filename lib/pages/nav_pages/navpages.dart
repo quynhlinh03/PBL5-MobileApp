@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import '../../values/app_colors.dart';
 import 'Pages/cameraPage.dart';
 import 'Pages/homePage.dart';
-import 'Pages/lineChartPage.dart';
-import 'Pages/pieChartPage.dart';
+import 'Pages/barChartPage.dart';
 
 class MainPageNav extends StatefulWidget {
   const MainPageNav({Key? key}) : super(key: key);
@@ -17,8 +16,8 @@ class _MainPageNavState extends State<MainPageNav> {
   final screens = [
     const HomePage(),
     const CameraPage(),
-    const PieChartPage(),
-    const LineChartPage(),
+    // const PieChartPage(),
+    const BarChartPage(),
   ];
 
   @override
@@ -48,11 +47,11 @@ class _MainPageNavState extends State<MainPageNav> {
                 icon: Icon(Icons.video_camera_front_outlined),
                 activeIcon: Icon(Icons.video_camera_front_rounded),
                 label: ''),
-            BottomNavigationBarItem(
-              label: '',
-              icon: Icon(Icons.pie_chart_outline),
-              activeIcon: Icon(Icons.pie_chart_outline_rounded),
-            ),
+            // BottomNavigationBarItem(
+            //   label: '',
+            //   icon: Icon(Icons.pie_chart_outline),
+            //   activeIcon: Icon(Icons.pie_chart_outline_rounded),
+            // ),
             BottomNavigationBarItem(
               label: '',
               icon: Icon(Icons.line_axis),

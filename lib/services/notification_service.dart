@@ -143,6 +143,10 @@ class NotificationService {
         onNativeTokenHandle: NotificationService.myNativeTokenHandle,
         licenseKeys: null,
         debug: debug);
+
+    await AwesomeNotifications().setListeners(
+      onActionReceivedMethod: onActionReceivedMethod,
+    );
   }
 
   Future<void> checkPermission() async {
