@@ -11,6 +11,8 @@ import 'package:pbl5_app/values/app_styles.dart';
 import '../../../values/app_colors.dart';
 import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 
 class BarChartPage extends StatefulWidget {
   const BarChartPage({Key? key}) : super(key: key);
@@ -29,18 +31,23 @@ class _BarChartPageState extends State<BarChartPage> {
   dynamic averageMonth;
 
   Future<void> getData() async {
+    final info = NetworkInfo();
+    final String? ipAddress = await info.getWifiIP();
+    List<String> parts = ipAddress!.split('.');
+    String firstThreeParts = parts.sublist(0, 3).join('.');
     final response = await http.get(Uri.parse(
-        'http://192.168.90.130:8000/incorrect_percentage/1/this_week'));
+        'http://$firstThreeParts.130:8000/incorrect_percentage/1/this_week'));
 
     final responseMonth = await http.get(Uri.parse(
-        'http://192.168.90.130:8000/incorrect_percentage/1/this_month'));
+        'http://$firstThreeParts.130:8000/incorrect_percentage/1/this_month'));
 
-    final responseAverageDay = await http
-        .get(Uri.parse('http://192.168.90.130:8000/accuracy/1/day/2023-05-02'));
-    final responseAverageWeek = await http
-        .get(Uri.parse('http://192.168.90.130:8000/accuracy/1/this_week'));
-    final responseAverageMonth = await http
-        .get(Uri.parse('http://192.168.90.130:8000/accuracy/1/this_month'));
+    final formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final responseAverageDay = await http.get(Uri.parse(
+        'http://$firstThreeParts.130:8000/accuracy/1/day/$formattedDate'));
+    final responseAverageWeek = await http.get(
+        Uri.parse('http://$firstThreeParts.130:8000/accuracy/1/this_week'));
+    final responseAverageMonth = await http.get(
+        Uri.parse('http://$firstThreeParts.130:8000/accuracy/1/this_month'));
 
     if (response.statusCode == 200) {
       final newData = jsonDecode(response.body);
@@ -121,8 +128,7 @@ class _BarChartPageState extends State<BarChartPage> {
             future: getData(),
             builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return 
-                SingleChildScrollView(
+                return SingleChildScrollView(
                   child: Center(
                     child: Column(
                       mainAxisAlignment:

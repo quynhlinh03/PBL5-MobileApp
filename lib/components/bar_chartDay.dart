@@ -5,6 +5,8 @@ import 'package:pbl5_app/values/app_colors.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 
 class BarChartDayComponent extends StatefulWidget {
   const BarChartDayComponent({Key? key}) : super(key: key);
@@ -18,9 +20,15 @@ List<dynamic> hours = [];
 class _BarChartDayComponentState extends State<BarChartDayComponent> {
   late TooltipBehavior _tooltipBehavior;
   late SelectionBehavior _selectionBehavior;
+  final formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
   Future<void> getData() async {
-    final responseAverageDay = await http
-        .get(Uri.parse('http://192.168.90.130:8000/accuracy/1/day/2023-05-02'));
+    final info = NetworkInfo();
+    final String? ipAddress = await info.getWifiIP();
+    List<String> parts = ipAddress!.split('.');
+    String firstThreeParts = parts.sublist(0, 3).join('.');
+    final responseAverageDay = await http.get(Uri.parse(
+        'http://$firstThreeParts.130:8000/accuracy/1/day/$formattedDate'));
     if (responseAverageDay.statusCode == 200) {
       final averDay = jsonDecode(responseAverageDay.body);
       hours = averDay["items"];

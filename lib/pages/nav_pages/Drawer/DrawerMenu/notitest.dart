@@ -31,6 +31,7 @@ class _NotiTestState extends State<NotiTest> {
       notificationList.add(notificationModel.fromMap(notificationMap));
     }
     setState(() {
+      print("load data");
       notifications = notificationList;
     });
   }
@@ -107,6 +108,7 @@ class _NotiTestState extends State<NotiTest> {
                               icon: const Icon(Icons.delete),
                               onPressed: () {
                                 setState(() {
+                                  print("remove");
                                   _removeNotification(index);
                                 });
                               },
