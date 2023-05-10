@@ -10,6 +10,7 @@ import '../../../pages/nav_pages/Drawer/DrawerMenu/change_pass_page.dart';
 import '../../../pages/nav_pages/Drawer/DrawerMenu/setting_page.dart';
 import '../../../pages/nav_pages/Drawer/Items/drawer_item.dart';
 import '../../../values/app_colors.dart';
+import 'DrawerMenu/getIp.dart';
 import 'DrawerMenu/profile_page.dart';
 
 class NavigationDrawerLeft extends StatelessWidget {

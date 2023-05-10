@@ -23,11 +23,6 @@ class _CameraState extends State<Camera> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -56,6 +51,7 @@ class _CameraState extends State<Camera> {
               text: 'Connect',
               press: () async {
                 final String url = _urlController.text;
+                // Future.delayed(const Duration(seconds: 4));
                 if (url == "") {
                   showDialog(
                     context: context,

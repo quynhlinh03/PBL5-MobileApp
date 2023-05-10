@@ -21,18 +21,19 @@ final notifController = NotificationService();
 _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final token = prefs.getString("userID");
-
-  notifController.checkPermission();
-  notifController.requestFirebaseToken();
-  
   if (token != null) {
     print('Token: $token');
     Get.offAll(() => const MainPageNav());
+    notifController.checkPermission();
+    notifController.requestFirebaseToken();
   } else {
     Get.offAll(() => const WelcomePage());
   }
 }
 
+Future<void> sendFCM() async {
+  
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
