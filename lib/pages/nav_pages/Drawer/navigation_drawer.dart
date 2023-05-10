@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/controller/auth_controller.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/camera.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notifications_page.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notitest.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
@@ -110,8 +109,8 @@ class NavigationDrawerLeft extends StatelessWidget {
     AuthController authController = AuthController();
     switch (index) {
       case 0:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const NotiTest()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const NotiTest()));
         break;
       case 1:
         Navigator.push(context,

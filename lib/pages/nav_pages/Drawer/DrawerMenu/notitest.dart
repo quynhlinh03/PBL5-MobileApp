@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/modules/notificaiton_module.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../values/app_colors.dart';
 
 class NotiTest extends StatefulWidget {
   const NotiTest({super.key});
@@ -12,7 +14,7 @@ class NotiTest extends StatefulWidget {
 
 class _NotiTestState extends State<NotiTest> {
   List<notificationModel> notifications = [];
-
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   @override
   void initState() {
     super.initState();
@@ -21,51 +23,100 @@ class _NotiTestState extends State<NotiTest> {
 
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() async {
-      List<String> notificationStrings =
-          prefs.getStringList('notifications') ?? [];
-      for (var notificationString in notificationStrings) {
-        var notificationMap = json.decode(notificationString);
-        notifications.add(notificationModel.fromMap(notificationMap));
-      }
+    List<String> notificationStrings =
+        prefs.getStringList('notifications') ?? [];
+    List<notificationModel> notificationList = [];
+    for (var notificationString in notificationStrings) {
+      var notificationMap = json.decode(notificationString);
+      notificationList.add(notificationModel.fromMap(notificationMap));
+    }
+    setState(() {
+      notifications = notificationList;
     });
   }
 
   Future<void> _removeNotification(int index) async {
+    print(index);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      notifications.removeAt(index);
-      List<String> notificationStrings = notifications.map((notification) => json.encode(notification.toMap())).toList();
-      prefs.setStringList('notifications',notificationStrings);
-    });
+    // add check for valid index
+    _listKey.currentState?.removeItem(
+      index,
+      (context, animation) => SizeTransition(
+        key: UniqueKey(),
+        sizeFactor: animation,
+        child: Card(
+          elevation: 0,
+          borderOnForeground: true,
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            tileColor: AppColors.whiteBlur,
+            contentPadding: const EdgeInsets.symmetric(vertical: 10),
+            leading: const Icon(Icons.priority_high_rounded),
+            title: const Text("Deleted"),
+          ),
+        ),
+      ),
+      duration: const Duration(milliseconds: 250),
+    );
+    notifications.removeAt(index);
+    List<String> notificationStrings = notifications
+        .map((notification) => json.encode(notification.toMap()))
+        .toList();
+    prefs.setStringList('notifications', notificationStrings);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Notifications')),
-        body: notifications.isEmpty
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                itemCount: notifications.length,
-                itemBuilder: (context, index) {
-                  notificationModel notification = notifications[index];
-                  return ListTile(
-                    title: Text(notification.title),
-                    subtitle: Text(notification.body),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        setState(() async {
-                          _removeNotification(index);
-                        });
-                      },
-                    ),
-                  );
-                },
-              ));
+    // pull screen to refresh
+    return RefreshIndicator(
+      onRefresh: () async {
+        _loadData();
+      },
+      child: Scaffold(
+          appBar: AppBar(title: const Text('Notifications')),
+          body: notifications.reversed.isEmpty
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container(
+                  padding: const EdgeInsets.all(10),
+                  child: AnimatedList(
+                    key: _listKey,
+                    initialItemCount: notifications.length,
+                    itemBuilder: (context, index, animation) {
+                      notificationModel notification = notifications[index];
+                      return SizeTransition(
+                        key: UniqueKey(),
+                        sizeFactor: animation,
+                        child: Card(
+                          elevation: 0,
+                          borderOnForeground: true,
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            tileColor: AppColors.black05,
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 10),
+                            leading: const Icon(Icons.priority_high_rounded),
+                            title: Text(notification.title),
+                            subtitle: Text(notification.body),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () {
+                                setState(() {
+                                  _removeNotification(index);
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )),
+    );
   }
 }
