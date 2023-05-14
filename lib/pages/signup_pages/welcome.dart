@@ -23,7 +23,7 @@ class _WelcomePageState extends State<WelcomePage> {
             width: double.infinity,
             height: 180,
             color: AppColors.greenGray,
-            margin: const EdgeInsets.only(top: 38),
+            margin: const EdgeInsets.only(top: 25),
           ),
           Center(
             child: Column(children: [
@@ -35,7 +35,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 height: 19,
               ),
               const Text(
-                "Hệ thống hỗ trợ điều chỉnh tư thế\nngồi làm việc và học tập.",
+                "System supports adjusting the sitting \nposition for work and study.",
                 textAlign: TextAlign.center,
                 style: AppStyle.light2,
               ),
@@ -47,7 +47,6 @@ class _WelcomePageState extends State<WelcomePage> {
             ]),
           ),
           Padding(
-
             padding: const EdgeInsets.only(
               top: 80,
             ),
