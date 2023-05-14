@@ -34,7 +34,7 @@ class _CorrectPosturePageState extends State<CorrectPosturePage> {
                 padding: const EdgeInsets.only(left: 25),
                 alignment: Alignment.bottomLeft,
                 child: const Text(
-                  "HƯỚNG DẪN TƯ THẾ NGỒI ĐÚNG",
+                  "INSTRUCTIONS FOR PROPER SITTING POSTURE",
                   style: AppStyle.mediumblack16,
                   textAlign: TextAlign.left,
                 )),

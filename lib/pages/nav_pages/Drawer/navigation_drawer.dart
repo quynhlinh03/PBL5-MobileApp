@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pbl5_app/controller/auth_controller.dart';
-import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/camera.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notitest.dart';
 import 'package:pbl5_app/values/app_assets.dart';
 import 'package:pbl5_app/values/app_styles.dart';
 import '../../../controller/user_controller.dart';
-import '../../../modules/user_module.dart';
 import '../../../pages/nav_pages/Drawer/DrawerMenu/change_pass_page.dart';
-import '../../../pages/nav_pages/Drawer/DrawerMenu/setting_page.dart';
 import '../../../pages/nav_pages/Drawer/Items/drawer_item.dart';
 import '../../../values/app_colors.dart';
-import 'DrawerMenu/getIp.dart';
 import 'DrawerMenu/profile_page.dart';
 
 class NavigationDrawerLeft extends StatelessWidget {
@@ -24,30 +20,59 @@ class NavigationDrawerLeft extends StatelessWidget {
       child: Material(
         shadowColor: Colors.lightBlueAccent,
         borderRadius: const BorderRadiusDirectional.only(
-            topEnd: Radius.circular(10), bottomEnd: Radius.circular(10)),
+          topEnd: Radius.circular(10),
+          bottomEnd: Radius.circular(10),
+        ),
         color: Colors.white,
-        child: Column(
-          children: [
-            Center(
-                child: FutureBuilder<Users?>(
-                    future: userController.readUser(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final user = snapshot.data!;
-                        return headerWidget(user);
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    })),
-            // headerWidget(user),
-            const SizedBox(
-              height: 28,
-            ),
-            SingleChildScrollView(
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.bottomLeft,
+                height: 260,
+                width: 800,
+                color: AppColors.greenGray,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 38,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 26, top: 76),
+                      alignment: Alignment.bottomLeft,
+                      child: const CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage(AppAsset.ava),
+                      ),
+                    ),
+                    FutureBuilder(
+                      future: userController.readUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final user = snapshot.data!;
+                          return Container(
+                              margin: const EdgeInsets.only(left: 26, top: 18),
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                user.name,
+                                style: AppStyle.mediumwhite,
+                                textAlign: TextAlign.left,
+                              ));
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Column(
                 children: [
+                  const SizedBox(
+                    height: 28,
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
                     child: DrawerItem(
@@ -75,31 +100,15 @@ class NavigationDrawerLeft extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
                     child: DrawerItem(
-                      name: 'Settings',
-                      icon: Icons.settings_outlined,
-                      onPressed: () => onItemPressed(context, index: 3),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-                    child: DrawerItem(
                       name: 'Logout',
                       icon: Icons.logout_rounded,
-                      onPressed: () => onItemPressed(context, index: 4),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
-                    child: DrawerItem(
-                      name: 'Camera',
-                      icon: Icons.logout_rounded,
-                      onPressed: () => onItemPressed(context, index: 5),
+                      onPressed: () => onItemPressed(context, index: 3),
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -122,58 +131,8 @@ class NavigationDrawerLeft extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const ChangePassPage()));
         break;
       case 3:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SettingPage()));
-        break;
-      case 5:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Camera()));
-        break;
-      case 4:
         authController.logoutUser();
         break;
     }
-  }
-
-  Widget headerWidget(Users user) {
-    const url =
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxQeDXrL0QAJXo-i-h01SqL-Xwu6yA7pU5rJHaTq36sA&s";
-    // "https://drive.google.com/file/d/16rI0QS0_3dBeVJJG0zBofEZZ2EV8aRyS/view";
-
-    return Container(
-      alignment: Alignment.bottomLeft,
-      // margin: const EdgeInsets.only(left: 24, top: 40),
-      height: 240,
-      width: 800,
-      color: AppColors.greenGray,
-      // child: Padding(
-      //   padding: const EdgeInsets.fromLTRB(24.0, 40, 24, 0),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 38,
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 26, top: 50),
-            alignment: Alignment.bottomLeft,
-            child: const CircleAvatar(
-                radius: 40, backgroundImage: AssetImage(AppAsset.ava)
-                // user.name == "Linh" ? AppAsset.ava : AppAsset.ava_nam),
-                // backgroundImage: NetworkImage(url),
-                ),
-          ),
-          Container(
-              margin: const EdgeInsets.only(left: 26, top: 16),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                user.name,
-                // "Quynh Linh",
-                style: AppStyle.mediumwhite,
-                textAlign: TextAlign.left,
-              )),
-        ],
-      ),
-    );
-    // );
   }
 }

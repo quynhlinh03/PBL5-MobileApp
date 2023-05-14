@@ -82,6 +82,10 @@ class _BarChartMonthComponentState extends State<BarChartMonthComponent> {
       future: getData(),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
+          List<SalesData> dataSource = [];
+          for (int i = 0; i < keys.length; i++) {
+            dataSource.add(SalesData((i + 1).toString(), data[keys[i]]!));
+          }
           return SizedBox(
             child: SfCartesianChart(
               zoomPanBehavior: ZoomPanBehavior(
@@ -115,41 +119,10 @@ class _BarChartMonthComponentState extends State<BarChartMonthComponent> {
                   ),
                   maximum: 100),
               borderWidth: 1, // độ dày của đường bao quanh đồ thị
+
               series: <ChartSeries>[
                 BarSeries<SalesData, String>(
-                  dataSource: <SalesData>[
-                    SalesData('1', data[keys[0]]!),
-                    SalesData('2', data[keys[1]]!),
-                    SalesData('3', data[keys[2]]!),
-                    SalesData('4', data[keys[3]]!),
-                    SalesData('5', data[keys[4]]!),
-                    SalesData('6', data[keys[5]]!),
-                    SalesData('7', data[keys[6]]!),
-                    SalesData('8', data[keys[7]]!),
-                    SalesData('9', data[keys[8]]!),
-                    SalesData('10', data[keys[9]]!),
-                    SalesData('11', data[keys[10]]!),
-                    SalesData('12', data[keys[11]]!),
-                    SalesData('13', data[keys[12]]!),
-                    SalesData('14', data[keys[13]]!),
-                    SalesData('15', data[keys[14]]!),
-                    SalesData('16', data[keys[15]]!),
-                    SalesData('17', data[keys[16]]!),
-                    SalesData('18', data[keys[17]]!),
-                    SalesData('19', data[keys[18]]!),
-                    SalesData('20', data[keys[19]]!),
-                    SalesData('21', data[keys[20]]!),
-                    SalesData('22', data[keys[21]]!),
-                    SalesData('23', data[keys[22]]!),
-                    SalesData('24', data[keys[23]]!),
-                    SalesData('25', data[keys[24]]!),
-                    SalesData('26', data[keys[25]]!),
-                    SalesData('27', data[keys[26]]!),
-                    SalesData('28', data[keys[27]]!),
-                    SalesData('29', data[keys[28]]!),
-                    SalesData('30', data[keys[29]]!),
-                    SalesData('31', data[keys[30]]!),
-                  ],
+                  dataSource: dataSource,
                   selectionBehavior: _selectionBehavior,
                   xValueMapper: (SalesData sales, _) => sales.day,
                   yValueMapper: (SalesData sales, _) => sales.sales,

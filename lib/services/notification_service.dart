@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:pbl5_app/modules/notificaiton_module.dart';
 import 'package:pbl5_app/pages/nav_pages/Drawer/DrawerMenu/notitest.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 class NotificationService {
   static Future<void> initializeNotification() async {
@@ -58,12 +59,18 @@ class NotificationService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> notificationStrings =
         prefs.getStringList('notifications') ?? [];
+    DateTime now = DateTime.now();
+
+    String formattedDate = DateFormat('yyyy-MM-dd – kk:mm:ss').format(now);
+    print(formattedDate);
     String noti = notificationModel(
-            title: receivedNotification.title.toString(),
-            body: receivedNotification.body.toString())
-        .toJson();
-    // add new notificaiton to local and save 
-    notificationStrings.insert(0,noti);
+      title: receivedNotification.title.toString(),
+      body: receivedNotification.body.toString(),
+      time: formattedDate,
+      // time: receivedNotification.displayedDate.toString())
+    ).toJson();
+    // add new notificaiton to local and save
+    notificationStrings.insert(0, noti);
     prefs.setStringList('notifications', notificationStrings);
     debugPrint('onNotificationCreatedMethod');
   }

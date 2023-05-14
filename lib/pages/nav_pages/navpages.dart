@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pbl5_app/pages/nav_pages/Pages/camera.dart';
 import '../../values/app_colors.dart';
-import 'Pages/cameraPage.dart';
 import 'Pages/homePage.dart';
 import 'Pages/barChartPage.dart';
 
@@ -16,7 +16,6 @@ class _MainPageNavState extends State<MainPageNav> {
   final screens = [
     const HomePage(),
     const CameraPage(),
-    // const PieChartPage(),
     const BarChartPage(),
   ];
 

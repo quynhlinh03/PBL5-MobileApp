@@ -37,7 +37,7 @@ class _ManualPageState extends State<ManualPage> {
             Container(
               padding: const EdgeInsets.only(top: 20),
               child: const Text(
-                "HƯỚNG DẪN SỬ DỤNG THIẾT BỊ",
+                "INSTRUCTIONS FOR USING THE DEVICE",
                 style: AppStyle.mediumblack16,
                 textAlign: TextAlign.center,
               ),
@@ -53,7 +53,7 @@ class _ManualPageState extends State<ManualPage> {
                       padding: const EdgeInsets.only(left: 25, top: 0),
                       alignment: Alignment.bottomLeft,
                       child: const Text(
-                        "Thiết bị CHoCoL Mirror",
+                        "CHoCoL Mirror Device",
                         style: AppStyle.mediumGreen,
                         textAlign: TextAlign.left,
                       ),
