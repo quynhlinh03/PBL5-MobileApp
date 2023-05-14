@@ -86,9 +86,9 @@ class _HomePageState extends State<HomePage> {
               child: SingleChildScrollView(
                 child: Column(children: [
                   RowViewIndex(
-                    title: 'Hướng dẫn sử dụng thiết bị',
+                    title: 'Instructions for using the device',
                     decription:
-                        'Thiết bị hỗ trợ điều chỉnh tư thế, giúp cải thiện',
+                        'Device that helps support adjusting sitting posture ...',
                     press: () {
                       Navigator.push(
                         context,
@@ -102,9 +102,9 @@ class _HomePageState extends State<HomePage> {
                     image: AppAsset.introdcution1,
                   ),
                   RowViewIndex(
-                      title: 'Hướng dẫn tư thế ngồi đúng',
+                      title: 'Instructions for proper sitting posture',
                       decription:
-                          'Thiết bị hỗ trợ điều chỉnh tư thế, giúp cải thiện ...',
+                          'Good posture can improve concentration, reduce fatigue ...',
                       press: () {
                         Navigator.push(
                           context,

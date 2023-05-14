@@ -22,6 +22,7 @@ _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   notifController.checkPermission();
   notifController.requestFirebaseToken();
+  Get.testMode = true;
   final token = prefs.getString("userID");
   if (token != null) {
     print('Token: $token');

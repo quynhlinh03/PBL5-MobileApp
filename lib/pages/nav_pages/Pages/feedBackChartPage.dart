@@ -57,6 +57,18 @@ class _FeedBackPageState extends State<FeedBackPage> {
   Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
     return Scaffold(
+        // appBar: AppBar(
+        //   iconTheme: const IconThemeData(color: AppColors.white),
+        //   backgroundColor: AppColors.greenGray,
+        //   elevation: 0,
+        //   leading: IconButton(
+        //     padding: const EdgeInsets.only(top: 20),
+        //     icon: const Icon(Icons.arrow_back_ios_new_outlined),
+        //     onPressed: () {
+        //       Navigator.pop(context);
+        //     },
+        //   ),
+        // ),
         body: FutureBuilder<void>(
             future: getData(dateTime),
             builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
@@ -297,7 +309,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                                         percent:
                                             '${(dataDay["forwarded_head"]!).toStringAsFixed(0)}%',
                                         content:
-                                            'Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau. Nếu không, lưng bạn sẽ bị trượt xuống và dẫn đến căng cơ và đau lưng. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                            'To avoid having your head bent too low, you should position your computer screen at an appropriate height, keeping your head straight and level with the screen. Keep your eyes at the same level as the top of the computer screen. Use a chair with the appropriate height. You can also use a cushion under your buttocks if needed.',
                                         color: AppColors.darkGreen),
                                 if (dataDay.isNotEmpty)
                                   if ((dataDay["forwarded_head"]!) > 0)
@@ -311,7 +323,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                                         percent:
                                             '${(dataDay["leaning_back"]!).toStringAsFixed(0)}%',
                                         content:
-                                            'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                            'Place feet flat on the ground, buttocks comfortably on the seat, and back straight. Ensure that the height and depth of the chair are appropriate to keep your back straight while sitting. The depth of the chair should be in line with the length of your hips. If you are sitting on a deep seat, you should place a cushion behind your back.',
                                         color: AppColors.mossGreen),
                                 if (dataDay.isNotEmpty)
                                   if ((dataDay["leaning_back"]!) > 0)
@@ -325,7 +337,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                                         percent:
                                             '${(dataDay["leaning_forward"]!).toStringAsFixed(0)}%',
                                         content:
-                                            'Không vắt chéo chân, không đi giày cao gót khi ngồi làm việc liên tục vì gây mỏi chân và đau nhức khớp chân. Bạn có thể đặt một dụng cụ để chân khi ngồi làm việc cho cơ thể cảm thấy thoải mái. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                            'Place feet flat on the ground, buttocks comfortably on the seat, and back straight. Ensure that the height and depth of the chair are appropriate to keep your back straight while sitting. The depth of the chair should be in line with the length of your hips. If you are sitting on a deep seat, you should place a cushion behind your back.',
                                         color: AppColors.darkGray),
                                 if (dataDay.isNotEmpty)
                                   if ((dataDay["leaning_forward"]!) > 0)
@@ -339,7 +351,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                                         percent:
                                             '${(dataDay["wrong_leg"]!).toStringAsFixed(0)}%',
                                         content:
-                                            'Để tránh đau vai gáy cổ, bạn phải đặt mắt đúng vị trí chuẩn là ngang màn hình. Nếu để mắt thấp hơn, cơ thể sẽ phải trượt xuống ghế , gây ảnh hưởng đến cột sống và lưu thông máu lên não. Độ sâu của ghế phải phù hợp với chiều dài hông. Nếu bạn ngồi trên chiếc ghế lòng sâu, nên để một chiếc gối tựa đằng sau để giúp giữ thẳng lưng.',
+                                            'Place both feet evenly and straight on the ground, with the knees pointing straight ahead and at a 90-degree angle. Keep your feet shoulder-width apart and straight and parallel to each other. Choose a chair with the appropriate height. If your chair is too low, you can place a footrest under your feet to raise them.',
                                         color: AppColors.flower),
                                 if (dataDay.isNotEmpty)
                                   if ((dataDay["wrong_leg"]!) > 0)

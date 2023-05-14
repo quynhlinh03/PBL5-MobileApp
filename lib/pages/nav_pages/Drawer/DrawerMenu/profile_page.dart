@@ -1,6 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pbl5_app/controller/user_controller.dart';
 import 'package:pbl5_app/modules/user_module.dart';
 import 'package:pbl5_app/values/app_assets.dart';
@@ -19,9 +23,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  // final user = getUser();
   final userController = UserController();
+  PickedFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +51,74 @@ class _ProfilePageState extends State<ProfilePage> {
                   final nameController = TextEditingController(text: user.name);
                   return Column(
                     children: [
-                      headerWidget(user),
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: AppColors.greenGray,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
+                        ),
+                        alignment: Alignment.bottomCenter,
+                        height: 204,
+                        width: 800,
+                        child: Column(
+                          children: [
+                            Container(
+                                margin: const EdgeInsets.only(top: 15),
+                                child: Stack(
+                                  children: [
+                                    CircleAvatar(
+                                        radius: 60,
+                                        backgroundImage: _imageFile == null
+                                            ? const AssetImage(AppAsset.ava)
+                                            : FileImage(File(_imageFile!.path))
+                                                as ImageProvider),
+                                    Positioned(
+                                        bottom: 8,
+                                        right: 8,
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: const BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  color: Color.fromRGBO(
+                                                      224, 187, 134, 1),
+                                                )),
+                                            Positioned(
+                                              bottom: -14.5,
+                                              right: -14.5,
+                                              child: IconButton(
+                                                  icon: const Icon(
+                                                      Icons.create_outlined),
+                                                  color: AppColors.white,
+                                                  iconSize: 14,
+                                                  onPressed: () {
+                                                    showBottomSheet(
+                                                        context: context,
+                                                        builder: ((builder) =>
+                                                            bottomSheet()));
+                                                  }
+                                                  // _pickImage,
+                                                  ),
+                                            )
+                                          ],
+                                        )),
+                                  ],
+                                )),
+                            Container(
+                                margin: const EdgeInsets.only(left: 0, top: 16),
+                                child: Text(
+                                  user.name,
+                                  style: AppStyle.mediumwhite,
+                                  textAlign: TextAlign.left,
+                                )),
+                          ],
+                        ),
+                      ),
                       Expanded(
                         child: SingleChildScrollView(
                             padding: const EdgeInsets.fromLTRB(30, 20, 30, 40),
@@ -101,7 +172,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                       docUser.update({
                                         'name': nameController.text,
                                       });
-
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -128,38 +198,47 @@ class _ProfilePageState extends State<ProfilePage> {
               })),
     );
   }
-}
 
-Widget headerWidget(Users user) {
-  return Container(
-    decoration: const BoxDecoration(
-      color: AppColors.greenGray,
-      borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-    ),
-    alignment: Alignment.bottomCenter,
-    height: 204,
-    width: 800,
-    child: Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 15),
-          child: const CircleAvatar(
-            radius: 60,
-            backgroundImage: AssetImage(AppAsset.ava),
-            // AssetImage(
-            //     user.name == 'Linh' ? AppAsset.ava : AppAsset.ava_nam),
-          ),
+  Widget bottomSheet() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(children: <Widget>[
+        Text(
+          'Choose Profile photo',
+          style: AppStyle.regular18.copyWith(color: AppColors.fontNormal),
         ),
-        Container(
-            margin: const EdgeInsets.only(left: 0, top: 16),
-            child: Text(
-              user.name,
-              style: AppStyle.mediumwhite,
-              textAlign: TextAlign.left,
-            )),
-      ],
-    ),
-  );
-  // );
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.camera),
+              onPressed: () {
+                takePhoto(ImageSource.camera);
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.image),
+              onPressed: () {
+                takePhoto(ImageSource.gallery);
+              },
+            )
+          ],
+        )
+      ]),
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickerFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _imageFile = pickerFile;
+    });
+  }
 }
