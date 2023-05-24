@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart' show ClientException;
 import 'package:flutter/material.dart';
 import 'package:flutter_mjpeg/flutter_mjpeg.dart';
 import 'package:network_info_plus/network_info_plus.dart';
@@ -17,14 +15,14 @@ class CameraPage extends StatefulWidget {
 }
 
 class _CameraState extends State<CameraPage> {
-  bool _isRunning = false;
-
+  bool _isRunning = true;
   String url = '';
+  // Future<void> _initFuture;
 
   @override
   void initState() {
-    initWebSocket();
     super.initState();
+    initWebSocket();
   }
 
   @override
@@ -32,34 +30,42 @@ class _CameraState extends State<CameraPage> {
     super.dispose();
   }
 
-  Future<void> initWebSocket() async {
+  Future<bool> initWebSocket() async {
+    print("init camerar");
     try {
       final info = NetworkInfo();
       final String ipAddress = await info.getWifiIP() ?? '';
       if (ipAddress == '') {
         _isRunning = false;
-      } else {
-        List<String> parts = ipAddress.split('.');
-        String firstThreeParts = parts.sublist(0, 3).join('.');
-        url = 'http://$firstThreeParts.35:81/stream';
-        var response = await http.get(Uri.parse(url));
-        if (response.statusCode == 200) {
-          print('URL is working');
-          _isRunning = true;
-        } else {
-          print('URL is not working');
-          _isRunning = false;
-        }
+        return false;
       }
-    } on HttpException catch (error) {
-      throw ClientException(error.message, error.uri);
-    } on Exception catch (error) {
+      List<String> parts = ipAddress.split('.');
+      String firstThreeParts = parts.sublist(0, 3).join('.');
+      url = 'http://$firstThreeParts.35:81/stream';
+      print(url);
+
+      var response = await http.head(Uri.parse(url));
+      await Future.delayed(const Duration(seconds: 5));
+
+      if (response.statusCode == 200) {
+        debugPrint('URL is working');
+        _isRunning = true;
+        return true;
+      } else {
+        debugPrint('URL is not working');
+        _isRunning = false;
+        return false;
+      }
+    } catch (error) {
       print("Error $error");
+      _isRunning = false;
+      return false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: NavigationDrawerLeft(),
       appBar: AppBar(
@@ -84,7 +90,8 @@ class _CameraState extends State<CameraPage> {
       body: FutureBuilder<void>(
           future: initWebSocket(),
           builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.connectionState == ConnectionState.done ||
+                _isRunning) {
               return SingleChildScrollView(
                 child: Center(
                   child: Column(
@@ -95,48 +102,41 @@ class _CameraState extends State<CameraPage> {
                         "Camera",
                         style: AppStyle.regular2.copyWith(fontSize: 22),
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 40),
                       Container(
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.all(20),
+                        // padding: const EdgeInsets.all(20),
+                        margin: const EdgeInsets.only(top: 40),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
-                          child:
-                              // _isRunning
-                              url != '' && _isRunning
-                                  ? (() {
-                                      try {
-                                        return Transform.rotate(
-                                          angle: -pi / 2, // Xoay -90 độ
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Mjpeg(
-                                              isLive: true,
-                                              error: (context, error, stack) {
-                                                print('Error: $error');
-                                                print(stack);
-                                                return const Text('Error');
-                                              },
-                                              stream: url,
-                                            ),
-                                          ),
-                                        );
-                                      } on Exception catch (e) {
-                                        _isRunning = false;
-                                        print('Error: $e');
-                                        return const Text('An error occurred');
-                                      }
-                                    })()
-                                  : const Text('Check connect wifi'),
+                          // _isRunning
+                          child: Transform.rotate(
+                            angle: -pi / 2,
+                            child: Mjpeg(
+                              isLive: true,
+                              error: (context, error, stack) {
+                                print('Error: $error');
+                                print(stack);
+                                return const CircularProgressIndicator();
+                              },
+                              stream: url,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
               );
-            } else if (snapshot.hasError) {
-              return const Center(child: Text('Error'));
+            } else if (snapshot.hasError || !_isRunning) {
+              return Center(
+                child: Column(
+                  children: const [
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
             } else {
               return Center(
                 child: Column(children: [
