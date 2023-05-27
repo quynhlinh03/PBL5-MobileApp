@@ -140,7 +140,7 @@ class NotificationService {
   // Khởi tạo Push Notification.
   static Future<void> initializeRemoteNotifications(
       {required bool debug}) async {
-    await Firebase.initializeApp();
+    // await Firebase.initializeApp();
     await AwesomeNotificationsFcm().initialize(
         // Handle Silent data
         onFcmSilentDataHandle: NotificationService.mySilentDataHandle,
@@ -148,9 +148,10 @@ class NotificationService {
         onFcmTokenHandle: NotificationService.myFcmTokenHandle,
         // Method này dùng để phát hiện khi nhận được native token mới.
         onNativeTokenHandle: NotificationService.myNativeTokenHandle,
+
         licenseKeys: null,
         debug: debug);
-
+    // await AwesomeNotifications()
     await AwesomeNotifications().setListeners(
       onActionReceivedMethod: onActionReceivedMethod,
       onDismissActionReceivedMethod: onActionReceivedMethod,

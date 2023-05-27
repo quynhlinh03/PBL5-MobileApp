@@ -18,7 +18,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   void initState() {
     super.initState();
-    _loadData(); // call the async function when the widget is first created
+    _loadData();
   }
 
   Future<void> _loadData() async {
@@ -30,6 +30,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       var notificationMap = json.decode(notificationString);
       notificationList.add(notificationModel.fromMap(notificationMap));
     }
+
     setState(() {
       notifications = notificationList;
     });
@@ -63,9 +64,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
         ),
       ),
       body: Center(
-        child: Container(
-          height: notifications.length*90,
-          child: notifications.reversed.isEmpty
+        child: SizedBox(
+          height: notifications.length * 90,
+          child: notifications.isEmpty
               ? const Center(
                   child: CircularProgressIndicator(),
                 )

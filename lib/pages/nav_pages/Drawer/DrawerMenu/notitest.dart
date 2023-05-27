@@ -18,9 +18,18 @@ class _NotiTestState extends State<NotiTest> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   @override
   void initState() {
-    super.initState();
-    _loadData(); // call the async function when the widget is first created
+    if (mounted) {
+      super.initState();
+      _loadData();
+    }
+    // call the async function when the widget is first created
   }
+
+  // @override
+  // void dispose() {
+  //   // Cancel any timers or animations here
+  //   super.dispose();
+  // }
 
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,16 +40,15 @@ class _NotiTestState extends State<NotiTest> {
       var notificationMap = json.decode(notificationString);
       notificationList.add(notificationModel.fromMap(notificationMap));
     }
+    Future.delayed(const Duration(seconds: 4));
+    if (!mounted) return;
     setState(() {
-      print("load data");
       notifications = notificationList;
     });
   }
 
-  Future<void> _removeNotification(int index) async {
-    print(index);
+  void _removeNotification(int index) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // add check for valid index
     _listKey.currentState?.removeItem(
       index,
       (context, animation) => SizeTransition(
@@ -62,7 +70,11 @@ class _NotiTestState extends State<NotiTest> {
       ),
       duration: const Duration(milliseconds: 250),
     );
-    notifications.removeAt(index);
+    if (mounted) {
+      setState(() {
+        notifications.removeAt(index);
+      });
+    }
     List<String> notificationStrings = notifications
         .map((notification) => json.encode(notification.toMap()))
         .toList();
@@ -71,10 +83,10 @@ class _NotiTestState extends State<NotiTest> {
 
   @override
   Widget build(BuildContext context) {
-    // pull screen to refresh
+
     return RefreshIndicator(
       onRefresh: () async {
-        _loadData();
+        await _loadData();
       },
       child: Scaffold(
           appBar: AppBar(
@@ -102,58 +114,87 @@ class _NotiTestState extends State<NotiTest> {
                       textAlign: TextAlign.left,
                     )),
                 const SizedBox(height: 30),
-                notifications.reversed.isEmpty
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 700,
-                            padding: const EdgeInsets.only(top: 10),
-                            child: AnimatedList(
-                              key: _listKey,
-                              initialItemCount: notifications.length,
-                              itemBuilder: (context, index, animation) {
-                                notificationModel notification =
-                                    notifications[index];
-                                return SizeTransition(
-                                  key: UniqueKey(),
-                                  sizeFactor: animation,
-                                  child: Card(
-                                    elevation: 0,
-                                    borderOnForeground: false,
-                                    child: ListTile(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                      tileColor: AppColors.black05,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                      leading: const Icon(
-                                          Icons.info_outline_rounded),
-                                      title: Text(
-                                        notification.body,
-                                      ),
-                                      subtitle: Text(notification.time),
-                                      trailing: IconButton(
-                                        icon: const Icon(Icons.delete_outline),
-                                        onPressed: () {
-                                          setState(() {
-                                            _removeNotification(index);
-                                          });
-                                        },
-                                      ),
+                FutureBuilder<void>(
+                    future: Future.delayed(
+                        const Duration(seconds: 1), () => _loadData()),
+                    // future: _loadData(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<void> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done ||
+                          notifications.isNotEmpty) {
+                        return notifications.isEmpty
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 700,
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: AnimatedList(
+                                      key: _listKey,
+                                      initialItemCount: notifications.length,
+                                      itemBuilder: (context, index, animation) {
+                                        notificationModel notification =
+                                            notifications[index];
+                                        return SizeTransition(
+                                          key: UniqueKey(),
+                                          sizeFactor: animation,
+                                          child: Card(
+                                            elevation: 0,
+                                            borderOnForeground: false,
+                                            child: ListTile(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
+                                              ),
+                                              tileColor: AppColors.black05,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              leading: const Icon(
+                                                  Icons.info_outline_rounded),
+                                              title: Text(
+                                                notification.body,
+                                              ),
+                                              subtitle: Text(notification.time),
+                                              trailing: IconButton(
+                                                icon: const Icon(
+                                                    Icons.delete_outline),
+                                                onPressed: () {
+                                
+                                                  if (!mounted) return;
+                                                  setState(() {
+                                                    print("click");
+                                                    _removeNotification(index);
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
-                                );
-                              },
+                                ],
+                              );
+                      } else if (snapshot.hasError) {
+                        return const Center(child: Text('Error'));
+                      } else {
+                        return Center(
+                          child: Column(children: [
+                            const SizedBox(height: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                CircularProgressIndicator(),
+                              ],
                             ),
-                          ),
-                        ],
-                      )
+                          ]),
+                        );
+                      }
+                    })
               ]),
             )
           ])),

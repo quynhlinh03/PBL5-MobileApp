@@ -1,3 +1,4 @@
+import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:pbl5_app/values/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './pages/signup_pages/welcome.dart';
 import 'values/app_fonts.dart';
+import 'package:http/http.dart' as http;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,7 @@ Future<void> main() async {
   runApp(const MyApp());
   _init();
 }
-
+final url = "/api/info";
 final notifController = NotificationService();
 _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -28,11 +30,28 @@ _init() async {
     print('Token: $token');
     Get.offAll(() => const MainPageNav());
   } else {
+    sendDataToServer(url);
     Get.offAll(() => const WelcomePage());
   }
 }
 
-Future<void> sendFCM() async {}
+Future<void> sendDataToServer(url) async {
+  final fcm = await AwesomeNotificationsFcm().requestFirebaseAppToken();
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      body: {'fcm': fcm,}, // Replace with your data
+    );
+
+    if (response.statusCode == 200) {
+      print('Response: ${response.body}');
+    } else {
+      print('Error: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Exception: $e');
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
