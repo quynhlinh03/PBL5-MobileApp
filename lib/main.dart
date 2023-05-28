@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 import 'package:pbl5_app/pages/nav_pages/navpages.dart';
 import 'package:pbl5_app/services/notification_service.dart';
 import 'package:pbl5_app/values/app_colors.dart';
@@ -18,7 +21,8 @@ Future<void> main() async {
   runApp(const MyApp());
   _init();
 }
-final url = "/api/info";
+
+var url = "";
 final notifController = NotificationService();
 _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -28,20 +32,36 @@ _init() async {
   final token = prefs.getString("userID");
   if (token != null) {
     print('Token: $token');
+    sendDataToServer();
     Get.offAll(() => const MainPageNav());
   } else {
-    sendDataToServer(url);
     Get.offAll(() => const WelcomePage());
   }
 }
 
-Future<void> sendDataToServer(url) async {
+Future<void> sendDataToServer() async {
   final fcm = await AwesomeNotificationsFcm().requestFirebaseAppToken();
+  final body = {'fcm': fcm.toString(), "user_id": "1"};
   try {
+    final info = NetworkInfo();
+    final String ipAddress = await info.getWifiIP() ?? '';
+    if (ipAddress == '') {
+      print("error");
+    } else {
+      List<String> parts = ipAddress.split('.');
+      String firstThreeParts = parts.sublist(0, 3).join('.');
+      url = 'http://$firstThreeParts.130:8000/fcm';
+      print("URL : $url");
+      print("FCM : $fcm");
+    }
     final response = await http.post(
-      Uri.parse(url),
-      body: {'fcm': fcm,}, // Replace with your data
-    );
+        Uri.parse("http://192.168.206.130:8000/fcm"),
+        headers: {"Content-Type":"application/json"},
+        body: json.encode({
+          'fcm': fcm.toString(),
+          'user_id': 1
+        }) // Replace with your data
+        );
 
     if (response.statusCode == 200) {
       print('Response: ${response.body}');
