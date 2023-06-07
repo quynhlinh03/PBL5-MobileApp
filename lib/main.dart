@@ -55,7 +55,7 @@ Future<void> sendDataToServer() async {
       print("FCM : $fcm");
     }
     final response = await http.post(
-        Uri.parse("http://192.168.206.130:8000/fcm"),
+        Uri.parse(url),
         headers: {"Content-Type":"application/json"},
         body: json.encode({
           'fcm': fcm.toString(),
