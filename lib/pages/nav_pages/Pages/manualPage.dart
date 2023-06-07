@@ -63,7 +63,7 @@ class _ManualPageState extends State<ManualPage> {
                           const EdgeInsets.only(left: 25, top: 10, right: 20),
                       alignment: Alignment.bottomLeft,
                       child: const Text(
-                        "Đặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ CHoCoL Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng và hạ thấp đầu vừa phải.\nĐặt thiết bị bên cạnh người dùng, ở bên phải hoặc bên trái cách 80-100cm, máy ảnh hướng về phía người dùng.\nCắm cáp Type-C từ CHoCoL Mirror với máy tính hoặc bộ chuyển đổi nguồn và kết nối với app điện thoại.\nLàm theo lời nhắc của giọng nói để nhập tư thế ngồi tiêu chuẩn.\nKhi sử dụng tư thế ngồi chuẩn, hãy đảm bảo rằng bạn phải ngồi thẳng càng nhiều càng tốt và hạ thấp đầu vừa phải.",
+                        "Place the device next to the user, 80-100cm away on the right or left, with the camera facing the user.\nConnect the Type-C cable from the CHoCoL Mirror to the computer or power adapter and connect it to the mobile app.\nUse the camera streaming feature from the mobile app to adjust the seating position to fit the frame of the image.\nWhen using the correct sitting posture, ensure that you sit up straight and lower your head as necessary.\nIf an incorrect sitting posture is detected, the system will issue an alert through the speaker to help the user adjust their posture.",
                         style: AppStyle.light2,
                         textAlign: TextAlign.left,
                       ),
@@ -78,11 +78,11 @@ class _ManualPageState extends State<ManualPage> {
                       ),
                     ),
                     Container(
-                      padding:
-                          const EdgeInsets.only(left: 25, top: 10, right: 20),
+                      padding: const EdgeInsets.only(
+                          left: 25, top: 10, right: 20, bottom: 20),
                       alignment: Alignment.bottomLeft,
                       child: const Text(
-                        "Bật CHoCoL Mirror\nBật Bluetooth trên điện thoại của bạn rồi mở ứng dụng “CHoCoL”\nChạm vào biểu tượng “+” ở góc bên phải phía bên trên của trang chủ của ứng dụng “CHoCoL”. Sau đó chọn CHoCoL Mirror\nNhấn và giữ nút cảm ứng trên CHoCoL Mirror trong 8 giây để kết nối bluetooth với điện thoại.\nỨng dụng của CHoCoL sẽ tìm kiếm thiết bị kết nối (quá trình tìm kiếm sẽ kéo dài trong khoảng 45 giây). Nếu không tìm thấy CHoCoL Mirror, hãy nhấn vào nút “Connect Now” để kết nối lại thiết bị.\nKhi CHoCoL Mirror được kết nối thành công, cso thể vào trang chủ của ứng dụng để sử dụng thiết bị chống gù.",
+                        "Turn on CHoCoL Mirror.\nConnect to WiFi and open the 'CHoCoL' app on your phone.\nRegister an account and log in to the app.\nConnect the app to the device.\nThe app includes main features such as notifications, camera streaming, and posture statistics, as well as other auxiliary functions that help users manage their accounts more conveniently.\nThe notification feature allows the user to receive notifications from the phone instead of the device's speaker.\nThis is useful for working in quiet environments where noise is not allowed.\nThe camera streaming feature helps the user adjust their sitting position and position the camera properly for device recognition.\nThe posture statistics feature tracks correct and incorrect sitting postures by day, week, and month, providing feedback to the user for posture improvement.",
                         style: AppStyle.light2,
                         textAlign: TextAlign.left,
                       ),

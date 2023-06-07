@@ -62,7 +62,7 @@ class _CameraState extends State<CameraPage> {
       List<String> parts = ipAddress.split('.');
       String firstThreeParts = parts.sublist(0, 3).join('.');
 
-      url = 'http://$firstThreeParts.35:81/stream';
+      url = 'http://$firstThreeParts.162:81/stream';
       print(url);
 
       var response = await http.head(Uri.parse(url));

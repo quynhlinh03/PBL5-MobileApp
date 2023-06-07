@@ -14,6 +14,13 @@ import 'values/app_fonts.dart';
 import 'package:http/http.dart' as http;
 
 Future<void> main() async {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    // Xử lý ngoại lệ
+    print('Đã xảy ra lỗi: ${details.exception}');
+    print('StackTrace: ${details.stack}');
+    // Ví dụ: Gửi thông báo lỗi đến server
+    sendErrorReport(details);
+  };
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await NotificationService.initializeNotification();
@@ -39,6 +46,38 @@ _init() async {
   }
 }
 
+void sendErrorReport(FlutterErrorDetails details) async {
+  final fcm = await AwesomeNotificationsFcm().requestFirebaseAppToken();
+  final body = {'fcm': fcm.toString(), "user_id": "1"};
+  try {
+    final info = NetworkInfo();
+    final String ipAddress = await info.getWifiIP() ?? '';
+    if (ipAddress == '') {
+      print("error");
+    } else {
+      List<String> parts = ipAddress.split('.');
+      String firstThreeParts = parts.sublist(0, 3).join('.');
+      url = 'http://$firstThreeParts.130:8000/fcm';
+      print("URL : $url");
+      print("FCM : $fcm");
+    }
+    final response = await http.post(
+        Uri.parse("http://192.168.206.130:8000/fcm"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(
+            {'fcm': fcm.toString(), 'user_id': 1}) // Replace with your data
+        );
+
+    if (response.statusCode == 200) {
+      print('Response: ${response.body}');
+    } else {
+      print('Error: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Exception: $e');
+  }
+}
+
 Future<void> sendDataToServer() async {
   final fcm = await AwesomeNotificationsFcm().requestFirebaseAppToken();
   final body = {'fcm': fcm.toString(), "user_id": "1"};
@@ -56,11 +95,9 @@ Future<void> sendDataToServer() async {
     }
     final response = await http.post(
         Uri.parse("http://192.168.206.130:8000/fcm"),
-        headers: {"Content-Type":"application/json"},
-        body: json.encode({
-          'fcm': fcm.toString(),
-          'user_id': 1
-        }) // Replace with your data
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(
+            {'fcm': fcm.toString(), 'user_id': 1}) // Replace with your data
         );
 
     if (response.statusCode == 200) {
