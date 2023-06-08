@@ -62,6 +62,8 @@ class _BarChartPageState extends State<BarChartPage> {
           newData.forEach((key, value) {
             if (value is num) {
               data[key] = value.toDouble();
+            }else {
+              data[key] = 0;
             }
           });
           // sử dụng dữ liệu ở đây
@@ -75,6 +77,8 @@ class _BarChartPageState extends State<BarChartPage> {
           newDataMonth.forEach((key, value) {
             if (value is num) {
               dataMonth[key] = value.toDouble();
+            }else {
+              dataMonth[key] = 0;
             }
           });
           // sử dụng dữ liệu ở đây
@@ -85,6 +89,7 @@ class _BarChartPageState extends State<BarChartPage> {
         if (responseAverageDay.statusCode == 200) {
           // connect = true;
           final averDay = jsonDecode(responseAverageDay.body);
+          
           averageDay = averDay["average"];
         } else {
           // xử lý lỗi nếu cần
