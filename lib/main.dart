@@ -94,10 +94,12 @@ Future<void> sendDataToServer() async {
       print("FCM : $fcm");
     }
     final response = await http.post(
-        Uri.parse("http://192.168.206.130:8000/fcm"),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(
-            {'fcm': fcm.toString(), 'user_id': 1}) // Replace with your data
+        Uri.parse(url),
+        headers: {"Content-Type":"application/json"},
+        body: json.encode({
+          'fcm': fcm.toString(),
+          'user_id': 1
+        }) // Replace with your data
         );
 
     if (response.statusCode == 200) {
