@@ -5,7 +5,6 @@ import 'package:pbl5_app/values/app_styles.dart';
 import '../../../components/row_view_index.dart';
 import '../../../values/app_colors.dart';
 import '../../../pages/nav_pages/Drawer/navigation_drawer.dart';
-import 'addDevicesPage.dart';
 import 'manualPage.dart';
 
 class HomePage extends StatefulWidget {
@@ -60,21 +59,21 @@ class _HomePageState extends State<HomePage> {
                       )),
                   const SizedBox(height: 22),
                   GestureDetector(
-                    onTap: () {
-                      // Hành động khi người dùng bấm vào hình ảnh
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AddDevicesPage()),
-                      );
-                    },
+                    // onTap: () {
+                    //   // Hành động khi người dùng bấm vào hình ảnh
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const AddDevicesPage()),
+                    //   );
+                    // },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: AppColors.white,
                         image: const DecorationImage(
-                            image: AssetImage('assets/images/device.jpg'),
-                            fit: BoxFit.fitHeight),
+                            image: AssetImage('assets/images/newdevice.jpg'),
+                            fit: BoxFit.fitWidth),
                       ),
                       child: const SizedBox(height: 160, width: 345),
                     ),
